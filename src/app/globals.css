@@ -89,7 +89,7 @@
   --destructive-foreground: oklch(0.98 0.02 95);
 
   --border: var(--color-gray-800);
-  --input: var(--primary);
+  --input: var(--color-gray-500);
   --ring: var(--primary);
 
   --radius: 0.75rem;
