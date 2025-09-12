@@ -85,7 +85,7 @@ export const FAQSection = () => {
           {/* Contact CTA */}
           <div className="text-center mt-12">
             <p className="text-muted-foreground font-chivo mb-6">
-              Still have questions? We're here to help.
+              Still have questions? We&apos;re here to help.
             </p>
             <Button
               size="lg"

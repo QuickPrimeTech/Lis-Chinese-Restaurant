@@ -85,7 +85,7 @@ export default function Reservations() {
                   Reservation Confirmed!
                 </h1>
                 <p className="text-xl text-muted-foreground font-chivo leading-relaxed">
-                  Thank you for choosing Luxuria. We've received your
+                  Thank you for choosing Luxuria. We&apos;ve received your
                   reservation request and will confirm the details shortly.
                 </p>
               </div>
@@ -216,7 +216,8 @@ export default function Reservations() {
                 Book Your Experience
               </CardTitle>
               <p className="text-muted-foreground font-chivo">
-                Fill out the details below and we'll confirm your reservation
+                Fill out the details below and we&apos;ll confirm your
+                reservation
               </p>
             </CardHeader>
             <CardContent className="p-8">

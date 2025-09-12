@@ -103,7 +103,7 @@ export const TestimonialCarousel = () => {
 
                     {/* Testimonial Content */}
                     <p className="text-muted-foreground font-chivo leading-relaxed mb-6">
-                      "{testimonial.content}"
+                      &quot;{testimonial.content}&quot;
                     </p>
 
                     {/* Author */}

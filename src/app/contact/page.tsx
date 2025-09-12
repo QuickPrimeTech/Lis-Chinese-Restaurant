@@ -22,7 +22,6 @@ import {
   Calendar,
   Users,
 } from "lucide-react";
-import contactHero from "@/assets/contact-hero.jpg";
 import Image from "next/image";
 
 export default function Contact() {
@@ -68,14 +67,14 @@ export default function Contact() {
                 Message Sent Successfully!
               </h1>
               <p className="text-xl text-muted-foreground font-chivo leading-relaxed mb-8">
-                Thank you for reaching out to Luxuria. We've received your
+                Thank you for reaching out to Luxuria. We&apos;ve received your
                 message and will respond within 24 hours.
               </p>
 
               <Card className="bg-card border-primary/20 shadow-luxury">
                 <CardContent className="p-8">
                   <h3 className="font-cinzel font-semibold text-2xl text-foreground mb-6">
-                    What's Next?
+                    What&apos;s Next?
                   </h3>
                   <div className="space-y-4 text-left">
                     <div className="flex items-start space-x-3">
@@ -85,7 +84,7 @@ export default function Contact() {
                           Response Time
                         </p>
                         <p className="text-muted-foreground text-sm">
-                          We'll respond within 24 hours
+                          We&apos;ll respond within 24 hours
                         </p>
                       </div>
                     </div>
@@ -157,7 +156,7 @@ export default function Contact() {
                 Contact Us
               </h1>
               <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
-                We'd love to hear from you. Reach out for reservations,
+                We&apos;d love to hear from you. Reach out for reservations,
                 inquiries, or just to say hello.
               </p>
             </div>
@@ -175,9 +174,9 @@ export default function Contact() {
                 Get in Touch
               </h2>
               <p className="text-muted-foreground font-chivo leading-relaxed mb-8">
-                Whether you're planning a special celebration, have questions
-                about our menu, or simply want to share feedback, we're here to
-                help.
+                Whether you&apos;re planning a special celebration, have
+                questions about our menu, or simply want to share feedback,
+                we&apos;re here to help.
               </p>
             </div>
 
@@ -285,8 +284,8 @@ export default function Contact() {
                   Send us a Message
                 </CardTitle>
                 <p className="text-muted-foreground font-chivo">
-                  Fill out the form below and we'll get back to you as soon as
-                  possible
+                  Fill out the form below and we&apos;ll get back to you as soon
+                  as possible
                 </p>
               </CardHeader>
               <CardContent className="p-8">

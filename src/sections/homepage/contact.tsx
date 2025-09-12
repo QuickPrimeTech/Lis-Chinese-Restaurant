@@ -16,8 +16,8 @@ export const ContactSection = () => {
               Get in Touch
             </h2>
             <p className="text-xl text-muted-foreground font-chivo mb-8 leading-relaxed">
-              Have a question or special request? We'd love to hear from you and
-              help make your dining experience perfect.
+              Have a question or special request? We&apos;d love to hear from
+              you and help make your dining experience perfect.
             </p>
 
             <Card className="bg-card border-border">

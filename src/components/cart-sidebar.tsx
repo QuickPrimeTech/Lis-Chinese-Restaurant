@@ -6,9 +6,9 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
 import { ShoppingBag, Plus, Minus, Trash2 } from "lucide-react";
 import { useCart } from "@/components/cart-provider";
+import Image from "next/image";
 
 interface CartSidebarProps {
   children: React.ReactNode;
@@ -56,9 +56,11 @@ const CartSidebar = ({ children }: CartSidebarProps) => {
                     key={item.id}
                     className="flex items-center space-x-4 bg-background rounded-lg p-4 border border-border"
                   >
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.name}
+                      width={300}
+                      height={300}
                       className="w-16 h-16 object-cover rounded-lg"
                     />
                     <div className="flex-1">

@@ -1,7 +1,7 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Award, Users, Clock, Star, ChefHat, Utensils } from "lucide-react";
+import { Award, Users, Star, ChefHat, Utensils } from "lucide-react";
 import Image from "next/image";
 
 export default function About() {
@@ -229,7 +229,8 @@ export default function About() {
               Meet Our Team
             </h2>
             <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
-              The passionate professionals who bring Luxuria's vision to life
+              The passionate professionals who bring Luxuria&apos;s vision to
+              life
             </p>
           </div>
 

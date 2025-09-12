@@ -9,6 +9,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShoppingBag, Plus, Star, Clock } from "lucide-react";
 import { useCart } from "@/components/cart-provider";
 
+type Item = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  category: string;
+  rating: number;
+  prepTime: number;
+};
+
 const Menu = () => {
   const { addToCart, getTotalItems } = useCart();
 
@@ -116,7 +127,7 @@ const Menu = () => {
     ],
   };
 
-  const renderMenuItem = (item: any) => (
+  const renderMenuItem = (item: Item) => (
     <Card
       key={item.id}
       className="group hover:shadow-luxury transition-all duration-300 border-border hover:border-primary/50"
