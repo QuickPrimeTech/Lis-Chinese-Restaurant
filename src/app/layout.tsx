@@ -4,6 +4,7 @@ import { Cinzel, Chivo } from "next/font/google"; // 👈 add these
 import "./globals.css";
 import { Navbar } from "@/layouts/navbar";
 import Footer from "@/layouts/footer";
+import { CartProvider } from "@/components/cart-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,9 +49,11 @@ export default function RootLayout({
           antialiased
         `}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <CartProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
