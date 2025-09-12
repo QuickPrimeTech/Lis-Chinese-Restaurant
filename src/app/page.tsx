@@ -1,5 +1,7 @@
 import { ContactSection } from "@/sections/homepage/contact";
 import { CTASection } from "@/sections/homepage/CTA";
+import { FAQSection } from "@/sections/homepage/FAQs";
+import { FollowUs } from "@/sections/homepage/followus";
 import { HeroSection } from "@/sections/homepage/hero";
 import { MenuPreview } from "@/sections/homepage/menu-preview";
 import { OfferSection } from "@/sections/homepage/offer";
@@ -14,6 +16,8 @@ export default function Home() {
       <TestimonialCarousel />
       <CTASection />
       <ContactSection />
+      <FAQSection />
+      <FollowUs />
     </>
   );
 }
