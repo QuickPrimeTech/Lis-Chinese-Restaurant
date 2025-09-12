@@ -24,19 +24,19 @@ import {
   CalendarIcon,
   Users,
   MapPin,
-  Clock,
   CheckCircle,
   Star,
   Utensils,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 // Use the public URL for the image
 const privateEventsHero = "/private-events-hero.jpg";
 
 const PrivateEvents = () => {
   const [date, setDate] = useState<Date>();
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState("");
+  const [, setSelectedPackage] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -73,7 +73,6 @@ const PrivateEvents = () => {
     "$10,000-$20,000",
     "$20,000+",
   ];
-  const durations = ["2 hours", "3 hours", "4 hours", "5+ hours"];
 
   const eventPackages = [
     {
@@ -277,16 +276,17 @@ const PrivateEvents = () => {
               </div>
 
               <div className="grid md:grid-cols-3 gap-8">
-                {eventPackages.map((pkg, index) => (
+                {eventPackages.map((pkg) => (
                   <Card
                     key={pkg.id}
                     className="group hover:shadow-luxury transition-all duration-300 border-border hover:border-primary/50"
                   >
                     <CardContent className="p-0">
                       <div className="relative overflow-hidden rounded-t-lg">
-                        <img
+                        <Image
                           src={pkg.image}
                           alt={pkg.name}
+                          fill
                           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm rounded-full px-3 py-1">
@@ -398,7 +398,7 @@ const PrivateEvents = () => {
                   Event Inquiry Form
                 </CardTitle>
                 <p className="text-muted-foreground font-chivo">
-                  Tell us about your vision and we'll create a personalized
+                  Tell us about your vision and we&apos;ll create a personalized
                   proposal
                 </p>
               </CardHeader>
