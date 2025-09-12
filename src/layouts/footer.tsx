@@ -156,13 +156,13 @@ const Footer = () => {
               special offers
             </p>
             <div className="flex flex-col items-center sm:flex-row gap-4 max-w-md mx-auto">
-              <Mail />
               <Input
                 type="email"
                 placeholder="Enter your email"
                 className="h-auto flex-1 px-4 py-3 rounded-lg bg-background border border-border text-foreground font-chivo"
               />
               <Button className="bg-gradient-primary hover:shadow-glow transition-all duration-300 px-8">
+                <Mail />
                 Subscribe
               </Button>
             </div>
