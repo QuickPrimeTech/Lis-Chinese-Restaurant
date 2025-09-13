@@ -67,8 +67,9 @@ export default function Contact() {
                 Message Sent Successfully!
               </h1>
               <p className="text-xl text-muted-foreground font-chivo leading-relaxed mb-8">
-                Thank you for reaching out to Luxuria. We&apos;ve received your
-                message and will respond within 24 hours.
+                Thank you for reaching out to Li's Chinese Restaurant.
+                We&apos;ve received your message and will respond within 24
+                hours.
               </p>
 
               <Card className="bg-card border-primary/20 shadow-luxury">
@@ -235,9 +236,13 @@ export default function Contact() {
                         Email Us
                       </h3>
                       <div className="text-muted-foreground font-chivo">
-                        <p className="mb-1">reservations@luxuria.com</p>
-                        <p className="mb-1">events@luxuria.com</p>
-                        <p>info@luxuria.com</p>
+                        <p className="mb-1">
+                          reservations@Li's Chinese Restaurant.com
+                        </p>
+                        <p className="mb-1">
+                          events@Li's Chinese Restaurant.com
+                        </p>
+                        <p>info@Li's Chinese Restaurant.com</p>
                       </div>
                     </div>
                   </div>

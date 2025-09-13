@@ -141,9 +141,9 @@ const PrivateEvents = () => {
                 Event Inquiry Received!
               </h1>
               <p className="text-xl text-muted-foreground font-chivo leading-relaxed mb-8">
-                Thank you for your interest in hosting a private event at
-                Luxuria. Our event specialist will contact you within 24 hours
-                to discuss your requirements.
+                Thank you for your interest in hosting a private event at Li's
+                Chinese Restaurant. Our event specialist will contact you within
+                24 hours to discuss your requirements.
               </p>
 
               <Card className="bg-card border-primary/20 shadow-luxury">
@@ -338,7 +338,7 @@ const PrivateEvents = () => {
             <div className="bg-card rounded-2xl p-12">
               <div className="text-center mb-8">
                 <h3 className="text-3xl font-cinzel font-bold text-foreground mb-4">
-                  Why Choose Luxuria for Your Event
+                  Why Choose Li's Chinese Restaurant for Your Event
                 </h3>
               </div>
               <div className="grid md:grid-cols-4 gap-8 text-center">

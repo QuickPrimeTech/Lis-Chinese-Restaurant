@@ -13,7 +13,7 @@ export const FollowUs = () => {
     {
       image: "/insta-1.jpg",
       caption:
-        "Artisanal gastronomy at its finest ✨ #LuxuriaDining #FineDining",
+        "Artisanal gastronomy at its finest ✨ #Li's Chinese RestaurantDining #FineDining",
       likes: "2,847",
     },
     {
@@ -65,7 +65,7 @@ export const FollowUs = () => {
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
           >
             <Instagram className="mr-2 h-5 w-5" />
-            Follow @luxuriadining
+            Follow @Li's Chinese Restaurantdining
           </Button>
         </div>
 

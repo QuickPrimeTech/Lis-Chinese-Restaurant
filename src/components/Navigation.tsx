@@ -41,7 +41,7 @@ const Navigation = () => {
             href="/"
             className="text-2xl font-cinzel font-bold text-primary hover:text-primary-glow transition-colors"
           >
-            Luxuria
+            Li's Chinese Restaurant
           </Link>
 
           {/* Desktop Navigation */}

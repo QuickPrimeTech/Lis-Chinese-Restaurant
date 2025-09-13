@@ -179,8 +179,8 @@ const Gallery = () => {
               Gallery
             </h1>
             <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
-              Experience the elegance and artistry that defines Luxuria through
-              our visual journey
+              Experience the elegance and artistry that defines Li's Chinese
+              Restaurant through our visual journey
             </p>
           </div>
         </div>
@@ -266,7 +266,7 @@ const Gallery = () => {
           <Card className="bg-gradient-primary max-w-2xl mx-auto">
             <CardContent className="p-12">
               <h3 className="text-3xl font-cinzel font-bold text-primary-foreground mb-4">
-                Ready to Experience Luxuria?
+                Ready to Experience Li's Chinese Restaurant?
               </h3>
               <p className="text-primary-foreground/90 font-chivo mb-8 text-lg">
                 Book your table or plan your private event to experience the
