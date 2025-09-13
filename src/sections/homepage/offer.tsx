@@ -6,7 +6,7 @@ import { Copy, Check } from "lucide-react";
 import { AnimatedNumberCountdownShowcase } from "@/components/animated-number";
 
 export const OfferSection = () => {
-  const [timeLeft, setTimeLeft] = useState({
+  const [, setTimeLeft] = useState({
     days: 0,
     hours: 0,
     minutes: 0,

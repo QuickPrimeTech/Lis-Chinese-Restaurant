@@ -128,9 +128,9 @@ export const ContactSection = () => {
                     Email
                   </h3>
                   <p className="text-muted-foreground font-chivo">
-                    reservations@Li's Chinese Restaurant.com
+                    reservations@Li&apos;s Chinese Restaurant.com
                     <br />
-                    info@Li's Chinese Restaurant.com
+                    info@Li&apos;s Chinese Restaurant.com
                   </p>
                 </div>
               </div>

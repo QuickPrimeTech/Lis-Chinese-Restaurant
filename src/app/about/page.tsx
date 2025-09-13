@@ -107,8 +107,8 @@ export default function About() {
                 Our Story
               </h1>
               <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
-                Discover the passion, tradition, and innovation that make Li's
-                Chinese Restaurant a culinary destination
+                Discover the passion, tradition, and innovation that make
+                Li&apos;s Chinese Restaurant a culinary destination
               </p>
             </div>
           </div>
@@ -125,8 +125,8 @@ export default function About() {
               </h2>
               <div className="space-y-6 text-lg font-chivo text-muted-foreground leading-relaxed">
                 <p>
-                  Founded in 2008, Li's Chinese Restaurant began as a vision to
-                  create more than just a restaurant – we sought to craft an
+                  Founded in 2008, Li&apos; Chinese Restaurant began as a vision
+                  to create more than just a restaurant – we sought to craft an
                   experience that would redefine fine dining. What started as a
                   passion project by renowned chef Alexandre Dubois has evolved
                   into a culinary institution that celebrates the art of
@@ -140,11 +140,11 @@ export default function About() {
                   reflects our commitment to excellence.
                 </p>
                 <p>
-                  Located in the heart of the city, Li's Chinese Restaurant has
-                  become a destination for those who appreciate the finer things
-                  in life. From intimate romantic dinners to grand celebrations,
-                  we have had the privilege of being part of countless special
-                  moments.
+                  Located in the heart of the city, Li&apos;s Chinese Restaurant
+                  has become a destination for those who appreciate the finer
+                  things in life. From intimate romantic dinners to grand
+                  celebrations, we have had the privilege of being part of
+                  countless special moments.
                 </p>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function About() {
               Our Values
             </h2>
             <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
-              The principles that guide everything we do at Li's Chinese
+              The principles that guide everything we do at Li&apos;s Chinese
               Restaurant
             </p>
           </div>
@@ -232,7 +232,7 @@ export default function About() {
               Meet Our Team
             </h2>
             <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
-              The passionate professionals who bring Li's Chinese
+              The passionate professionals who bring Li&apos;s Chinese
               Restaurant&apos;s vision to life
             </p>
           </div>

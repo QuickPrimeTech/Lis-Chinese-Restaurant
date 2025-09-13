@@ -85,7 +85,7 @@ export default function Reservations() {
                   Reservation Confirmed!
                 </h1>
                 <p className="text-xl text-muted-foreground font-chivo leading-relaxed">
-                  Thank you for choosing Li's Chinese Restaurant. We&apos;ve
+                  Thank you for choosing Li&pos;s Chinese Restaurant. We&apos;ve
                   received your reservation request and will confirm the details
                   shortly.
                 </p>
@@ -200,8 +200,8 @@ export default function Reservations() {
                 Reserve Your Table
               </h1>
               <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
-                Secure your seat at Li's Chinese Restaurant for an unforgettable
-                dining experience
+                Secure your seat at Li&apos;s Chinese Restaurant for an
+                unforgettable dining experience
               </p>
             </div>
           </div>

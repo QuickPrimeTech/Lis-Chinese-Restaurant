@@ -65,11 +65,10 @@ export const FollowUs = () => {
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
           >
             <Instagram className="mr-2 h-5 w-5" />
-            Follow @Li's Chinese Restaurantdining
+            Follow @Li&apos;s Chinese Restaurantdining
           </Button>
         </div>
-
-        {/* Instagram Posts */}
+        ;{/* Instagram Posts */}
         <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {visiblePosts.map((post, index) => (
             <Card
@@ -102,7 +101,6 @@ export const FollowUs = () => {
             </Card>
           ))}
         </div>
-
         {/* Dots Indicator */}
         <div className="flex justify-center mt-8 space-x-2">
           {instagramPosts.map((_, index) => (

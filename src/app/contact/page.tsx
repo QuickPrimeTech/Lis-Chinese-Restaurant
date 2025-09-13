@@ -67,7 +67,7 @@ export default function Contact() {
                 Message Sent Successfully!
               </h1>
               <p className="text-xl text-muted-foreground font-chivo leading-relaxed mb-8">
-                Thank you for reaching out to Li's Chinese Restaurant.
+                Thank you for reaching out to Li&apos;s Chinese Restaurant.
                 We&apos;ve received your message and will respond within 24
                 hours.
               </p>
@@ -237,12 +237,12 @@ export default function Contact() {
                       </h3>
                       <div className="text-muted-foreground font-chivo">
                         <p className="mb-1">
-                          reservations@Li's Chinese Restaurant.com
+                          reservations@Li&apos;s Chinese Restaurant.com
                         </p>
                         <p className="mb-1">
-                          events@Li's Chinese Restaurant.com
+                          events@Li&apos;s Chinese Restaurant.com
                         </p>
-                        <p>info@Li's Chinese Restaurant.com</p>
+                        <p>info@Li&apos;s Chinese Restaurant.com</p>
                       </div>
                     </div>
                   </div>

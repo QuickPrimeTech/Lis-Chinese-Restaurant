@@ -52,7 +52,7 @@ const Footer = () => {
               href="/"
               className="text-3xl font-cinzel font-bold text-primary mb-6 block"
             >
-              Li's Chinese Restaurant
+              Li&apos;s Chinese Restaurant
             </Link>
             <p className="text-muted-foreground font-chivo leading-relaxed mb-6 max-w-md">
               Experience culinary excellence in an atmosphere of refined
@@ -75,7 +75,7 @@ const Footer = () => {
               <div className="flex items-center text-muted-foreground">
                 <Mail className="h-4 w-4 mr-3 text-primary" />
                 <span className="font-chivo">
-                  info@Li's Chinese Restaurant.com
+                  info@Li&apos;s Chinese Restaurant.com
                 </span>
               </div>
             </div>
@@ -191,7 +191,7 @@ const Footer = () => {
             {/* Copyright */}
             <div className="text-center text-muted-foreground font-chivo">
               <p>
-                &copy; 2024 Li's Chinese Restaurant Restaurant. All rights
+                &copy; 2024 Li&apos;s Chinese Restaurant Restaurant. All rights
                 reserved.
               </p>
             </div>
