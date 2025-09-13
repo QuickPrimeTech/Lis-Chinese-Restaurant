@@ -91,11 +91,8 @@ export const Navbar = () => {
                   <Menu className="h-6 w-6" aria-hidden="true" />
                 </Button>
               </SheetTrigger>
-              <SheetContent
-                side="left"
-                className="bg-background/80 backdrop-blur-xl border-r border-border/50 text-foreground"
-              >
-                <SheetHeader className="flex flex-row items-center space-x-3 pb-6 border-b border-border/40">
+              <SheetContent className="bg-background/10 backdrop-blur-xl border-r border-border/50 text-foreground">
+                <SheetHeader className="flex flex-row items-center space-x-3 pb-6 border-b border-border">
                   <Image
                     src="/logo.jpg"
                     alt="Li's Chinese Restaurant Logo"
@@ -108,7 +105,7 @@ export const Navbar = () => {
                   </SheetTitle>
                 </SheetHeader>
 
-                <div className="flex flex-col mt-6 space-y-5">
+                <div className="flex px-6 flex-col mt-6 space-y-5">
                   {navigationItems.map((item) => (
                     <Link
                       key={item.name}
