@@ -47,7 +47,7 @@ export const Navbar = () => {
             className="flex items-center space-x-2 text-2xl font-cinzel font-bold text-primary hover:text-primary-glow transition-colors"
           >
             <Image
-              src="/logo.svg"
+              src="/logo.jpg"
               alt="Li's Chinese Restaurant Logo"
               width={36}
               height={36}
@@ -97,7 +97,7 @@ export const Navbar = () => {
               >
                 <SheetHeader className="flex flex-row items-center space-x-3 pb-6 border-b border-border/40">
                   <Image
-                    src="/logo.svg"
+                    src="/logo.jpg"
                     alt="Li's Chinese Restaurant Logo"
                     width={36}
                     height={36}
