@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
+import { AnimatedNumberCountdownShowcase } from "@/components/animated-number";
 
 export const OfferSection = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -94,23 +95,7 @@ export const OfferSection = () => {
               <h3 className="text-2xl font-cinzel font-semibold text-foreground mb-4">
                 Offer Expires In:
               </h3>
-              <div className="grid grid-cols-4 gap-4 max-w-md mx-auto">
-                {[
-                  { label: "Days", value: timeLeft.days },
-                  { label: "Hours", value: timeLeft.hours },
-                  { label: "Minutes", value: timeLeft.minutes },
-                  { label: "Seconds", value: timeLeft.seconds },
-                ].map((item, index) => (
-                  <div key={index} className="bg-primary/10 rounded-lg p-4">
-                    <div className="text-2xl font-bold text-primary font-cinzel">
-                      {item.value.toString().padStart(2, "0")}
-                    </div>
-                    <div className="text-xs text-muted-foreground font-chivo uppercase tracking-wide">
-                      {item.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <AnimatedNumberCountdownShowcase />
             </div>
 
             {/* Book Now Button */}
