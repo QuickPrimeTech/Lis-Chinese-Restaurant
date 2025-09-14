@@ -116,12 +116,12 @@ export function MpesaPaymentForm({
 
   return (
     <div className="space-y-4">
-      <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
-        <div className="flex items-center gap-2 text-green-800 mb-2">
+      <div className="bg-green-950 border border-green-700 rounded-lg p-4 mb-4">
+        <div className="flex items-center gap-2 text-green-50 mb-2">
           <Shield className="h-4 w-4" />
           <span className="text-sm font-medium">M-Pesa Secure Payment</span>
         </div>
-        <p className="text-xs text-green-700">
+        <p className="text-xs text-green-200">
           Pay securely using your M-Pesa mobile money account
         </p>
       </div>
@@ -153,7 +153,7 @@ export function MpesaPaymentForm({
               )}
             />
 
-            <div className="bg-gray-50 rounded-lg p-4">
+            <div className="bg-card rounded-lg p-4">
               <div className="flex justify-between items-center">
                 <span className="font-semibold">Total Amount:</span>
                 <span className="text-xl font-bold text-green-600">
@@ -189,11 +189,9 @@ export function MpesaPaymentForm({
             onSubmit={pinForm.handleSubmit(handlePinSubmit)}
             className="space-y-4"
           >
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h4 className="font-medium text-blue-900 mb-2">
-                Payment Details
-              </h4>
-              <div className="text-sm text-blue-800 space-y-1">
+            <div className="bg-blue-950 border border-blue-700 rounded-lg p-4">
+              <h4 className="font-medium text-blue-50 mb-2">Payment Details</h4>
+              <div className="text-sm text-blue-200 space-y-1">
                 <p>
                   Amount:{" "}
                   <span className="font-semibold">Ksh {total.toFixed(2)}</span>

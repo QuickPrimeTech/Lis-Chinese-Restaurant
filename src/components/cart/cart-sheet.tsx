@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,54 +25,38 @@ import {
   Smartphone,
   ArrowLeft,
   AlertTriangle,
-  Truck,
   MapPin,
 } from "lucide-react";
 import { useCart } from "@/contexts/cart-provider";
-import { useOrder } from "@/contexts/order-context";
 import { CartItem } from "./cart-item";
 import { CardPaymentForm } from "./card-payment-form";
 import { MpesaPaymentForm } from "./mpesa-payment-form";
-import { OrderTypeSelector } from "./order-type-selector";
-import { DeliveryForm } from "./delivery-form";
 import { PickupForm } from "./pickup-form";
 import Image from "next/image";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface CartSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-type CheckoutStep = "cart" | "details" | "payment" | "processing" | "success";
+type CheckoutStep = "cart" | "details" | "payment" | "success";
 
 export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const { items, total, itemCount, clearCart } = useCart();
-  const { orderType, deliveryFee } = useOrder();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("cart");
   const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("card");
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
-  const finalTotal = total + deliveryFee;
+  const finalTotal = total;
 
-  const handleBackToCart = () => {
-    setCurrentStep("cart");
-  };
-
-  const handleBackToDetails = () => {
-    setCurrentStep("details");
-  };
-
-  const handleProceedToDetails = () => {
-    setCurrentStep("details");
-  };
-
-  const handleProceedToPayment = () => {
-    setCurrentStep("payment");
-  };
+  const handleBackToCart = () => setCurrentStep("cart");
+  const handleBackToDetails = () => setCurrentStep("details");
+  const handleProceedToDetails = () => setCurrentStep("details");
+  const handleProceedToPayment = () => setCurrentStep("payment");
 
   const handlePaymentSuccess = () => {
     setCurrentStep("success");
-    // Clear cart after successful payment
     setTimeout(() => {
       clearCart();
       onOpenChange(false);
@@ -87,53 +70,49 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   };
 
   const renderOrderSummary = () => (
-    <div className="bg-gray-50 rounded-lg p-4 space-y-3">
-      <h4 className="font-semibold text-gray-900">Order Summary</h4>
+    <div className="bg-card rounded-xl p-4 space-y-3 shadow-luxury">
+      <h4 className="font-semibold text-foreground">Order Summary</h4>
 
-      {/* Items List */}
-      <div className="space-y-2 max-h-40 overflow-y-auto">
-        {items.map((item) => (
-          <div
-            key={item.id}
-            className="flex items-center gap-3 p-2 bg-white rounded-md"
-          >
-            <div className="relative w-10 h-10 bg-muted rounded-md overflow-hidden flex-shrink-0">
-              <Image
-                fill
-                src={item.image || "/placeholder.svg"}
-                alt={item.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{item.name}</p>
-              <p className="text-xs text-muted-foreground">
-                {item.quantity}x Ksh {item.price}
+      <ScrollArea className="h-40 pr-2">
+        <div className="space-y-2">
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center gap-3 p-2 bg-background rounded-lg border border-border"
+            >
+              <div className="relative w-10 h-10 bg-muted rounded-md overflow-hidden flex-shrink-0">
+                <Image
+                  fill
+                  src={item.image || "/placeholder.svg"}
+                  alt={item.name}
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium truncate">{item.name}</p>
+                <p className="text-xs text-muted-foreground">
+                  {item.quantity}x Ksh {item.price}
+                </p>
+              </div>
+
+              <p className="text-sm font-semibold whitespace-nowrap">
+                Ksh {(item.price * item.quantity).toFixed(2)}
               </p>
             </div>
-            <p className="text-sm font-semibold whitespace-nowrap">
-              Ksh {(item.price * item.quantity).toFixed(2)}
-            </p>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </ScrollArea>
 
       <Separator />
 
-      {/* Totals */}
       <div className="space-y-1 text-sm">
         <div className="flex justify-between">
           <span>Subtotal ({itemCount} items):</span>
           <span>Ksh {total.toFixed(2)}</span>
         </div>
-        {deliveryFee > 0 && (
-          <div className="flex justify-between">
-            <span>Delivery fee:</span>
-            <span>Ksh {deliveryFee.toFixed(2)}</span>
-          </div>
-        )}
         <Separator className="my-2" />
-        <div className="flex justify-between font-semibold text-base">
+        <div className="flex justify-between font-semibold text-base text-primary">
           <span>Total:</span>
           <span>Ksh {finalTotal.toFixed(2)}</span>
         </div>
@@ -146,7 +125,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
       case "cart":
         return `Your Cart (${itemCount} items)`;
       case "details":
-        return orderType === "delivery" ? "Delivery Details" : "Pickup Details";
+        return "Pickup Details";
       case "payment":
         return "Payment";
       default:
@@ -154,69 +133,12 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
     }
   };
 
-  if (currentStep === "success") {
-    return (
-      <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="w-full sm:max-w-lg">
-          <div className="flex flex-col items-center justify-center h-full text-center space-y-6">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-              <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-6 h-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                Order Confirmed!
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Your order has been confirmed and will be{" "}
-                {orderType === "delivery" ? "delivered" : "ready for pickup"}{" "}
-                soon.
-              </p>
-              <div className="bg-gray-50 rounded-lg p-4 text-left">
-                <p className="text-sm text-gray-600 mb-2">
-                  Order Total:{" "}
-                  <span className="font-semibold">
-                    Ksh {finalTotal.toFixed(2)}
-                  </span>
-                </p>
-                <p className="text-sm text-gray-600 mb-2">
-                  Items:{" "}
-                  <span className="font-semibold">{itemCount} items</span>
-                </p>
-                <p className="text-sm text-gray-600">
-                  Type:{" "}
-                  <span className="font-semibold capitalize">{orderType}</span>
-                </p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500">
-              This window will close automatically...
-            </p>
-          </div>
-        </SheetContent>
-      </Sheet>
-    );
-  }
-
   return (
     <>
       <Sheet open={open} onOpenChange={onOpenChange}>
-        <SheetContent className="w-full sm:max-w-lg p-0 gap-0 flex flex-col h-screen max-h-screen">
-          {/* Sheet Header */}
-          <SheetHeader className="flex-shrink-0 p-6 border-b bg-white">
+        <SheetContent className="w-full sm:max-w-lg p-0 gap-0 flex flex-col h-screen max-h-screen bg-background text-foreground">
+          {/* Header */}
+          <SheetHeader className="flex-shrink-0 p-6 border-b border-border bg-card shadow-luxury">
             <SheetTitle className="flex items-center gap-2">
               {(currentStep === "details" || currentStep === "payment") && (
                 <Button
@@ -233,18 +155,13 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                 </Button>
               )}
               {currentStep === "cart" && <ShoppingCart className="h-5 w-5" />}
-              {currentStep === "details" &&
-                (orderType === "delivery" ? (
-                  <Truck className="h-5 w-5" />
-                ) : (
-                  <MapPin className="h-5 w-5" />
-                ))}
+              {currentStep === "details" && <MapPin className="h-5 w-5" />}
               {currentStep === "payment" && <CreditCard className="h-5 w-5" />}
               {getStepTitle()}
             </SheetTitle>
           </SheetHeader>
 
-          {/* Sheet Body */}
+          {/* Body */}
           <div className="flex flex-col flex-1 min-h-0">
             {items.length === 0 ? (
               <div className="flex flex-col items-center justify-center flex-1 text-center p-6">
@@ -255,7 +172,10 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                 <p className="text-muted-foreground mb-4">
                   Add some delicious items to get started!
                 </p>
-                <Button onClick={() => onOpenChange(false)}>
+                <Button
+                  className="bg-gradient-primary hover:shadow-glow transition-all"
+                  onClick={() => onOpenChange(false)}
+                >
                   Continue Shopping
                 </Button>
               </div>
@@ -264,23 +184,21 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                 {/* Cart Step */}
                 {currentStep === "cart" && (
                   <>
-                    <div className="flex-shrink-0 pb-3">
-                      <OrderTypeSelector />
-                    </div>
+                    <ScrollArea className="flex-1 h-1/4 px-6 py-4">
+                      <div className="space-y-4">
+                        {items.map((item) => (
+                          <CartItem key={item.id} item={item} />
+                        ))}
+                      </div>
+                    </ScrollArea>
 
-                    <div className="flex-1 min-h-0 overflow-y-auto px-6 pb-4 space-y-4 custom-scroll">
-                      {items.map((item) => (
-                        <CartItem key={item.id} item={item} />
-                      ))}
-                    </div>
-
-                    <div className="flex-shrink-0 border-t p-6 bg-white">
+                    <div className="flex-shrink-0 border-t p-6 bg-card">
                       <div className="flex items-center justify-between mb-4">
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => setShowClearConfirm(true)}
-                          className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200"
+                          className="text-destructive hover:text-destructive-foreground hover:bg-destructive/20 border-destructive"
                         >
                           <Trash2 className="h-4 w-4 mr-1" />
                           Clear All
@@ -295,106 +213,85 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                           <span>Subtotal:</span>
                           <span>Ksh {total.toFixed(2)}</span>
                         </div>
-                        {deliveryFee > 0 && (
-                          <div className="flex justify-between text-sm">
-                            <span>Delivery:</span>
-                            <span>Ksh {deliveryFee.toFixed(2)}</span>
-                          </div>
-                        )}
                         <Separator />
-                        <div className="flex justify-between font-semibold text-lg">
+                        <div className="flex justify-between font-semibold text-lg text-primary">
                           <span>Total:</span>
                           <span>Ksh {finalTotal.toFixed(2)}</span>
                         </div>
                       </div>
 
-                      <div className="w-full bg-white border-t pb-12 lg:pb-0 pt-3 z-50">
-                        {/* Buttons */}
-                        <div className="flex gap-2">
-                          <Button
-                            variant="outline"
-                            className="flex-1 bg-transparent"
-                            onClick={() => onOpenChange(false)}
-                          >
-                            Continue Shopping
-                          </Button>
-                          <Button
-                            className="flex-1"
-                            onClick={handleProceedToDetails}
-                          >
-                            Continue to{" "}
-                            {orderType === "delivery" ? "Delivery" : "Pickup"}
-                          </Button>
-                        </div>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          className="flex-1"
+                          onClick={() => onOpenChange(false)}
+                        >
+                          Continue Shopping
+                        </Button>
+                        <Button
+                          className="flex-1 bg-gradient-primary hover:shadow-glow"
+                          onClick={handleProceedToDetails}
+                        >
+                          Continue to Pickup
+                        </Button>
                       </div>
                     </div>
                   </>
                 )}
 
-                {/* Details Step */}
+                {/* Details Step (pickup only) */}
                 {currentStep === "details" && (
-                  <div className="flex-1 min-h-0 overflow-y-auto custom-scroll">
-                    <div className="p-6 space-y-6">
-                      {renderOrderSummary()}
-                      {orderType === "delivery" ? (
-                        <DeliveryForm onContinue={handleProceedToPayment} />
-                      ) : (
-                        <PickupForm onContinue={handleProceedToPayment} />
-                      )}
-                    </div>
+                  <div className="flex-1 min-h-0 overflow-y-auto custom-scroll p-6 space-y-6">
+                    {renderOrderSummary()}
+                    <PickupForm onContinue={handleProceedToPayment} />
                   </div>
                 )}
 
                 {/* Payment Step */}
                 {currentStep === "payment" && (
-                  <div className="flex-1 min-h-0 overflow-y-auto custom-scroll">
-                    <div className="p-6 space-y-6">
-                      {renderOrderSummary()}
-
-                      <div>
-                        <h4 className="font-semibold mb-4 text-gray-900">
-                          Choose Payment Method
-                        </h4>
-
-                        <Tabs
-                          value={paymentMethod}
-                          onValueChange={(value) =>
-                            setPaymentMethod(value as "card" | "mpesa")
+                  <div className="flex-1 min-h-0 overflow-y-auto custom-scroll p-6 space-y-6">
+                    {renderOrderSummary()}
+                    <div>
+                      <h4 className="font-semibold mb-4">
+                        Choose Payment Method
+                      </h4>
+                      <div className="grid grid-cols-2 gap-2">
+                        <Button
+                          variant={
+                            paymentMethod === "card" ? "default" : "outline"
                           }
+                          onClick={() => setPaymentMethod("card")}
+                          className="flex items-center gap-2"
                         >
-                          <TabsList className="grid w-full grid-cols-2">
-                            <TabsTrigger
-                              value="card"
-                              className="flex items-center gap-2"
-                            >
-                              <CreditCard className="h-4 w-4" />
-                              Card
-                            </TabsTrigger>
-                            <TabsTrigger
-                              value="mpesa"
-                              className="flex items-center gap-2"
-                            >
-                              <Smartphone className="h-4 w-4" />
-                              M-Pesa
-                            </TabsTrigger>
-                          </TabsList>
+                          <CreditCard className="h-4 w-4" />
+                          Card
+                        </Button>
+                        <Button
+                          variant={
+                            paymentMethod === "mpesa" ? "default" : "outline"
+                          }
+                          onClick={() => setPaymentMethod("mpesa")}
+                          className="flex items-center gap-2"
+                        >
+                          <Smartphone className="h-4 w-4" />
+                          M-Pesa
+                        </Button>
+                      </div>
 
-                          <TabsContent value="card" className="mt-4">
-                            <CardPaymentForm
-                              total={finalTotal}
-                              onSuccess={handlePaymentSuccess}
-                              onBack={handleBackToDetails}
-                            />
-                          </TabsContent>
-
-                          <TabsContent value="mpesa" className="mt-4">
-                            <MpesaPaymentForm
-                              total={finalTotal}
-                              onSuccess={handlePaymentSuccess}
-                              onBack={handleBackToDetails}
-                            />
-                          </TabsContent>
-                        </Tabs>
+                      <div className="mt-4">
+                        {paymentMethod === "card" ? (
+                          <CardPaymentForm
+                            total={finalTotal}
+                            onSuccess={handlePaymentSuccess}
+                            onBack={handleBackToDetails}
+                          />
+                        ) : (
+                          <MpesaPaymentForm
+                            total={finalTotal}
+                            onSuccess={handlePaymentSuccess}
+                            onBack={handleBackToDetails}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
@@ -404,9 +301,10 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
           </div>
         </SheetContent>
       </Sheet>
-      {/* Clear Cart Confirmation Dialog */}
+
+      {/* Clear Cart Confirm */}
       <AlertDialog open={showClearConfirm} onOpenChange={setShowClearConfirm}>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-card text-foreground border border-border shadow-luxury">
           <AlertDialogHeader>
             <AlertDialogTitle className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-amber-500" />
@@ -421,7 +319,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleClearCart}
-              className="bg-red-600 hover:bg-red-700"
+              className="bg-destructive hover:bg-destructive/90"
             >
               Clear All Items
             </AlertDialogAction>

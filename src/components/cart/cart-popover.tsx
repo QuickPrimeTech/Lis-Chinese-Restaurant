@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ShoppingCart, Eye } from "lucide-react";
 import { useCart } from "@/contexts/cart-provider";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Image from "next/image";
 
 interface CartPopoverProps {
@@ -40,7 +41,7 @@ export function CartPopover({
             </span>
           </div>
 
-          <div className="space-y-2 max-h-48 overflow-y-auto">
+          <ScrollArea className="space-y-2 max-h-48">
             {items.slice(0, 3).map((item) => (
               <div key={item.id} className="flex items-center gap-3 py-2">
                 <div className="relative w-10 h-10 bg-muted rounded-md flex-shrink-0 overflow-hidden">
@@ -70,7 +71,9 @@ export function CartPopover({
                 </p>
               </div>
             )}
-          </div>
+
+            <ScrollBar orientation="vertical" />
+          </ScrollArea>
 
           <Separator className="my-3" />
 
