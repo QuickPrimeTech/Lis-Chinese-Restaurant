@@ -1,9 +1,8 @@
 "use client";
-import Image from "next/image";
 
 const privateEventsHero = "/private-events-hero.jpg";
 
-export default function HeroSection() {
+const Hero = () => {
   return (
     <section className="relative h-96 overflow-hidden">
       <div
@@ -17,7 +16,7 @@ export default function HeroSection() {
             <h1 className="text-5xl md:text-6xl font-cinzel font-bold text-foreground mb-6">
               Private Events
             </h1>
-            <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
+            <p className="text-xl font-chivo max-w-3xl mx-auto">
               Create unforgettable memories with exclusive dining experiences
               tailored to your special occasion
             </p>
@@ -26,4 +25,6 @@ export default function HeroSection() {
       </div>
     </section>
   );
-}
+};
+
+export default Hero;

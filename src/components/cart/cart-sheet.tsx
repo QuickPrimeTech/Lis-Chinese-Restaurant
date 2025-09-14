@@ -42,12 +42,26 @@ interface CartSheetProps {
   onOpenChange: (open: boolean) => void;
 }
 
+type OrderItem = {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image?: string;
+};
+
+type LastOrder = {
+  items: OrderItem[];
+  total: number;
+};
+
 type CheckoutStep = "cart" | "details" | "payment" | "success";
 
 export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const { items, total, itemCount, clearCart } = useCart();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("cart");
   const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("card");
+  const [lastOrder, setLastOrder] = useState<LastOrder | null>(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
   const finalTotal = total;
@@ -58,8 +72,14 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const handleProceedToPayment = () => setCurrentStep("payment");
 
   const handlePaymentSuccess = () => {
-    clearCart();
+    const snapshot = {
+      items: items.map((i) => ({ ...i })),
+      total: finalTotal,
+    };
+
     setCurrentStep("success");
+    setLastOrder(snapshot);
+    clearCart();
   };
 
   const handleExitSuccess = () => {
@@ -71,6 +91,8 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
     clearCart();
     setShowClearConfirm(false);
   };
+
+  if (currentStep === "success" && !open) setCurrentStep("cart");
 
   const renderOrderSummary = () => (
     <div className="bg-card rounded-xl p-4 space-y-3 shadow-luxury">
@@ -306,10 +328,10 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                 )}
 
                 {/* Success Step */}
-                {currentStep === "success" && (
+                {currentStep === "success" && lastOrder && (
                   <CartSuccess
-                    items={items}
-                    total={finalTotal}
+                    items={lastOrder.items}
+                    total={lastOrder.total}
                     onClose={handleExitSuccess}
                   />
                 )}

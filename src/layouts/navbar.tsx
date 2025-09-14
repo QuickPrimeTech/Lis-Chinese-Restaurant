@@ -53,11 +53,13 @@ export const Navbar = () => {
               height={36}
               className="rounded-full"
             />
-            <span className="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px] sm:max-w-[300px]">Li&apos;s Chinese Restaurant</span>
+            <span className="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px] sm:max-w-[300px]">
+              Li&apos;s Chinese Restaurant
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             {navigationItems.map((item) => (
               <Link
                 key={item.name}
@@ -79,7 +81,7 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Menu (Sheet) */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <Sheet>
               <SheetTrigger asChild>
                 <Button

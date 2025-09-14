@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Check, CheckCircle, CheckCircle2 } from "lucide-react";
+import { CheckCircle, CheckCircle2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,7 +21,7 @@ interface CartSuccessProps {
 
 export function CartSuccess({ items, total, onClose }: CartSuccessProps) {
   return (
-    <ScrollArea className="flex flex-col h-full items-center overflow-y-auto text-center space-y-6 px-6 py-10">
+    <ScrollArea className="flex flex-col h-screen items-center text-center space-y-6 px-6 py-10">
       {/* Icon */}
       <CheckCircle className="mx-auto mb-8 size-16 text-green-500" />
       {/* Heading */}
@@ -41,7 +41,7 @@ export function CartSuccess({ items, total, onClose }: CartSuccessProps) {
             Pickup Details
           </h4>
 
-          <ScrollArea className="space-y-3 max-h-40 pr-2">
+          <ScrollArea className="space-y-3 h-50 pr-2">
             {items.map((item) => (
               <div
                 key={item.id}
@@ -87,6 +87,7 @@ export function CartSuccess({ items, total, onClose }: CartSuccessProps) {
         Done
         <CheckCircle2 className="size-6 ml-2" />
       </Button>
+      <ScrollBar orientation="vertical" />
     </ScrollArea>
   );
 }

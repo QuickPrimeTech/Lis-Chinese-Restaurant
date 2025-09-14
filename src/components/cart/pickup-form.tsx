@@ -44,26 +44,15 @@ import {
  * - Then refine the date to ensure it's within [today, today+7days].
  */
 const pickupSchema = z.object({
-  date: z.preprocess(
-    (val: any) => {
-      // if Calendar gives a Date already, return it
-      if (val instanceof Date) return val;
-      // if a string (rare), try to parse it into a Date
-      if (typeof val === "string" && val) return new Date(val);
-      // otherwise return the raw value (will fail validation)
-      return val;
+  date: z.date().refine(
+    (date) => {
+      if (Number.isNaN(date.getTime())) return false;
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const maxDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+      return date >= today && date <= maxDate;
     },
-    z.instanceof(Date, { message: "Pickup date is required" }).refine(
-      (date) => {
-        // ensure valid date object
-        if (Number.isNaN(date.getTime())) return false;
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const maxDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-        return date >= today && date <= maxDate;
-      },
-      { message: "Pickup must be within the next 7 days" }
-    )
+    { message: "Pickup must be within the next 7 days" }
   ),
 
   time: z.string().min(1, "Pickup time is required"),
@@ -163,7 +152,7 @@ export function PickupForm({ onContinue }: PickupFormProps) {
     if (date) {
       form.setValue("date", date, { shouldValidate: true, shouldDirty: true });
     } else {
-      form.setValue("date" as any, date as any); // clear
+      form.setValue("date", date as unknown as Date); // clear
     }
   };
 
