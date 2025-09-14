@@ -27,7 +27,7 @@ const CartSidebar = ({ children }: CartSidebarProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent className="w-full sm:w-[400px] bg-card border-border">
+      <SheetContent className="w-full bg-card border-border lg:w-1/2">
         <SheetHeader>
           <SheetTitle className="font-cinzel text-2xl flex items-center gap-2">
             <ShoppingBag className="h-6 w-6 text-primary" />
@@ -35,7 +35,7 @@ const CartSidebar = ({ children }: CartSidebarProps) => {
           </SheetTitle>
         </SheetHeader>
 
-        <div className="flex flex-col h-full mt-6">
+        <div className="flex flex-col h-full mt-6 px-6">
           {items.length === 0 ? (
             <div className="flex-1 flex items-center justify-center">
               <div className="text-center">

@@ -12,7 +12,7 @@ const MenuHero = () => (
           <h1 className="text-5xl md:text-6xl font-cinzel font-bold text-foreground mb-6">
             Our Exquisite Menu
           </h1>
-          <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
+          <p className="text-xl text-foreground font-chivo max-w-3xl mx-auto">
             Discover culinary masterpieces crafted with the finest ingredients and available for pickup
           </p>
         </div>

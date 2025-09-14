@@ -24,10 +24,10 @@ export default function MenuContent({ menuItems }: MenuContentProps) {
       <CartSidebar>
         <Button
           size="lg"
-          className="fixed bottom-6 right-6 z-40 bg-gradient-primary hover:shadow-glow transition-all duration-300 shadow-luxury"
+          className="fixed bottom-6 left-6 z-40 bg-gradient-primary hover:shadow-glow transition-all duration-300 shadow-luxury"
         >
           <ShoppingBag className="mr-2 h-5 w-5" />
-          Cart ({getTotalItems()})
+          {getTotalItems() > 0 && getTotalItems()}
         </Button>
       </CartSidebar>
 
