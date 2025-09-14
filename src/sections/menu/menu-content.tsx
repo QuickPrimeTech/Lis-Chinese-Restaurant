@@ -1,6 +1,5 @@
 "use client";
 
-import FloatingCartButton from "@/sections/menu/floating-cart-button";
 import StickyCategoryNav from "@/sections/menu/sticky-category-nav";
 import MenuSections from "@/sections/menu/menu-sections";
 import type { Item } from "@/types/menu";
@@ -12,7 +11,6 @@ interface MenuContentProps {
 export default function MenuContent({ menuItems }: MenuContentProps) {
   return (
     <>
-      <FloatingCartButton />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <StickyCategoryNav />
         <MenuSections menuItems={menuItems} />

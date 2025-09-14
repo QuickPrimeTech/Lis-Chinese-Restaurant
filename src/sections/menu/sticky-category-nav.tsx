@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { Download } from "lucide-react";
 
 const categories = [
   { id: "appetizers", label: "Appetizers" },
@@ -47,7 +48,7 @@ export default function StickyCategoryNav() {
   };
 
   return (
-    <div className="sticky top-20 z-30 bg-background/80 backdrop-blur-md border-b border-border">
+    <div className="sticky flex top-20 z-30 bg-background/80 backdrop-blur-md border-b border-border">
       <ScrollArea className="w-full">
         <div className="flex space-x-4 sm:space-x-6 py-4 px-2 sm:px-4">
           {categories.map((cat) => (
@@ -68,6 +69,10 @@ export default function StickyCategoryNav() {
         {/* Horizontal scrollbar (auto on mobile, hidden on desktop) */}
         <ScrollBar orientation="horizontal" className="sm:hidden" />
       </ScrollArea>
+      <Button variant={"outline"} className="my-auto">
+        <Download />
+        Download PDF Menu
+      </Button>
     </div>
   );
 }
