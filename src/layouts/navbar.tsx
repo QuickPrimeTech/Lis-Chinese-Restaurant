@@ -53,7 +53,7 @@ export const Navbar = () => {
               height={36}
               className="rounded-full"
             />
-            <span>Li&apos;s Chinese Restaurant</span>
+            <span className="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px] sm:max-w-[300px]">Li&apos;s Chinese Restaurant</span>
           </Link>
 
           {/* Desktop Navigation */}
