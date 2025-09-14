@@ -26,6 +26,7 @@ import {
   ArrowLeft,
   AlertTriangle,
   MapPin,
+  CheckCircle2,
 } from "lucide-react";
 import { useCart } from "@/contexts/cart-provider";
 import { CartItem } from "./cart-item";
@@ -34,6 +35,7 @@ import { MpesaPaymentForm } from "./mpesa-payment-form";
 import { PickupForm } from "./pickup-form";
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { CartSuccess } from "./cart-success";
 
 interface CartSheetProps {
   open: boolean;
@@ -56,12 +58,13 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const handleProceedToPayment = () => setCurrentStep("payment");
 
   const handlePaymentSuccess = () => {
+    clearCart();
     setCurrentStep("success");
-    setTimeout(() => {
-      clearCart();
-      onOpenChange(false);
-      setCurrentStep("cart");
-    }, 3000);
+  };
+
+  const handleExitSuccess = () => {
+    onOpenChange(false);
+    setCurrentStep("cart");
   };
 
   const handleClearCart = () => {
@@ -128,6 +131,8 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
         return "Pickup Details";
       case "payment":
         return "Payment";
+      case "success":
+        return "Order Confirmed";
       default:
         return "Checkout";
     }
@@ -157,13 +162,16 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
               {currentStep === "cart" && <ShoppingCart className="h-5 w-5" />}
               {currentStep === "details" && <MapPin className="h-5 w-5" />}
               {currentStep === "payment" && <CreditCard className="h-5 w-5" />}
+              {currentStep === "success" && (
+                <CheckCircle2 className="h-5 w-5" />
+              )}
               {getStepTitle()}
             </SheetTitle>
           </SheetHeader>
 
           {/* Body */}
           <div className="flex flex-col flex-1 min-h-0">
-            {items.length === 0 ? (
+            {items.length === 0 && currentStep !== "success" ? (
               <div className="flex flex-col items-center justify-center flex-1 text-center p-6">
                 <ShoppingCart className="h-16 w-16 text-muted-foreground mb-4" />
                 <h3 className="text-lg font-semibold mb-2">
@@ -239,7 +247,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                   </>
                 )}
 
-                {/* Details Step (pickup only) */}
+                {/* Details Step */}
                 {currentStep === "details" && (
                   <div className="flex-1 min-h-0 overflow-y-auto custom-scroll p-6 space-y-6">
                     {renderOrderSummary()}
@@ -295,6 +303,15 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                       </div>
                     </div>
                   </div>
+                )}
+
+                {/* Success Step */}
+                {currentStep === "success" && (
+                  <CartSuccess
+                    items={items}
+                    total={finalTotal}
+                    onClose={handleExitSuccess}
+                  />
                 )}
               </>
             )}

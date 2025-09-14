@@ -84,8 +84,8 @@ export function MpesaPaymentForm({
   if (step === "processing") {
     return (
       <div className="text-center space-y-6 py-8">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-          <Smartphone className="h-8 w-8 text-green-600 animate-pulse" />
+        <div className="w-16 h-16 bg-green-950 rounded-full flex items-center justify-center mx-auto">
+          <Smartphone className="h-8 w-8 text-green-50 animate-pulse" />
         </div>
         <div>
           <h3 className="text-lg font-semibold mb-2">Processing Payment</h3>
@@ -93,19 +93,19 @@ export function MpesaPaymentForm({
             Please check your phone for the M-Pesa prompt and enter your PIN to
             complete the payment.
           </p>
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-            <div className="flex items-center gap-2 text-green-800 mb-2">
+          <div className="bg-green-950 border border-green-700 rounded-lg p-4">
+            <div className="flex items-center gap-2 text-green-50 mb-2">
               <CheckCircle className="h-4 w-4" />
               <span className="text-sm font-medium">Payment Request Sent</span>
             </div>
-            <p className="text-xs text-green-700">
+            <p className="text-xs text-green-200">
               Amount: Ksh {total.toFixed(2)} to{" "}
               {formatDisplayPhone(formattedPhone)}
             </p>
           </div>
         </div>
-        <div className="flex items-center justify-center space-x-2">
-          <Loader2 className="h-4 w-4 animate-spin text-green-600" />
+        <div className="flex items-center space-x-2">
+          <Loader2 className="h-4 w-4 animate-spin text-green-50" />
           <span className="text-sm text-gray-600">
             Waiting for confirmation...
           </span>
