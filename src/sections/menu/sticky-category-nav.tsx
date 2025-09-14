@@ -48,31 +48,38 @@ export default function StickyCategoryNav() {
   };
 
   return (
-    <div className="sticky flex top-20 z-30 bg-background/80 backdrop-blur-md border-b border-border">
-      <ScrollArea className="w-full">
-        <div className="flex space-x-4 sm:space-x-6 py-4 px-2 sm:px-4">
-          {categories.map((cat) => (
-            <Button
-              key={cat.id}
-              onClick={() => scrollToSection(cat.id)}
-              className={cn(
-                "font-chivo font-semibold transition-colors hover:text-foreground whitespace-nowrap",
-                active === cat.id
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground"
-              )}
-            >
-              {cat.label}
-            </Button>
-          ))}
-        </div>
-        {/* Horizontal scrollbar (auto on mobile, hidden on desktop) */}
-        <ScrollBar orientation="horizontal" className="sm:hidden" />
-      </ScrollArea>
-      <Button variant={"outline"} className="my-auto">
-        <Download />
-        Download PDF Menu
-      </Button>
+    <div className="sticky top-20 z-30 bg-background/80 backdrop-blur-md border-b border-border flex items-center gap-2 max-sm:flex-row-reverse">
+      {/* Scrollable Categories (takes remaining space) */}
+      <div className="flex-1 min-w-0">
+        <ScrollArea className="w-full">
+          <div className="flex space-x-4 sm:space-x-6 py-4 px-2 sm:px-4">
+            {categories.map((cat) => (
+              <Button
+                key={cat.id}
+                onClick={() => scrollToSection(cat.id)}
+                className={cn(
+                  "font-chivo font-semibold transition-colors hover:text-foreground whitespace-nowrap",
+                  active === cat.id
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground"
+                )}
+              >
+                {cat.label}
+              </Button>
+            ))}
+          </div>
+          {/* Horizontal scrollbar (auto on mobile, hidden on desktop) */}
+          <ScrollBar orientation="horizontal" className="sm:hidden" />
+        </ScrollArea>
+      </div>
+
+      {/* Fixed Download Button (keeps its width, never pushed) */}
+      <div className="flex-shrink-0 px-2">
+        <Button variant="outline" className="whitespace-nowrap">
+          <Download className="mr-2 h-4 w-4" />
+          <span className="max-sm:hidden">Download</span> PDF Menu
+        </Button>
+      </div>
     </div>
   );
 }
