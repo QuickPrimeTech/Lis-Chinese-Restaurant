@@ -8,7 +8,8 @@ import { useCart } from "@/contexts/cart-provider";
 import type { Item } from "@/types/menu";
 
 const MenuItemCard = ({ item }: { item: Item }) => {
-  const { addToCart } = useCart();
+  const { addToCart, items } = useCart();
+  const cartItem = items.find((i) => i.id === item.id);
 
   return (
     <Card className="py-3 px-2 group hover:shadow-luxury transition-all duration-300 border-border hover:border-primary/50 overflow-hidden">
@@ -41,12 +42,19 @@ const MenuItemCard = ({ item }: { item: Item }) => {
           </div>
 
           <Button
-            onClick={() => addToCart(item)}
+            onClick={() => {
+              addToCart(item);
+            }}
             size="sm"
             className="bg-gradient-primary hover:shadow-glow transition-all duration-300 flex items-center"
           >
             <Plus className="mr-1 h-4 w-4 group-hover:animate-glow" />
             Add
+            {cartItem?.quantity && cartItem.quantity > 0 && (
+              <span className="ml-1 bg-white text-primary rounded-full px-2 py-0.5 text-xs font-bold">
+                {cartItem.quantity}
+              </span>
+            )}
           </Button>
         </div>
       </CardContent>

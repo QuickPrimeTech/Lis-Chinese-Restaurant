@@ -250,7 +250,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                         </div>
                       </div>
 
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 max-sm:pb-16">
                         <Button
                           variant="outline"
                           className="flex-1"

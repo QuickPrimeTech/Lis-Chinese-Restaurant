@@ -157,7 +157,10 @@ export function PickupForm({ onContinue }: PickupFormProps) {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-full">
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="space-y-6 w-full max-sm:pb-16"
+    >
       {/* Location */}
       <Card className="w-full bg-green-950 border-green-700">
         <CardHeader>

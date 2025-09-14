@@ -76,7 +76,7 @@ export default function Reservations() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="pt-20 pb-16">
+        <div className="pt-20 max-sm:pb-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto text-center">
               <div className="mb-8">
