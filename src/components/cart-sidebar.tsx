@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sheet,
   SheetContent,
@@ -7,7 +9,7 @@ import {
 } from "./ui/sheet";
 import { Button } from "./ui/button";
 import { ShoppingBag, Plus, Minus, Trash2 } from "lucide-react";
-import { useCart } from "@/components/cart-provider";
+import { useCart } from "@/contexts/cart-provider";
 import Image from "next/image";
 
 interface CartSidebarProps {
@@ -15,8 +17,7 @@ interface CartSidebarProps {
 }
 
 const CartSidebar = ({ children }: CartSidebarProps) => {
-  const { items, updateQuantity, removeFromCart, getTotalPrice, clearCart } =
-    useCart();
+  const { items, total, updateQuantity, removeFromCart, clearCart } = useCart();
 
   const handleCheckout = () => {
     // In a real app, this would integrate with payment processing
@@ -71,7 +72,7 @@ const CartSidebar = ({ children }: CartSidebarProps) => {
                         {item.category}
                       </p>
                       <p className="font-cinzel font-semibold text-primary">
-                        ${item.price}
+                        Ksh {item.price.toLocaleString()}
                       </p>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -117,7 +118,7 @@ const CartSidebar = ({ children }: CartSidebarProps) => {
                     Total:
                   </span>
                   <span className="font-cinzel font-bold text-2xl text-primary">
-                    ${getTotalPrice().toFixed(2)}
+                    Ksh {total.toLocaleString()}
                   </span>
                 </div>
                 <Button
