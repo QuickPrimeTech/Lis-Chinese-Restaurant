@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -75,9 +76,15 @@ export const HeroSection = () => {
                   {slide.subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
-                  <Button size="lg">Book a Table</Button>
-                  <Button variant="outline" size="lg">
+                  <Button size="lg" asChild>
+                    <Link href={"/reservations"}>
+                    Book a Table
+                    </Link>
+                    </Button>
+                  <Button variant="outline" size="lg" asChild>
+                    <Link href={"/menu"}>
                     Order Now
+                    </Link>
                   </Button>
                 </div>
               </div>
