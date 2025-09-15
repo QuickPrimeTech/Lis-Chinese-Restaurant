@@ -1,5 +1,6 @@
 "use client";
 
+import { Item } from "@/types/menu";
 import React, {
   createContext,
   useContext,
@@ -8,13 +9,10 @@ import React, {
   ReactNode,
 } from "react";
 
-export interface CartItem {
-  id: string;
-  name: string;
-  price: number; // Keep as number for easier math
+export interface CartItem extends Item {
+  id: string; // Keep as number for easier math
   quantity: number;
-  image: string;
-  category: string;
+
 }
 
 interface CartState {

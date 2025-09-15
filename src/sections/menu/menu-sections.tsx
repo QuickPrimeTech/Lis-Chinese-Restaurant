@@ -10,29 +10,17 @@ interface MenuSectionsProps {
 export default function MenuSections({ menuItems }: MenuSectionsProps) {
   return (
     <div className="space-y-24 mt-8">
-      <section id="appetizers">
-        <MenuSection
-          title="Appetizers"
-          description="Begin your culinary journey with our carefully curated selection of starters"
-          items={menuItems.appetizers}
-        />
-      </section>
-
-      <section id="mains">
-        <MenuSection
-          title="Main Courses"
-          description="Experience our signature dishes crafted to perfection"
-          items={menuItems.mains}
-        />
-      </section>
-
-      <section id="desserts">
-        <MenuSection
-          title="Desserts"
-          description="End your meal on a sweet note with our artisanal desserts"
-          items={menuItems.desserts}
-        />
-      </section>
+      {Object.entries(menuItems).map(([key, items]) => {
+        if (items.length === 0) return null; // skip empty categories
+        return (
+          <section key={key} id={key}>
+            <MenuSection
+              title={items[0].category} // use category from item data
+              items={items}
+            />
+          </section>
+        );
+      })}
     </div>
   );
 }

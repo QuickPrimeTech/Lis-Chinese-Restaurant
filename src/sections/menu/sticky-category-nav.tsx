@@ -3,15 +3,16 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { menuItems } from "@/data/menu-data"; // adjust path if needed
 
-const categories = [
-  { id: "appetizers", label: "Appetizers" },
-  { id: "mains", label: "Main Courses" },
-  { id: "desserts", label: "Desserts" },
-];
+// Build categories dynamically from menuItems keys
+const categories = Object.keys(menuItems).map((key) => ({
+  id: key,
+  label: key.charAt(0).toUpperCase() + key.slice(1), // capitalize
+}));
 
 export default function StickyCategoryNav() {
-  const [active, setActive] = useState("appetizers");
+  const [active, setActive] = useState(categories[0]?.id || "");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +29,7 @@ export default function StickyCategoryNav() {
           ? curr
           : prev
       );
-      setActive(current.id);
+      if (current) setActive(current.id);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -48,7 +49,6 @@ export default function StickyCategoryNav() {
   return (
     <div className="sticky top-20 z-30 bg-background/80 backdrop-blur-md border-b border-border flex items-center gap-2 max-sm:flex-row-reverse">
       {/* Scrollable Categories (takes remaining space) */}
-
       <ScrollArea className="w-full">
         <div className="flex space-x-4 sm:space-x-6 py-4 px-2">
           {categories.map((cat) => (
@@ -66,7 +66,6 @@ export default function StickyCategoryNav() {
             </Button>
           ))}
         </div>
-        {/* Horizontal scrollbar (auto on mobile, hidden on desktop) */}
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </div>
