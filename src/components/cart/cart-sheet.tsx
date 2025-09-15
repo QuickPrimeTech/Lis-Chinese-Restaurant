@@ -105,14 +105,17 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
               key={item.id}
               className="flex items-center gap-3 p-2 bg-background rounded-lg border border-border"
             >
-              <div className="relative w-10 h-10 bg-muted rounded-md overflow-hidden flex-shrink-0">
+              {item.image && (
+
+                <div className="relative w-10 h-10 bg-muted rounded-md overflow-hidden flex-shrink-0">
                 <Image
                   fill
                   src={item.image || "/placeholder.svg"}
                   alt={item.name}
                   className="object-cover"
-                />
+                  />
               </div>
+                )}
 
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{item.name}</p>

@@ -5,10 +5,10 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { menuItems } from "@/data/menu-data"; // adjust path if needed
 
-// Build categories dynamically from menuItems keys
-const categories = Object.keys(menuItems).map((key) => ({
+// Build categories dynamically from the first item's category in each group
+const categories = Object.entries(menuItems).map(([key, items]) => ({
   id: key,
-  label: key.charAt(0).toUpperCase() + key.slice(1), // capitalize
+  label: items[0]?.category || key, // use category from data
 }));
 
 export default function StickyCategoryNav() {
@@ -48,7 +48,6 @@ export default function StickyCategoryNav() {
 
   return (
     <div className="sticky top-20 z-30 bg-background/80 backdrop-blur-md border-b border-border flex items-center gap-2 max-sm:flex-row-reverse">
-      {/* Scrollable Categories (takes remaining space) */}
       <ScrollArea className="w-full">
         <div className="flex space-x-4 sm:space-x-6 py-4 px-2">
           {categories.map((cat) => (

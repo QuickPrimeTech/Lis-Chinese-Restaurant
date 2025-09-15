@@ -354,5 +354,442 @@ export const menuItems: Record<string, Item[]> = {
       price: 1900,
       category: "Starters",
     },
+  ],
+  beefDishes: [
+  {
+    id: "beef1",
+    name: "Beef with Onions",
+    description: "Tender beef stir-fried with onions in a savory sauce.",
+    price: 1250,
+    category: "Beef Dishes",
+  },
+  {
+    id: "beef2",
+    name: "Beef with Mushroom",
+    description: "Juicy beef slices cooked with fresh mushrooms in a rich sauce.",
+    price: 1250,
+    category: "Beef Dishes",
+  },
+  {
+    id: "beef3",
+    name: "Beef with Broccoli",
+    description: "Classic beef stir-fry with broccoli in a savory sauce.",
+    price: 1250,
+    category: "Beef Dishes",
+  },
+  {
+    id: "beef4",
+    name: "Beef with Green Pepper",
+    description: "Stir-fried beef with crisp green peppers in a flavorful sauce.",
+    price: 1250,
+    category: "Beef Dishes",
+  },
+  {
+    id: "beef5",
+    name: "Beef in Black Bean Sauce",
+    description: "Beef cooked in a rich and aromatic black bean sauce.",
+    price: 1250,
+    category: "Beef Dishes",
+  },
+  {
+    id: "beef6",
+    name: "Beef in Oyster Sauce",
+    description: "Stir-fried beef in a savory oyster sauce.",
+    price: 1250,
+    category: "Beef Dishes",
+  },
+  {
+    id: "beef7",
+    name: "Chili Garlic Beef (Dry)",
+    description: "Spicy dry-fried beef with chili and garlic.",
+    price: 1400,
+    category: "Beef Dishes",
+  },
+  {
+    id: "beef8",
+    name: "Chili Garlic Beef (With Sauce)",
+    description: "Beef stir-fried with chili and garlic in a rich sauce.",
+    price: 1400,
+    category: "Beef Dishes",
+  },
+  {
+    id: "beef9",
+    name: "Sizzling Beef",
+    description: "Hot sizzling beef cooked with special spices.",
+    price: 1450,
+    category: "Beef Dishes",
+  },
+  {
+    id: "beef10",
+    name: "Shredded Beef with Beansprouts",
+    description: "Shredded beef stir-fried with fresh beansprouts.",
+    price: 1250,
+    category: "Beef Dishes",
+  },
+],
+lambDishes: [
+  {
+    id: "lamb1",
+    name: "Lamb with Onion",
+    description: "Tender lamb stir-fried with onions in a savory sauce.",
+    price: 1250,
+    category: "Lamb Dishes",
+  },
+  {
+    id: "lamb2",
+    name: "Lamb with Mushroom",
+    description: "Juicy lamb slices cooked with fresh mushrooms in a rich sauce.",
+    price: 1250,
+    category: "Lamb Dishes",
+  },
+  {
+    id: "lamb3",
+    name: "Lamb with Broccoli",
+    description: "Classic lamb stir-fry with broccoli in a savory sauce.",
+    price: 1250,
+    category: "Lamb Dishes",
+  },
+  {
+    id: "lamb4",
+    name: "Lamb with Green Pepper",
+    description: "Stir-fried lamb with crisp green peppers in a flavorful sauce.",
+    price: 1250,
+    category: "Lamb Dishes",
+  },
+  {
+    id: "lamb5",
+    name: "Lamb in Black Bean Sauce",
+    description: "Lamb cooked in a rich and aromatic black bean sauce.",
+    price: 1250,
+    category: "Lamb Dishes",
+  },
+  {
+    id: "lamb6",
+    name: "Schezwan Lamb",
+    description: "Spicy Szechwan-style lamb stir-fry with bold flavors.",
+    price: 1250,
+    category: "Lamb Dishes",
+  },
+  {
+    id: "lamb7",
+    name: "Dry Chilli Garlic Lamb",
+    description: "Spicy dry-fried lamb with chili and garlic.",
+    price: 1400,
+    category: "Lamb Dishes",
+  },
+  {
+    id: "lamb8",
+    name: "Shredded Lamb with Beansprouts",
+    description: "Thinly shredded lamb stir-fried with fresh beansprouts.",
+    price: 1250,
+    category: "Lamb Dishes",
+  },
+  {
+    id: "lamb9",
+    name: "Shredded Lamb with Beansprouts (Special)",
+    description: "Shredded lamb cooked with beansprouts in a special style.",
+    price: 1500,
+    category: "Lamb Dishes",
+  },
+],
+seafood: [
+    {
+      id: "seafood71",
+      name: "Dry Chilli Garlic Prawns",
+      description: "Succulent prawns tossed in a fiery dry chilli and garlic sauce.",
+      price: 1900,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood72",
+      name: "Prawns in Chilli Garlic Sauce",
+      description: "Plump prawns bathed in a rich and aromatic chilli garlic sauce.",
+      price: 1900,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood73",
+      name: "Shanghai Style Prawns",
+      description: "A classic Shanghai dish featuring sweet and tender prawns.",
+      price: 1900,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood74",
+      name: "Prawns in Schezwan Sauce",
+      description: "Juicy prawns stir-fried in a bold and spicy Schezwan sauce.",
+      price: 1900,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood75",
+      name: "Li's Prawn Hot Pot with Cashewnuts",
+      description: "A flavorful hot pot with prawns and crunchy cashewnuts.",
+      price: 1900,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood76",
+      name: "Sizzling Prawns",
+      description: "Prawns served on a sizzling hot plate with a savory sauce.",
+      price: 2000,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood77",
+      name: "Lemon Prawns",
+      description: "Lightly battered prawns in a refreshing and zesty lemon sauce.",
+      price: 1900,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood78",
+      name: "Sweet & Sour Prawns",
+      description: "Prawns coated in a classic tangy sweet and sour sauce with bell peppers and pineapple.",
+      price: 1900,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood79",
+      name: "Sweet & Sour Fish",
+      description: "Crispy fried fish pieces in a delightful sweet and sour sauce.",
+      price: 1350,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood80",
+      name: "Shanghai Style Fish",
+      description: "Tender fish fillets prepared in an authentic Shanghai-style sauce.",
+      price: 1350,
+      category: "Sea Food Dishes"
+    },
+    {
+      id: "seafood81",
+      name: "Schezwan Spicy Fish",
+      description: "Fish fillets stir-fried in a fiery and numbing Schezwan sauce.",
+      price: 1350,
+      category: "Sea Food Dishes"
+    }
+  ],
+  vegetableDishes: [
+    {
+      id: "veg93",
+      name: "Mixed Vegetables",
+      description: "A vibrant stir-fry of fresh, seasonal mixed vegetables.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg94",
+      name: "Stir Fried Pak Choi",
+      description: "Tender pak choi quickly stir-fried with garlic and a light sauce.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg95",
+      name: "Stir Fried Beansprouts",
+      description: "Crisp beansprouts stir-fried for a light and refreshing dish.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg96",
+      name: "Stir Fried Chinese Salad",
+      description: "A medley of fresh Chinese vegetables, stir-fried to perfection.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg97",
+      name: "Stir Fried Snow Peas",
+      description: "Sweet and crisp snow peas stir-fried with a delicate sauce.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg98",
+      name: "Garlic Broccoli",
+      description: "Fresh broccoli florets stir-fried with aromatic garlic.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg99",
+      name: "Schezwan Eggplant",
+      description: "Tender eggplant pieces in a bold and spicy Schezwan sauce.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg100",
+      name: "Special Green Vegetables",
+      description: "Our chef's selection of fresh green vegetables, prepared in a special house sauce.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg101",
+      name: "Chilli Garlic French Beans",
+      description: "Crisp French beans stir-fried with spicy chilli and fragrant garlic.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg102",
+      name: "Chilli Corn",
+      description: "Sweet corn kernels stir-fried with a spicy and flavorful chilli sauce.",
+      price: 1150,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg103",
+      name: "Tofu in Black Sauce",
+      description: "Soft tofu cubes braised in a rich and savory black bean sauce.",
+      price: 1200,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg104",
+      name: "Vegetables Fu-Yung",
+      description: "A classic dish of vegetables cooked in a light and fluffy egg batter.",
+      price: 1200,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg105",
+      name: "Mapau Tofu (Pili-Pili Tofu)",
+      description: "Tender tofu and vegetables in a spicy and aromatic Mapau sauce.",
+      price: 1350,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg106",
+      name: "Home Cooked Tofu",
+      description: "Tofu and mixed vegetables stir-fried in a traditional home-style sauce.",
+      price: 1350,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg107",
+      name: "Mixed Vegetables Hot Pot",
+      description: "A hearty and warming hot pot filled with a variety of fresh vegetables.",
+      price: 1350,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg108",
+      name: "Vegetables Manchurian",
+      description: "Vegetable dumplings in a spicy, tangy Manchurian sauce.",
+      price: 1200,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg109",
+      name: "Sizzling Mixed Vegetables",
+      description: "A medley of vegetables served sizzling on a hot plate.",
+      price: 1400,
+      category: "Vegetable Dishes"
+    },
+    {
+      id: "veg110",
+      name: "Kung Pao Vegetables with Cashewnuts",
+      description: "A savory and slightly sweet Kung Pao dish with vegetables and crunchy cashewnuts.",
+      price: 1400,
+      category: "Vegetable Dishes"
+    }
+  ],
+  riceNoodles: [
+    {
+      id: "rn111",
+      name: "Steamed Rice",
+      description: "Perfectly cooked, fluffy steamed rice.",
+      price: 700,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn112",
+      name: "Plain Fried Rice",
+      description: "Simple yet delicious fried rice with a touch of seasoning.",
+      price: 700,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn113",
+      name: "Vegetable Fried Rice",
+      description: "Wok-fried rice with a colorful mix of fresh vegetables.",
+      price: 750,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn114a",
+      name: "Fried Rice with Egg",
+      description: "Classic fried rice with scrambled egg.",
+      price: 900,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn114b",
+      name: "Fried Rice with Cashew Nuts",
+      description: "Fried rice with the added crunch of toasted cashew nuts.",
+      price: 900,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn115a",
+      name: "Special Rice with Prawns",
+      description: "Our special fried rice with succulent prawns.",
+      price: 950,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn115b",
+      name: "Special Rice with Chicken",
+      description: "Our special fried rice with tender pieces of chicken.",
+      price: 950,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn115c",
+      name: "Special Rice with Prawns & Chicken",
+      description: "Our special fried rice with both prawns and chicken.",
+      price: 950,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn116",
+      name: "Vegetable Fried Noodles",
+      description: "Stir-fried noodles with a medley of fresh vegetables.",
+      price: 750,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn117",
+      name: "Chicken Fried Noodles",
+      description: "Stir-fried noodles with savory chicken pieces.",
+      price: 900,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn118",
+      name: "Chilli Garlic Noodles",
+      description: "Noodles tossed in a spicy and aromatic chilli garlic sauce.",
+      price: 750,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn119",
+      name: "Singapore Noodles",
+      description: "Thin rice noodles stir-fried with curry powder and vegetables.",
+      price: 750,
+      category: "Rice & Noodles"
+    },
+    {
+      id: "rn120",
+      name: "Plain Fried Noodles",
+      description: "Simple stir-fried noodles seasoned to perfection.",
+      price: 750,
+      category: "Rice & Noodles"
+    }
   ]
 };

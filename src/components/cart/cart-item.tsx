@@ -42,7 +42,8 @@ export function CartItem({ item }: CartItemProps) {
       <div className="w-full flex flex-col gap-5 p-4 border rounded-lg bg-card border-border">
         {/* Product Image */}
         <div className="flex items-center gap-4">
-          <div className="relative w-16 h-16 bg-muted rounded-md overflow-hidden flex-shrink-0">
+          {item.image && (
+            <div className="relative w-16 h-16 bg-muted rounded-md overflow-hidden flex-shrink-0">
             <Image
               src={item.image || "/placeholder.svg"}
               alt={item.name}
@@ -50,6 +51,7 @@ export function CartItem({ item }: CartItemProps) {
               className="w-full h-full object-cover"
             />
           </div>
+          )}
 
           {/* Product Details */}
           <div className="flex-1 min-w-0">

@@ -47,14 +47,16 @@ export function CartSuccess({ items, total, onClose }: CartSuccessProps) {
                 key={item.id}
                 className="flex items-center gap-3 p-2 bg-background/50 rounded-lg border border-border/40"
               >
+                {item.image && 
                 <div className="relative w-12 h-12 rounded-md overflow-hidden flex-shrink-0">
                   <Image
                     fill
                     src={item.image || "/placeholder.svg"}
                     alt={item.name}
                     className="object-cover"
-                  />
+                    />
                 </div>
+                }
                 <div className="flex-1 min-w-0 text-left">
                   <p className="text-sm font-medium truncate">{item.name}</p>
                   <p className="text-xs text-muted-foreground">
