@@ -57,25 +57,24 @@ export function AnimatedNumberCountdown({
 
     calculateTimeLeft();
     const timer = setInterval(calculateTimeLeft, 1000);
-
     return () => clearInterval(timer);
   }, [endDate, startDate]);
 
   // Compact inline preview
   if (compactPreview) {
     return (
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex items-center justify-center gap-3 sm:gap-4">
         {TIME_PARTS.map(({ key, label }) => (
           <div
             key={key}
-            className="flex flex-col bg-primary/20 items-center px-3 py-2 rounded-md"
+            className="flex flex-col bg-primary/20 items-center px-2 sm:px-3 py-1 sm:py-2 rounded-md"
           >
             <NumberFlow
               value={timeLeft[key]}
-              className="text-3xl sm:text-4xl font-bold text-foreground leading-none"
+              className="text-xl sm:text-3xl font-bold text-foreground leading-none"
               format={{ minimumIntegerDigits: 2 }}
             />
-            <span className="text-xs uppercase tracking-wide text-muted-foreground mt-1">
+            <span className="text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground mt-0.5 sm:mt-1">
               {label}
             </span>
           </div>
@@ -86,21 +85,21 @@ export function AnimatedNumberCountdown({
 
   // Full layout with responsive grid
   return (
-    <div className={`w-full max-w-4xl mx-auto px-4 ${className}`}>
+    <div className={`w-full max-w-4xl mx-auto px-2 sm:px-4 ${className}`}>
       {/* Mobile Layout (< 640px) */}
       <div className="sm:hidden">
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
           {TIME_PARTS.map(({ key, label }) => (
             <div
               key={key}
-              className="flex flex-col items-center rounded-lg p-3 bg-card border border-border"
+              className="flex flex-col items-center rounded-lg p-2 bg-card border border-border"
             >
               <NumberFlow
                 value={timeLeft[key]}
-                className="text-2xl font-semibold tracking-tighter text-primary"
+                className="text-xl font-semibold tracking-tighter text-primary"
                 format={{ minimumIntegerDigits: 2 }}
               />
-              <span className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
+              <span className="mt-1 text-[10px] uppercase tracking-wide text-muted-foreground">
                 {label}
               </span>
             </div>
@@ -109,15 +108,15 @@ export function AnimatedNumberCountdown({
       </div>
 
       {/* Tablet Layout (640px - 1024px) */}
-      <div className="hidden sm:flex lg:hidden items-center justify-center gap-6">
+      <div className="hidden sm:flex lg:hidden items-center justify-center gap-4 sm:gap-6">
         {TIME_PARTS.map(({ key, label }) => (
           <div key={key} className="flex flex-col items-center">
             <NumberFlow
               value={timeLeft[key]}
-              className="text-3xl font-semibold tracking-tighter text-foreground"
+              className="text-2xl sm:text-3xl font-semibold tracking-tighter text-foreground"
               format={{ minimumIntegerDigits: 2 }}
             />
-            <span className="mt-1 text-sm uppercase tracking-wide text-muted-foreground">
+            <span className="mt-1 text-xs sm:text-sm uppercase tracking-wide text-muted-foreground">
               {label}
             </span>
           </div>
@@ -125,15 +124,15 @@ export function AnimatedNumberCountdown({
       </div>
 
       {/* Desktop Layout (>= 1024px) */}
-      <div className="hidden lg:flex items-center justify-center gap-8">
+      <div className="hidden lg:flex items-center justify-center gap-6 lg:gap-8">
         {TIME_PARTS.map(({ key, label }) => (
           <div key={key} className="flex flex-col items-center">
             <NumberFlow
               value={timeLeft[key]}
-              className="text-5xl font-semibold tracking-tighter text-primary"
+              className="text-4xl lg:text-5xl font-semibold tracking-tighter text-primary"
               format={{ minimumIntegerDigits: 2 }}
             />
-            <span className="mt-2 text-sm uppercase tracking-wide text-muted-foreground">
+            <span className="mt-1 lg:mt-2 text-sm uppercase tracking-wide text-muted-foreground">
               {label}
             </span>
           </div>
@@ -145,7 +144,7 @@ export function AnimatedNumberCountdown({
 
 export function AnimatedNumberCountdownShowcase() {
   return (
-    <div className="flex flex-col p-4 bg-background">
+    <div className="flex flex-col p-4">
       <AnimatedNumberCountdown
         endDate={new Date("2025-10-09")}
         className="my-4"

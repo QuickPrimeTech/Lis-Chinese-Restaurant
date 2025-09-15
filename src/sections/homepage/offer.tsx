@@ -53,8 +53,8 @@ export const OfferSection = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-dark">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20">
+      <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-card border border-primary/20 rounded-2xl p-12 shadow-luxury">
             {/* Heading */}
@@ -67,7 +67,7 @@ export const OfferSection = () => {
             </p>
 
             {/* Coupon Code */}
-            <div className="bg-background border-2 border-dashed border-primary rounded-lg p-6 mb-8 inline-block">
+            <div className="border-2 border-dashed border-primary rounded-lg p-6 mb-8 inline-block">
               <div className="flex items-center justify-center gap-4">
                 <span className="text-2xl font-cinzel font-bold text-primary">
                   {couponCode}
