@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import {
   Carousel,
@@ -58,13 +60,20 @@ export const TestimonialCarousel = () => {
     },
   ];
 
-  const renderStars = (rating: number) => {
-    return Array(rating)
+  const renderStars = (rating: number, size: number = 4) =>
+    Array(rating)
       .fill(0)
       .map((_, index) => (
-        <Star key={index} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+        <Star
+          key={index}
+          className={`h-${size} w-${size} fill-yellow-500 text-yellow-500`}
+        />
       ));
-  };
+
+  // Calculate summary
+  const totalReviews = testimonials.length;
+  const avgRating =
+    testimonials.reduce((acc, t) => acc + t.rating, 0) / totalReviews;
 
   return (
     <section className="py-20 bg-card">
@@ -134,6 +143,21 @@ export const TestimonialCarousel = () => {
           <CarouselPrevious className="text-primary border-primary hover:bg-primary hover:text-primary-foreground" />
           <CarouselNext className="text-primary border-primary hover:bg-primary hover:text-primary-foreground" />
         </Carousel>
+
+        {/* Reviews Summary */}
+        <div className="mt-12 text-center">
+          <div className="inline-flex items-center justify-center gap-3 bg-background/20 backdrop-blur-md border border-white/20 rounded-xl px-6 py-4 shadow-lg">
+            <div className="flex items-center gap-1">
+              {renderStars(Math.round(avgRating), 5)}
+              <span className="text-white font-cinzel font-semibold text-xl">
+                {avgRating.toFixed(1)}
+              </span>
+            </div>
+            <span className="text-white/80 font-chivo text-lg">
+              ({totalReviews} Reviews)
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   );

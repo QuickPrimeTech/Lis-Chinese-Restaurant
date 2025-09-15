@@ -1,3 +1,4 @@
+import { AboutSection } from "@/sections/homepage/about";
 import { ContactSection } from "@/sections/homepage/contact";
 import { CTASection } from "@/sections/homepage/CTA";
 import { FAQSection } from "@/sections/homepage/FAQs";
@@ -14,6 +15,7 @@ export default function Home() {
       <MenuPreview />
       <OfferSection />
       <TestimonialCarousel />
+      <AboutSection />
       <CTASection />
       <ContactSection />
       <FAQSection />

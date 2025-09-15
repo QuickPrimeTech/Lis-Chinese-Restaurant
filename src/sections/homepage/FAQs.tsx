@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-
+import Link from "next/link";
 export const FAQSection = () => {
   const faqs = [
     {
@@ -88,11 +88,12 @@ export const FAQSection = () => {
               Still have questions? We&apos;re here to help.
             </p>
             <Button
+              asChild
               size="lg"
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
             >
-              Contact Our Team
+              <Link href="/contact">Contact Our Team</Link>
             </Button>
           </div>
         </div>

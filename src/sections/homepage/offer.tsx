@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { AnimatedNumberCountdownShowcase } from "@/components/animated-number";
+import Link from "next/link";
 
 export const OfferSection = () => {
   const [, setTimeLeft] = useState({
@@ -103,7 +104,9 @@ export const OfferSection = () => {
               size="lg"
               className="bg-gradient-primary hover:shadow-glow transition-all duration-300 text-lg px-10 py-6"
             >
+              <Link href={"/reservations"}>
               Book Your Table Now
+              </Link>
             </Button>
 
             {/* Terms */}

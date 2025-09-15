@@ -1,9 +1,8 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -75,9 +74,15 @@ export const HeroSection = () => {
                   {slide.subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
-                  <Button size="lg">Book a Table</Button>
-                  <Button variant="outline" size="lg">
+                  <Button size="lg" asChild>
+                    <Link href={"/reservations"}>
+                    Book a Table
+                    </Link>
+                    </Button>
+                  <Button variant="outline" size="lg" asChild>
+                    <Link href={"/menu"}>
                     Order Now
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -86,19 +91,6 @@ export const HeroSection = () => {
         </div>
       ))}
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-background/20 hover:bg-background/40 text-primary p-3 rounded-full transition-all duration-300 backdrop-blur-sm"
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-background/20 hover:bg-background/40 text-primary p-3 rounded-full transition-all duration-300 backdrop-blur-sm"
-      >
-        <ChevronRight className="h-6 w-6" />
-      </button>
 
       {/* Slide Indicators */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex space-x-3">

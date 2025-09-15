@@ -5,8 +5,6 @@ export type Item = {
   name: string;
   description: string;
   price: number;
-  image: string;
+  image?: string;
   category: string;
-  rating: number;
-  prepTime: number;
 };
