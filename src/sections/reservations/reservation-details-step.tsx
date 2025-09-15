@@ -82,7 +82,7 @@ export const ReservationDetailsStep = ({ form, timeSlots, guestCounts }: Reserva
             <FormLabel className="font-medium">Time <span className="text-destructive">*</span></FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
-                <SelectTrigger className="transition-all duration-200 hover:border-primary/50">
+                <SelectTrigger className="w-full transition-all duration-200 hover:border-primary/50">
                   <SelectValue placeholder="Choose time" />
                 </SelectTrigger>
               </FormControl>
@@ -106,7 +106,7 @@ export const ReservationDetailsStep = ({ form, timeSlots, guestCounts }: Reserva
             <FormLabel className="font-medium">Guests <span className="text-destructive">*</span></FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
-                <SelectTrigger className="transition-all duration-200 hover:border-primary/50">
+                <SelectTrigger className="w-full transition-all duration-200 hover:border-primary/50">
                   <SelectValue placeholder="Number of guests" />
                 </SelectTrigger>
               </FormControl>
