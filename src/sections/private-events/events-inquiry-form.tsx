@@ -1,139 +1,156 @@
-"use client";
+// @/sections/private-events/events-inquiry-form.tsx
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { format } from "date-fns";
-import { CalendarIcon, CheckCircle } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { CheckCircle, ArrowLeft, ArrowRight } from "lucide-react";
+import { StepIndicator } from "./inquiry-form/step-indicator";
+import { ContactInfoStep } from "./inquiry-form/contact-info";
+import { EventDetailsStep } from "./inquiry-form/event-details";
+import { AdditionalDetailsStep } from "./inquiry-form/additional-details";
+import { ReviewStep } from "./inquiry-form/review-step";
 import { cn } from "@/lib/utils";
 
-const EventInquiryForm = ({ selectedPackage }: { selectedPackage: string }) => {
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  company: string;
+  eventType: string;
+  guests: string;
+  budget: string;
+  details: string;
+}
+
+interface FormErrors {
+  [key: string]: string;
+}
+
+const initialFormData: FormData = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  company: "",
+  eventType: "",
+  guests: "",
+  budget: "",
+  details: "",
+};
+
+export default function EventInquiryForm() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState<FormData>(initialFormData);
   const [date, setDate] = useState<Date>();
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    company: "",
-    eventType: selectedPackage || "",
-    guests: "",
-    budget: "",
-    details: "",
-  });
 
-  const eventTypes = [
-    "Corporate Meeting",
-    "Business Dinner",
-    "Product Launch",
-    "Wedding Reception",
-    "Anniversary Celebration",
-    "Birthday Party",
-    "Holiday Party",
-    "Networking Event",
-    "Team Building",
-    "Retirement Party",
-    "Other",
-  ];
+  const totalSteps = 4;
 
-  const guestCounts = ["8-12", "13-20", "21-30", "31-50", "51+"];
-  const budgetRanges = [
-    "$2,000-$5,000",
-    "$5,000-$10,000",
-    "$10,000-$20,000",
-    "$20,000+",
-  ];
+  const validateStep = (step: number): boolean => {
+    const newErrors: FormErrors = {};
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (step === 1) {
+      if (!formData.firstName.trim())
+        newErrors.firstName = "First name is required";
+      if (!formData.lastName.trim())
+        newErrors.lastName = "Last name is required";
+      if (!formData.email.trim()) newErrors.email = "Email is required";
+      else if (!/\S+@\S+\.\S+/.test(formData.email))
+        newErrors.email = "Email is invalid";
+      if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
+    }
+
+    if (step === 2) {
+      if (!formData.eventType) newErrors.eventType = "Event type is required";
+      if (!formData.guests) newErrors.guests = "Number of guests is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitted(true);
+  const handleNext = () => {
+    if (validateStep(currentStep)) {
+      setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
+    }
+  };
+
+  const handlePrev = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleStepChange = (step: number) => {
+    setCurrentStep(step);
+  };
+
+  const handleFieldChange = (field: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: "" }));
+    }
+  };
+
+  const handleSubmit = () => {
+    if (validateStep(currentStep)) {
+      setIsSubmitted(true);
+    }
+  };
+
+  const handleReset = () => {
+    setIsSubmitted(false);
+    setCurrentStep(1);
+    setFormData(initialFormData);
+    setDate(undefined);
+    setErrors({});
   };
 
   if (isSubmitted) {
     return (
-      <div className="max-w-2xl mx-auto text-center">
+      <div className="max-w-2xl mx-auto text-center animate-slide-in">
         <CheckCircle className="h-20 w-20 text-primary mx-auto mb-6 animate-glow" />
-        <h1 className="text-4xl md:text-5xl font-cinzel font-bold text-foreground mb-6">
+        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
           Event Inquiry Received!
         </h1>
-        <p className="text-xl text-muted-foreground font-chivo leading-relaxed mb-8">
+        <p className="text-xl text-muted-foreground leading-relaxed mb-8">
           Thank you for your interest. Our event specialist will contact you
-          within 24 hours.
+          within 24 hours to discuss your requirements.
         </p>
 
-        <Card className="bg-card border-primary/20 shadow-luxury">
+        <Card className="shadow-elegant bg-gradient-subtle">
           <CardContent className="p-8 text-left">
-            <h3 className="font-cinzel font-semibold text-2xl text-foreground mb-6 text-center">
-              Your Event Details
+            <h3 className="font-semibold text-2xl text-foreground mb-6 text-center">
+              Your Event Summary
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <span className="text-muted-foreground font-chivo">
-                  Contact:
-                </span>
-                <p className="font-chivo font-semibold">
+                <span className="text-muted-foreground">Contact:</span>
+                <p className="font-semibold">
                   {formData.firstName} {formData.lastName}
                 </p>
               </div>
               <div>
-                <span className="text-muted-foreground font-chivo">
-                  Event Type:
-                </span>
-                <p className="font-chivo font-semibold">{formData.eventType}</p>
+                <span className="text-muted-foreground">Event Type:</span>
+                <p className="font-semibold">{formData.eventType}</p>
               </div>
               <div>
-                <span className="text-muted-foreground font-chivo">Date:</span>
-                <p className="font-chivo font-semibold">
-                  {date ? format(date, "PPP") : "To be discussed"}
+                <span className="text-muted-foreground">Date:</span>
+                <p className="font-semibold">
+                  {date ? date.toLocaleDateString() : "To be discussed"}
                 </p>
               </div>
               <div>
-                <span className="text-muted-foreground font-chivo">
-                  Guests:
-                </span>
-                <p className="font-chivo font-semibold">
-                  {formData.guests} people
-                </p>
+                <span className="text-muted-foreground">Guests:</span>
+                <p className="font-semibold">{formData.guests} people</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
         <Button
-          onClick={() => {
-            setIsSubmitted(false);
-            setFormData({
-              firstName: "",
-              lastName: "",
-              email: "",
-              phone: "",
-              company: "",
-              eventType: "",
-              guests: "",
-              budget: "",
-              details: "",
-            });
-            setDate(undefined);
-          }}
+          onClick={handleReset}
           variant="outline"
           className="mt-6 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
         >
@@ -144,194 +161,108 @@ const EventInquiryForm = ({ selectedPackage }: { selectedPackage: string }) => {
   }
 
   return (
-    <Card className="bg-card border-border shadow-luxury">
-      <CardHeader className="text-center">
-        <CardTitle className="font-cinzel text-3xl mb-2">
-          Event Inquiry Form
-        </CardTitle>
-        <p className="text-muted-foreground font-chivo">
-          Tell us about your vision and we&apos;ll create a personalized
-          proposal
-        </p>
-      </CardHeader>
-      <CardContent className="p-8">
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Contact Information */}
-          <div>
-            <h3 className="font-cinzel font-semibold text-xl mb-4">
-              Contact Information
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="firstName">First Name *</Label>
-                <Input
-                  id="firstName"
-                  required
-                  value={formData.firstName}
-                  onChange={(e) =>
-                    handleInputChange("firstName", e.target.value)
-                  }
+    <div className="max-w-4xl mx-auto">
+      <Card className="shadow-elegant bg-gradient-subtle">
+        <CardHeader className="text-center pb-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+            Private Event Booking
+          </h1>
+          <p className="text-muted-foreground">
+            Tell us about your vision and we'll create a personalized proposal
+          </p>
+        </CardHeader>
+
+        <CardContent className="p-6 md:p-8">
+          <StepIndicator currentStep={currentStep} totalSteps={totalSteps} />
+
+          <div className="min-h-[400px]">
+            {currentStep === 1 && (
+              <ContactInfoStep
+                data={{
+                  firstName: formData.firstName,
+                  lastName: formData.lastName,
+                  email: formData.email,
+                  phone: formData.phone,
+                  company: formData.company,
+                }}
+                onChange={handleFieldChange}
+                errors={errors}
+              />
+            )}
+
+            {currentStep === 2 && (
+              <EventDetailsStep
+                data={{
+                  eventType: formData.eventType,
+                  guests: formData.guests,
+                  budget: formData.budget,
+                }}
+                date={date}
+                onChange={handleFieldChange}
+                onDateChange={setDate}
+                errors={errors}
+              />
+            )}
+
+            {currentStep === 3 && (
+              <AdditionalDetailsStep
+                details={formData.details}
+                onChange={(value) => handleFieldChange("details", value)}
+              />
+            )}
+
+            {currentStep === 4 && (
+              <ReviewStep
+                data={formData}
+                date={date}
+                onEdit={handleStepChange}
+              />
+            )}
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex justify-between items-center mt-8 pt-6 border-t border-border">
+            <Button
+              variant="outline"
+              onClick={handlePrev}
+              disabled={currentStep === 1}
+              className={cn(
+                "transition-all duration-300",
+                currentStep === 1 && "opacity-50 cursor-not-allowed"
+              )}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Previous
+            </Button>
+
+            <div className="flex space-x-2">
+              {Array.from({ length: totalSteps }, (_, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-all duration-300",
+                    i + 1 <= currentStep
+                      ? "bg-primary"
+                      : "bg-muted-foreground/30"
+                  )}
                 />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name *</Label>
-                <Input
-                  id="lastName"
-                  required
-                  value={formData.lastName}
-                  onChange={(e) =>
-                    handleInputChange("lastName", e.target.value)
-                  }
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address *</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => handleInputChange("email", e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number *</Label>
-                <Input
-                  id="phone"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => handleInputChange("phone", e.target.value)}
-                />
-              </div>
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="company">Company/Organization</Label>
-                <Input
-                  id="company"
-                  value={formData.company}
-                  onChange={(e) => handleInputChange("company", e.target.value)}
-                />
-              </div>
+              ))}
             </div>
+
+            {currentStep < totalSteps ? (
+              <Button onClick={handleNext} className="bg-gradient-primary">
+                Next
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            ) : (
+              <Button onClick={handleSubmit} className="bg-gradient-primary">
+                Submit Inquiry
+                <CheckCircle className="w-4 h-4 ml-2" />
+              </Button>
+            )}
           </div>
-
-          {/* Event Details */}
-          <div>
-            <h3 className="font-cinzel font-semibold text-xl mb-4">
-              Event Details
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label>Event Type *</Label>
-                <Select
-                  value={formData.eventType}
-                  onValueChange={(value) =>
-                    handleInputChange("eventType", value)
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select event type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {eventTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label>Preferred Date</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className={cn(
-                        "w-full justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {date ? format(date, "PPP") : <span>Select date</span>}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      disabled={(day) => day < new Date()}
-                      initialFocus
-                      className="p-3 pointer-events-auto"
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-
-              <div className="space-y-2">
-                <Label>Number of Guests *</Label>
-                <Select
-                  value={formData.guests}
-                  onValueChange={(value) => handleInputChange("guests", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select guest count" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {guestCounts.map((count) => (
-                      <SelectItem key={count} value={count}>
-                        {count} guests
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label>Estimated Budget</Label>
-                <Select
-                  value={formData.budget}
-                  onValueChange={(value) => handleInputChange("budget", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select budget range" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {budgetRanges.map((range) => (
-                      <SelectItem key={range} value={range}>
-                        {range}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
-
-          {/* Additional Details */}
-          <div className="space-y-2">
-            <Label htmlFor="details">Event Details & Special Requests</Label>
-            <Textarea
-              id="details"
-              rows={6}
-              value={formData.details}
-              onChange={(e) => handleInputChange("details", e.target.value)}
-              placeholder="Tell us about your vision, dietary requirements, entertainment needs, decoration preferences, etc."
-            />
-          </div>
-
-          <Button
-            type="submit"
-            size="lg"
-            className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300 text-lg py-6"
-          >
-            Submit Event Inquiry
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
-};
-
-export default EventInquiryForm;
+}

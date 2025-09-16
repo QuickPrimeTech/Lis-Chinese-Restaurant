@@ -1,22 +1,21 @@
-"use client";
-
-import { useState } from "react";
+import { Metadata } from "next";
 import Hero from "@/sections/private-events/hero";
-import EventPackages from "@/sections/private-events/event-packages";
-import WhyChooseUs from "@/sections/private-events/why-choose-us";
-import EventInquiryForm from "@/sections/private-events/events-inquiry-form";
+import { EventsContent } from "@/sections/private-events/events-content";
+
+export const metadata: Metadata = {
+  title:
+    "Private Events at Li's Chinese Restaurant Nairobi | Parties, Weddings & Celebrations",
+  description:
+    "Host your private events at Li's Chinese Restaurant in Nairobi. Perfect for birthdays, weddings, office parties, and special celebrations. Enjoy fine Chinese dining, custom packages, and a welcoming space for you and your guests.",
+};
 
 const PrivateEventsPage = () => {
-  const [selectedPackage, setSelectedPackage] = useState("");
+  // const [selectedPackage, setSelectedPackage] = useState("");
 
   return (
     <div className="min-h-screen bg-background">
       <Hero />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
-        <EventPackages onSelectPackage={setSelectedPackage} />
-        <EventInquiryForm selectedPackage={selectedPackage} />
-        <WhyChooseUs />
-      </div>
+      <EventsContent />
     </div>
   );
 };
