@@ -99,7 +99,7 @@ export default function StickyCategoryNav() {
           className="pl-10 text-sm"
         />
         {suggestions.length > 0 && (
-          <ScrollArea className="absolute z-50 mt-1 w-full bg-card border border-border rounded-md shadow-lg max-h-60 overflow-y-auto">
+          <div className="absolute z-50 mt-1 w-full bg-card border border-border rounded-md shadow-lg max-h-60 overflow-y-auto">
             {suggestions.map((s) => (
               <div
                 key={s.id}
@@ -114,8 +114,7 @@ export default function StickyCategoryNav() {
                 <span className="text-muted-foreground">({s.category})</span>
               </div>
             ))}
-            <ScrollBar orientation="vertical" />
-          </ScrollArea>
+          </div>
         )}
       </div>
 
