@@ -17,7 +17,7 @@ export const AboutSection = () => {
       title: "Host a Private Event",
       description:
         "Celebrate your special occasions in style. Our private event spaces and tailored services ensure an unforgettable experience.",
-      image: "/instagram/private-event.jpg",
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758020425/private-event_tdby0l.jpg",
       ctaText: "Book Event",
       ctaLink: "/private-events",
       reverse: true,
