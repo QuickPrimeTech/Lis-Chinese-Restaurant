@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function GalleryHero() {
   return (
     <section className="relative h-96 overflow-hidden">
-      <Image src="/gallery-hero.jpg" alt="Gallery Hero" fill className="object-cover" />
+      <Image src="https://res.cloudinary.com/quick-prime-tech/image/upload/v1758014074/gallery16_zahxrh.webp" alt="Gallery Hero" fill className="object-cover" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/90" />
       <div className="relative z-10 flex items-center h-full text-center">
         <div className="container mx-auto px-4">

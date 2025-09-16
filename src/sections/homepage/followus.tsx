@@ -16,26 +16,16 @@ import Link from "next/link";
 export const FollowUs = () => {
   const instagramPosts = [
     {
-      image: "/insta-1.jpg",
-      caption:
-        "Artisanal gastronomy at its finest ✨ #Li's Chinese RestaurantDining #FineDining",
-      likes: "2,847",
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009338/gallery3_zpz3pb.jpg",
     },
     {
-      image: "/insta-2.jpg",
-      caption: "Crafted cocktails that tell a story 🥃 #Mixology #LuxuryDrinks",
-      likes: "1,923",
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009025/gallery2_yjwxyh.jpg",
     },
     {
-      image: "/insta-3.jpg",
-      caption: "Sweet perfection to end the perfect meal 🍰 #Dessert #Artistry",
-      likes: "3,156",
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009618/gallery5_how7kw.jpg",
     },
     {
-      image: "/insta-4.jpg",
-      caption:
-        "Curated wine selection from around the world 🍷 #Wine #Sommelier",
-      likes: "2,734",
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009796/gallery6_ntq2o5.jpg",
     },
   ];
 
@@ -131,18 +121,6 @@ export const FollowUs = () => {
                         fill
                         className="object-cover group-hover:scale-110 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <p className="text-foreground font-chivo text-sm mb-2">
-                            {post.caption}
-                          </p>
-                          <div className="flex items-center text-primary">
-                            <span className="text-xs font-chivo">
-                              ❤️ {post.likes} likes
-                            </span>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </CardContent>
                 </Card>

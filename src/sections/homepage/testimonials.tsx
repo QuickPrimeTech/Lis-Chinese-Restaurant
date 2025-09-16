@@ -141,7 +141,7 @@ export const TestimonialCarousel = () => {
         </Carousel>
 
         <div className="flex justify-center mt-6">
-          <Button asChild>
+          <Button asChild size={"lg"}>
             <Link
               href="https://www.google.com/maps/place/Li's+Chinese+Restaurant/@-1.2359985,32.1927563,7z/data=!4m12!1m2!2m1!1slis+chinese+restaurant!3m8!1s0x182f1774bd49e983:0x8cc5ef01c9b23983!8m2!3d-1.2359985!4d36.8070141!9m1!1b1!15sChZsaXMgY2hpbmVzZSByZXN0YXVyYW50WhgiFmxpcyBjaGluZXNlIHJlc3RhdXJhbnSSARJjaGluZXNlX3Jlc3RhdXJhbnSqAT8QATIfEAEiG1aTtrZDiAoomJPfEp1sUsniKQhzJPssT7Sr4zIaEAIiFmxpcyBjaGluZXNlIHJlc3RhdXJhbnTgAQA!16s%2Fg%2F11pvhrdjfy?entry=ttu&g_ep=EgoyMDI1MDkxMC4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"

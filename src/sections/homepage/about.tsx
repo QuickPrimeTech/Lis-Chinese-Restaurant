@@ -8,7 +8,7 @@ export const AboutSection = () => {
       title: "Reserve a Table",
       description:
         "Enjoy an exquisite dining experience in our elegant setting. Book a table and savor the flavors of our carefully curated menu.",
-      image: "/instagram/waiter.jpg",
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009338/gallery3_zpz3pb.jpg",
       ctaText: "Reserve Now",
       ctaLink: "/reservations",
       reverse: false,
