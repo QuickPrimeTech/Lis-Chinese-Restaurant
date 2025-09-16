@@ -4,27 +4,29 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
-    {
-      image: "/hero1.jpg",
-      title: "Exquisite Culinary Experience",
-      subtitle: "Where luxury meets exceptional taste in every bite",
-    },
-    {
-      image: "/hero2.jpg",
-      title: "Intimate Fine Dining",
-      subtitle: "Perfect ambiance for your most precious moments",
-    },
-    {
-      image: "/hero3.jpg",
-      title: "Artisanal Gastronomy",
-      subtitle: "Crafted by world-class chefs with passion and precision",
-    },
-  ];
+ const slides = [
+  {
+    image: "/hero1.jpg",
+    title: "Delicious Chinese Food",
+    subtitle: "Enjoy dim sum, noodles, and stir-fried favorites made fresh every day.",
+  },
+  {
+    image: "/hero2.jpg",
+    title: "A Place to Share",
+    subtitle: "Perfect for family dinners, hot pot with friends, or a cozy night out.",
+  },
+  {
+    image: "/hero3.jpg",
+    title: "Made with Care",
+    subtitle: "Our chefs use fresh ingredients and traditional recipes for every dish.",
+  },
+];
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -53,22 +55,24 @@ export const HeroSection = () => {
               priority={index === 0} // preload first slide for performance
               className="object-cover object-center"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/20 to-transparent" />
           </div>
 
           {/* Content */}
-          <div className="relative z-10 h-full flex items-center">
+          <div className="max-w-3xl relative z-10 h-full flex items-center">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="max-w-3xl">
-                <h1 className="text-5xl md:text-7xl font-cinzel font-bold text-foreground mb-6 animate-fade-in-up">
+                <h1 className="text-4xl text-center md:text-left md:text-7xl font-cinzel font-normal md:font-semibold text-foreground mb-6 animate-fade-in-up">
                   {slide.title}
                 </h1>
-                <p className="text-xl md:text-2xl font-chivo text-muted-foreground mb-8 animate-fade-in-up delay-300">
+                <p className="text-xl text-center md:text-left md:text-2xl font-chivo text-muted-foreground mb-8 animate-fade-in-up delay-300">
                   {slide.subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
                   <Button size="lg" asChild>
-                    <Link href="/reservations">Book a Table</Link>
+                    <Link href="/reservations">Book a Table
+                    <ArrowRight />
+                    </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
                     <Link href="/menu">Order Now</Link>
