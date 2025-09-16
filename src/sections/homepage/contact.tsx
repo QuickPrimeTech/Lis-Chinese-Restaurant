@@ -48,7 +48,7 @@ export const ContactSection = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" placeholder="+1 (555) 123-4567" />
+                  <Input id="phone" placeholder="+254 746815106" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="message">Message</Label>
@@ -102,7 +102,7 @@ export const ContactSection = () => {
                     Phone
                   </h3>
                   <p className="text-muted-foreground font-chivo">
-                    +1 (555) 123-LUXE
+                    0746815106
                     <br />
                     +1 (555) 123-5893
                   </p>

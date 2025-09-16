@@ -71,7 +71,7 @@ export default function ContactSuccess({
                         Urgent Matters
                       </p>
                       <p className="text-muted-foreground text-sm">
-                        Call us at +1 (555) 123-LUXE
+                        Call us at 0746815106
                       </p>
                     </div>
                   </div>

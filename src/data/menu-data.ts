@@ -7,6 +7,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Sweet Corn Soup",
       description: "Classic sweet corn soup",
       price: 550,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758021057/imgi_260_Creamy-Corn-Soup_dybssk.jpg",
       category: "Soups",
     },
     {
@@ -19,6 +20,7 @@ export const menuItems: Record<string, Item[]> = {
     {
       id: "soup3",
       name: "Vegetable Hot & Sour Soup",
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758021154/imgi_146_Hot-and-sour-soup-4_yjsmz4.jpg",
       description: "Spicy and tangy vegetable hot & sour soup",
       price: 550,
       category: "Soups",
@@ -35,6 +37,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Vegetable Wonton Soup",
       description: "Vegetable wontons in clear broth",
       price: 550,
+       image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758021296/imgi_175_20201014_132914232_iOS-scaled_ugs8k7.jpg",
       category: "Soups",
     },
     {
@@ -49,6 +52,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Tom Yum Vegetable Soup",
       description: "Thai-style Tom Yum vegetable soup",
       price: 700,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758021460/imgi_170_hm-HM-tom-yum-noodle-soup-mediumSquareAt3X_nikaa8.jpg",
       category: "Soups",
     },
     {
@@ -63,6 +67,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Chicken Sweet Corn Soup",
       description: "Chicken and sweet corn soup",
       price: 650,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758021559/imgi_139_chicken-and-sweet-corn-soup-3787-1_p3lpeg.jpg",
       category: "Soups",
     },
     {
@@ -128,6 +133,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Vegetable Spring Rolls",
       description: "Crispy fried rolls filled with fresh vegetables.",
       price: 130,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758021824/imgi_232_Spring-Rolls-1-1-scaled_heogih.jpg",
       category: "Starters",
     },
     {
@@ -135,6 +141,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Deep Fried Baby Corn",
       description: "Tender baby corn, lightly battered and deep-fried to a golden crisp.",
       price: 895,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758021945/imgi_144_IMG_5820_arvakz.jpg",
       category: "Starters",
     },
     {
@@ -142,6 +149,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Chilli Cashew Nuts",
       description: "Roasted cashew nuts tossed with a savory and spicy chili blend.",
       price: 895,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758022072/imgi_144_ChiliLimeCashews_RECIPE_101421_240_ruefx5.jpg",
       category: "Starters",
     },
     {
@@ -156,6 +164,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Paneer Satay",
       description: "Marinated cottage cheese cubes grilled to perfection and served with a tangy sauce.",
       price: 1050,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758022210/imgi_122_paneer-satay-19_bfmop6.jpg",
       category: "Starters",
     },
     {
@@ -170,6 +179,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Crispy Tofu with Salt & Pepper",
       description: "Lightly fried tofu seasoned with a classic salt and pepper mix.",
       price: 1050,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758022568/imgi_188_Fried-Salt-Pepper-Tofu_jrg77v.jpg",
       category: "Starters",
     },
     {
@@ -184,6 +194,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Paneer with Salt & Pepper",
       description: "Pan-fried paneer cubes seasoned with a simple yet flavorful salt and pepper mix.",
       price: 1050,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758022469/imgi_152_pepper_paneer_5_x2bqwm.jpg",
       category: "Starters",
     },
     {
@@ -191,6 +202,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Salt & Pepper Vegetables",
       description: "A medley of fresh vegetables, lightly fried and seasoned with salt and pepper.",
       price: 895,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758022721/imgi_169_Recipe-Banner_hriwjm.jpg",
       category: "Starters",
     },
     {
@@ -198,6 +210,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Salt & Pepper Lady Fingers",
       description: "Crispy fried okra seasoned with a spicy salt and pepper blend.",
       price: 895,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758022378/imgi_136_Dry_2BMasala_2BBhindi_2B_281_29_2B-_2B1_uq6ijt.jpg",
       category: "Starters",
     },
     {
@@ -212,6 +225,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Vegetable Dim Sum",
       description: "Steamed dumplings filled with a delicious mix of fresh vegetables.",
       price: 1100,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758022825/imgi_180_TGM_8880_z1pya6.jpg",
       category: "Starters",
     },
     {
@@ -219,6 +233,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Chicken Spring Rolls",
       description: "Crispy rolls filled with shredded chicken and mixed vegetables.",
       price: 150,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758022970/imgi_220_chicken-spring-rolls-1640103502_exfvjn.jpg",
       category: "Starters",
     },
     {
@@ -240,6 +255,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Spicy Chicken Wings (10 PCS)",
       description: "Crispy chicken wings tossed in a spicy, flavorful sauce.",
       price: 1100,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758023087/imgi_176_f0d1762b91fd823a1aa9bd0dab5c648d_morf5z.jpg",
       category: "Starters",
     },
     {
@@ -268,6 +284,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Chicken Satay",
       description: "Grilled chicken skewers served with a rich and creamy peanut sauce.",
       price: 1050,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758023261/imgi_153_Beef-and-Chicken-Satay-with-peanut-sauce-scaled_bs1h5h.jpg",
       category: "Starters",
     },
     {
@@ -275,6 +292,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Golden Fried Prawns (10 PCS)",
       description: "Prawns coated in a light, crispy batter and fried to a golden finish.",
       price: 1900,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758023443/imgi_145_DSC06475_wm_elayda.jpg",
       category: "Starters",
     },
     {
@@ -282,6 +300,7 @@ export const menuItems: Record<string, Item[]> = {
       name: "Deep Fried Fish Fingers",
       description: "Strips of tender fish, breaded and fried until golden and crisp.",
       price: 1250,
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758023327/imgi_197_focused_149669704-stock-photo-deep-fried-fish-fingers-with_ifhq3s.jpg",
       category: "Starters",
     },
     {
@@ -368,6 +387,7 @@ export const menuItems: Record<string, Item[]> = {
     name: "Beef with Mushroom",
     description: "Juicy beef slices cooked with fresh mushrooms in a rich sauce.",
     price: 1250,
+    image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758021668/imgi_173_beef-and-mushroom-stroganoff-76917-1_dbkj4a.jpg",
     category: "Beef Dishes",
   },
   {

@@ -56,7 +56,7 @@ export default function ContactInfo() {
                         Call Us
                       </h3>
                       <div className="text-muted-foreground font-chivo">
-                        <p className="mb-1">Reservations: +1 (555) 123-LUXE</p>
+                        <p className="mb-1">Reservations: 0746815106</p>
                         <p className="mb-1">Events: +1 (555) 123-EVENT</p>
                         <p>General: +1 (555) 123-INFO</p>
                       </div>

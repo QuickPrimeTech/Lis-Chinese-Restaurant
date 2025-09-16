@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,7 @@ export const AboutSection = () => {
       title: "Reserve a Table",
       description:
         "Enjoy an exquisite dining experience in our elegant setting. Book a table and savor the flavors of our carefully curated menu.",
-      image: "/instagram/waiter.jpg",
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009338/gallery3_zpz3pb.jpg",
       ctaText: "Reserve Now",
       ctaLink: "/reservations",
       reverse: false,
@@ -18,7 +17,7 @@ export const AboutSection = () => {
       title: "Host a Private Event",
       description:
         "Celebrate your special occasions in style. Our private event spaces and tailored services ensure an unforgettable experience.",
-      image: "/instagram/private-event.jpg",
+      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758020425/private-event_tdby0l.jpg",
       ctaText: "Book Event",
       ctaLink: "/private-events",
       reverse: true,

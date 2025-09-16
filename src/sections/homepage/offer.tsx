@@ -59,10 +59,10 @@ export const OfferSection = () => {
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-card border border-primary/20 rounded-2xl p-12 shadow-luxury">
             {/* Heading */}
-            <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-primary mb-6">
+            <h2 className="text-xl md:text-5xl font-cinzel font-bold mb-6">
               Exclusive Dining Offer
             </h2>
-            <p className="text-xl text-muted-foreground font-chivo mb-8 leading-relaxed">
+            <p className="text-md text-muted-foreground font-chivo mb-8 leading-relaxed">
               Experience luxury dining with 20% off your first reservation.
               Valid for parties of 4 or more.
             </p>

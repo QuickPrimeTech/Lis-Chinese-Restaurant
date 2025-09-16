@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import {
   Carousel,
@@ -12,70 +13,65 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { BsGoogle } from "react-icons/bs";
 
 export const TestimonialCarousel = () => {
   const testimonials = [
     {
-      name: "Alexandra Mitchell",
-      role: "Food Critic",
+      name: "Khuzaima Ali Hussain",
+      role: "Local Guide",
       content:
-        "An absolutely extraordinary culinary experience. Every dish was a masterpiece, and the service was impeccable. This restaurant has redefined luxury dining for me.",
+        "Excellent place to dine for the people loving authentic Chinese food. Taste is excellent and service is nice . Also the surrounding is well decorated",
       rating: 5,
       image:
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+        "https://lh3.googleusercontent.com/a-/ALV-UjWfwS-oyQDYTar2_aFv7bQiSo4iEyv0s5COnCQ4Vb993C46yGlgQg=w54-h54-p-rp-mo-ba5-br100",
     },
     {
-      name: "James Rodriguez",
-      role: "Business Executive",
+      name: "Hafsa Mohd",
+      role: "Local Guide",
       content:
-        "Perfect venue for important business dinners. The ambiance is sophisticated, the food exceptional, and the staff anticipates every need. Highly recommended.",
+        "It’s really difficult to find a place in my road, which does amazing fresh seafood but obviously Li’s being from Mombasa understand the weight of serving seafood. This has to be handsdown one of the best places you can get seafood from My favourite is definitely the tempura prawns, I can’t really fault anything. The food is amazing. The service was one of the best, our waiter was so friendly and he kept coming to check on us because we were sat outside - which is a great change because most restaurants forget that you are outside. I’ll definitely be going back and they’re definitely needs to be more of these around Nairobi",
       rating: 5,
       image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+        "https://lh3.googleusercontent.com/a-/ALV-UjWka8qHsFeylM_f7GpUIl865N9PArYmfHSAW3E21MWnZbIky4ktmg=w54-h54-p-rp-mo-ba4-br100",
     },
     {
-      name: "Sophie Chen",
-      role: "Lifestyle Blogger",
-      content:
-        "From the moment we walked in, we knew this would be special. The attention to detail is remarkable, and each course was better than the last. A true gem.",
+      name: "Nicholas Daniels",
+      role: "Local Guide",
+      content: "Reliably good food and service at reasonable prices",
       rating: 5,
       image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+        "https://lh3.googleusercontent.com/a/ACg8ocLohtLmROqNZKdnaV_1ygxMEwRdKbioUxMXJ70n7uXkwHgYZQ=w54-h54-p-rp-mo-ba3-br100",
     },
     {
-      name: "Marcus Thompson",
-      role: "Wine Connoisseur",
-      content:
-        "The wine selection is outstanding, perfectly paired with innovative cuisine. The sommelier's recommendations were spot-on. An unforgettable evening.",
+      name: "Adam Gache",
+      role: "Local Guide",
+      content: "Very nice delicious Chinese food",
       rating: 5,
       image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+        "https://lh3.googleusercontent.com/a-/ALV-UjUaXHOBZRcLuAy1iHuRlP-QL_BSyRwiWSWJ5F4mv3wbf0DA0mM=w54-h54-p-rp-mo-ba4-br100",
     },
     {
-      name: "Isabella Romano",
-      role: "Celebrated Chef",
-      content:
-        "As a fellow chef, I'm impressed by the creativity and execution. The flavor profiles are complex yet harmonious. This is artistry on a plate.",
-      rating: 5,
+      name: "S Shah",
+      role: "Local Guide",
+      content: "Food was great although a tiny bit too salty for my liking",
+      rating: 4,
       image:
-        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face",
+        "https://lh3.googleusercontent.com/a-/ALV-UjWx2gvkuJFDfU_S2laoNRcoeLE4U8_n-Hy8Yx775Izj72md5zLrNQ=w54-h54-p-rp-mo-ba5-br100",
     },
   ];
 
-  const renderStars = (rating: number, size: number = 4) =>
-    Array(rating)
+  const renderStars = (rating: number) =>
+    Array(5)
       .fill(0)
       .map((_, index) => (
         <Star
           key={index}
-          className={`h-${size} w-${size} fill-yellow-500 text-yellow-500`}
+          className={`${
+            rating > index ? "fill-yellow-500" : "stroke-yellow-500"
+          } text-yellow-500`}
         />
       ));
-
-  // Calculate summary
-  const totalReviews = testimonials.length;
-  const avgRating =
-    testimonials.reduce((acc, t) => acc + t.rating, 0) / totalReviews;
 
   return (
     <section className="py-20 bg-card">
@@ -112,13 +108,11 @@ export const TestimonialCarousel = () => {
                       {renderStars(testimonial.rating)}
                     </div>
 
-                    {/* Testimonial Content */}
-                    <p className="text-muted-foreground font-chivo leading-relaxed mb-6">
-                      &quot;{testimonial.content}&quot;
-                    </p>
+                    {/* Testimonial Content with Read More */}
+                    <ReadMoreText text={testimonial.content} />
 
                     {/* Author */}
-                    <div className="flex items-center">
+                    <div className="flex items-center mt-6">
                       <Image
                         src={testimonial.image}
                         alt={testimonial.name}
@@ -147,17 +141,45 @@ export const TestimonialCarousel = () => {
         </Carousel>
 
         <div className="flex justify-center mt-6">
-          <Button asChild>
+          <Button asChild size={"lg"}>
             <Link
               href="https://www.google.com/maps/place/Li's+Chinese+Restaurant/@-1.2359985,32.1927563,7z/data=!4m12!1m2!2m1!1slis+chinese+restaurant!3m8!1s0x182f1774bd49e983:0x8cc5ef01c9b23983!8m2!3d-1.2359985!4d36.8070141!9m1!1b1!15sChZsaXMgY2hpbmVzZSByZXN0YXVyYW50WhgiFmxpcyBjaGluZXNlIHJlc3RhdXJhbnSSARJjaGluZXNlX3Jlc3RhdXJhbnSqAT8QATIfEAEiG1aTtrZDiAoomJPfEp1sUsniKQhzJPssT7Sr4zIaEAIiFmxpcyBjaGluZXNlIHJlc3RhdXJhbnTgAQA!16s%2Fg%2F11pvhrdjfy?entry=ttu&g_ep=EgoyMDI1MDkxMC4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
             >
+              <BsGoogle />
               Review us on Google <ExternalLink />
             </Link>
           </Button>
         </div>
       </div>
     </section>
+  );
+};
+
+/* ----------------------
+   Read More Component
+---------------------- */
+const ReadMoreText = ({ text }: { text: string }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div>
+      <p
+        className={`text-muted-foreground font-chivo leading-relaxed ${
+          expanded ? "" : "line-clamp-4"
+        }`}
+      >
+        &quot;{text}&quot;
+      </p>
+      {text.length > 150 && ( // only show button if long text
+        <button
+          onClick={() => setExpanded((prev) => !prev)}
+          className="mt-2 text-muted-foreground hover:text-foreground cursor-pointer font-medium underline"
+        >
+          {expanded ? "Show less" : "Read more"}
+        </button>
+      )}
+    </div>
   );
 };

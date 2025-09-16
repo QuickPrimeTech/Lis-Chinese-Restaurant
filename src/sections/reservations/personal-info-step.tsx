@@ -76,7 +76,7 @@ export const PersonalInfoStep = ({ form }: PersonalInfoStepProps) => {
             <FormLabel className="font-medium">Phone <span className="text-destructive">*</span></FormLabel>
             <FormControl>
               <Input 
-                placeholder="+1 (555) 123-4567" 
+                placeholder="+254 746815106" 
                 type="tel"
                 {...field}
                 className="transition-all duration-200 focus:ring-2 focus:ring-primary/20"
