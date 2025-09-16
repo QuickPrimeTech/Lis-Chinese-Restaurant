@@ -44,7 +44,7 @@ const socialLinks = [
     url: "https://www.instagram.com/lischineserestaurant/",
     name: "Instagram",
     hover:
-      "hover:bg-gradient-to-tr hover:from-pink-600 hover:to-yellow-600 hover:text-white", // IG pink→yellow gradient
+      "hover:bg-gradient-to-tr hover:from-yellow-700 hover:to-pink-600 hover:text-white", // IG pink→yellow gradient
   },
   {
     icon: <BsTwitterX className="h-5 w-5" />,
@@ -195,6 +195,8 @@ const socialLinks = [
       key={index}
       href={social.url}
       aria-label={social.name}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`bg-background border border-border p-3 rounded-full text-muted-foreground transition-all duration-300 ${social.hover}`}
     >
       {social.icon}
