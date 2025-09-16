@@ -11,7 +11,7 @@ const eventPackages = [
     id: "intimate",
     name: "Intimate Gathering",
     capacity: "8-12 guests",
-    price: "From $2,500",
+    price: "2,500",
     features: [
       "Private dining room",
       "4-course tasting menu",
@@ -25,7 +25,7 @@ const eventPackages = [
     id: "celebration",
     name: "Celebration Package",
     capacity: "13-30 guests",
-    price: "From $5,500",
+    price: " 5,500",
     features: [
       "Semi-private dining area",
       "Customizable menu options",
@@ -40,7 +40,7 @@ const eventPackages = [
     id: "corporate",
     name: "Corporate Experience",
     capacity: "20-50 guests",
-    price: "From $12,000",
+    price: " 12,000",
     features: [
       "Exclusive restaurant buyout",
       "Multi-course dining experience",
@@ -96,7 +96,7 @@ const EventPackages = ({
                     {pkg.name}
                   </h3>
                   <span className="font-cinzel font-bold text-lg text-primary">
-                    {pkg.price}
+                    Ksh:{pkg.price}
                   </span>
                 </div>
                 <ul className="space-y-2 mb-6">

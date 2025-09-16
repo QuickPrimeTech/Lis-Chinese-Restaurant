@@ -17,15 +17,13 @@ const Footer = () => {
   const footerLinks = {
     restaurant: [
       { name: "About Us", path: "/about" },
-      { name: "Our Chef", path: "/chef" },
+      { name: "Menu", path: "/menu" },
+      { name: "Contact", path: "/contact" },
       { name: "Gallery", path: "/gallery" },
-      { name: "Careers", path: "/careers" },
     ],
     services: [
       { name: "Reservations", path: "/reservations" },
       { name: "Private Events", path: "/private-events" },
-      { name: "Catering", path: "/catering" },
-      { name: "Gift Cards", path: "/gift-cards" },
     ],
     menu: [
       { name: "Dinner Menu", path: "/menu#dinner" },
@@ -177,14 +175,14 @@ const Footer = () => {
             {/* Social Links */}
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
-                <a
+                <Link
                   key={index}
                   href={social.url}
                   aria-label={social.name}
                   className="bg-background border border-border p-3 rounded-full text-muted-foreground hover:text-primary hover:border-primary transition-all duration-300"
                 >
                   {social.icon}
-                </a>
+                </Link>
               ))}
             </div>
 

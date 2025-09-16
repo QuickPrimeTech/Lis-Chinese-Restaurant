@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Wine, UtensilsCrossed, Cookie } from "lucide-react";
-
+import Link from "next/link";
 export const MenuPreview = () => {
   const menuCategories = [
     {
@@ -73,7 +73,7 @@ export const MenuPreview = () => {
                 className="border-white/30 text-white hover:bg-white hover:text-background transition-all duration-300"
                 asChild
               >
-                <a href={category.link}>View Menu</a>
+                <Link href={category.link}>View Menu</Link>
               </Button>
             </div>
           ))}
@@ -82,10 +82,11 @@ export const MenuPreview = () => {
         {/* Full Menu Button */}
         <div className="text-center mt-12">
           <Button
+            asChild
             size="xl"
             className="hover:shadow-glow transition-all duration-300"
           >
-            View Full Menu
+            <Link href="/menu"> View Full Menu</Link>
           </Button>
         </div>
       </div>

@@ -12,7 +12,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Instagram } from "lucide-react";
-
+import Link from "next/link";
 export const FollowUs = () => {
   const instagramPosts = [
     {
@@ -93,12 +93,19 @@ export const FollowUs = () => {
             Experience our culinary artistry through the lens of our guests
           </p>
           <Button
+            asChild
             variant="outline"
             size="lg"
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
           >
-            <Instagram className="mr-2 h-5 w-5" />
-            Follow @Li&apos;s Chinese Restaurantdining
+            <Link
+              href="https://www.instagram.com/lischineserestaurant"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Instagram className="mr-2 h-5 w-5" />
+              Follow @lischineserestaurant
+            </Link>
           </Button>
         </div>
 
@@ -147,7 +154,7 @@ export const FollowUs = () => {
           </CarouselContent>
 
           <CarouselPrevious />
-          <CarouselNext  />
+          <CarouselNext />
         </Carousel>
 
         {/* Dots */}

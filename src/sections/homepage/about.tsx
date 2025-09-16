@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -48,7 +48,7 @@ export const AboutSection = () => {
                 className="md:self-start hover:shadow-glow transition-all duration-300"
                 asChild
               >
-                <a href={item.ctaLink}>{item.ctaText}</a>
+                <Link href={item.ctaLink}>{item.ctaText}</Link>
               </Button>
             </div>
 

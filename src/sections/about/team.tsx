@@ -1,6 +1,5 @@
 // @/sections/about/team.tsx
 
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { team } from "@/data/about-data";

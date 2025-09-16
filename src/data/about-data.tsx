@@ -3,10 +3,26 @@
 import { ChefHat, Users, Star, Utensils } from "lucide-react";
 
 export const awards = [
-  { year: "2023", award: "Michelin Star", description: "Excellence in fine dining" },
-  { year: "2022", award: "Best Restaurant Award", description: "City's finest dining establishment" },
-  { year: "2021", award: "Wine Spectator Award", description: "Outstanding wine program" },
-  { year: "2020", award: "Chef of the Year", description: "Culinary innovation and excellence" },
+  {
+    year: "2023",
+    award: "Michelin Star",
+    description: "Excellence in fine dining",
+  },
+  {
+    year: "2022",
+    award: "Best Restaurant Award",
+    description: "City's finest dining establishment",
+  },
+  {
+    year: "2021",
+    award: "Wine Spectator Award",
+    description: "Outstanding wine program",
+  },
+  {
+    year: "2020",
+    award: "Chef of the Year",
+    description: "Culinary innovation and excellence",
+  },
 ];
 
 export const team = [
@@ -14,26 +30,31 @@ export const team = [
     name: "Alexandre Dubois",
     role: "Executive Chef",
     experience: "15+ years",
-    image: "/chef-portrait.jpg",
-    description: "Trained in Paris and Tokyo, brings international expertise to Li's Chinese Restaurant",
+    image: "/team1.jpg",
+    description:
+      "Trained in Paris and Tokyo, brings international expertise to Li's Chinese Restaurant",
   },
   {
     name: "Maria Santos",
     role: "Pastry Chef",
     experience: "12+ years",
-    image: "/api/placeholder/300/300",
-    description: "Award-winning pastry chef specializing in modern European desserts",
+    image: "/team3.jpg",
+    description:
+      "Award-winning pastry chef specializing in modern European desserts",
   },
   {
     name: "James Wellington",
     role: "Sommelier",
     experience: "10+ years",
-    description: "Master sommelier with expertise in rare wines and perfect pairings",
+    image: "/team4.jpg",
+    description:
+      "Master sommelier with expertise in rare wines and perfect pairings",
   },
   {
     name: "Sofia Rodriguez",
     role: "Restaurant Manager",
     experience: "8+ years",
+    image: "/team2.jpg",
     description: "Ensures impeccable service and memorable dining experiences",
   },
 ];
