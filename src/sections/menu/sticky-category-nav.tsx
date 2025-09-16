@@ -278,9 +278,12 @@ export default function StickyCategoryNav() {
                 <Button
                   key={c.id}
                   size="sm"
-                  variant={active === c.id ? "default" : "secondary"}
+                  variant={active === c.id ? "secondary" : "outline"}
                   onClick={() => scrollToElement(c.id)}
-                  className="whitespace-nowrap font-medium px-4 py-2 text-xs sm:text-sm rounded-full"
+                  className={`whitespace-nowrap font-medium ${
+                    active === c.id &&
+                    "bg-foreground/80 hover:bg-foreground/90 text-background"
+                  } px-4 py-2 text-xs sm:text-sm rounded-full`}
                 >
                   {c.label}
                 </Button>
