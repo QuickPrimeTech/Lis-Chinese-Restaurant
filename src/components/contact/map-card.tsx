@@ -11,8 +11,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: -4.059340651789621,
-  lng: 39.679854551524244,
+  lat: -1.2359695685600658,
+  lng: 36.80700899545635,
 };
 
 export function MapCard() {
@@ -23,14 +23,14 @@ export function MapCard() {
   return (
     <>
       {/* Map Card */}
-      <Card className="overflow-hidden shadow-lg py-0">
+      <Card className="overflow-hidden shadow-lg py-0 mb-8">
         <CardContent className="p-0">
           <div className="aspect-video">
             {isLoaded ? (
               <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={center}
-                zoom={10}
+                zoom={15}
               >
                 <Marker position={center} />
               </GoogleMap>
@@ -41,7 +41,7 @@ export function MapCard() {
             )}
           </div>
         </CardContent>
-        <CardFooter className="pb-3 bg-gray-50 w-full">
+        <CardFooter className="pb-3 bg-card w-full">
           <Button asChild variant="outline">
             <Link
               rel="noopener noreferrer"
