@@ -72,7 +72,7 @@ export const FAQSection = () => {
                 value={`item-${index}`}
                 className="border border-border rounded-lg px-6 bg-background"
               >
-                <AccordionTrigger className="text-left font-cinzel font-semibold text-lg hover:text-primary transition-colors py-6">
+                <AccordionTrigger className="text-left font-chivo font-semibold text-md py-3">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground font-chivo leading-relaxed pb-6">
@@ -90,8 +90,7 @@ export const FAQSection = () => {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              variant={"secondary"}
             >
               <Link href="/contact">Contact Our Team</Link>
             </Button>

@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -33,14 +34,6 @@ export const HeroSection = () => {
     return () => clearInterval(timer);
   }, [slides.length]);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
   return (
     <div className="relative h-screen overflow-hidden">
       {/* Slides */}
@@ -51,7 +44,7 @@ export const HeroSection = () => {
             index === currentSlide ? "opacity-100" : "opacity-0"
           }`}
         >
-          {/* Background Image using Next.js */}
+          {/* Background Image */}
           <div className="absolute inset-0">
             <Image
               src={slide.image}
@@ -75,14 +68,10 @@ export const HeroSection = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
                   <Button size="lg" asChild>
-                    <Link href={"/reservations"}>
-                    Book a Table
-                    </Link>
-                    </Button>
+                    <Link href="/reservations">Book a Table</Link>
+                  </Button>
                   <Button variant="outline" size="lg" asChild>
-                    <Link href={"/menu"}>
-                    Order Now
-                    </Link>
+                    <Link href="/menu">Order Now</Link>
                   </Button>
                 </div>
               </div>
@@ -90,7 +79,6 @@ export const HeroSection = () => {
           </div>
         </div>
       ))}
-
 
       {/* Slide Indicators */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex space-x-3">

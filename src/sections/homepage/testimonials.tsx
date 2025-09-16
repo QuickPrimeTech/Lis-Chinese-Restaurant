@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { BsGoogle } from "react-icons/bs";
 
 export const TestimonialCarousel = () => {
   const testimonials = [
@@ -153,6 +154,7 @@ export const TestimonialCarousel = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
+              <BsGoogle />
               Review us on Google <ExternalLink />
             </Link>
           </Button>

@@ -4,13 +4,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   Facebook,
   Instagram,
-  Twitter,
   Mail,
   Phone,
-  MapPin,
+  MapPin
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { BsTwitterX } from "react-icons/bs";
 // import qrCode from "/qr-menu.jpg";
 
 const Footer = () => {
@@ -36,7 +36,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: <Facebook className="h-5 w-5" />, url: "#", name: "Facebook" },
     { icon: <Instagram className="h-5 w-5" />, url: "#", name: "Instagram" },
-    { icon: <Twitter className="h-5 w-5" />, url: "#", name: "Twitter" },
+    { icon: <BsTwitterX className="h-5 w-5" />, url: "#", name: "Twitter" },
   ];
 
   return (
@@ -161,7 +161,7 @@ const Footer = () => {
                 placeholder="Enter your email"
                 className="h-auto flex-1 px-4 py-3 rounded-lg bg-background border border-border text-foreground font-chivo"
               />
-              <Button className="bg-gradient-primary hover:shadow-glow transition-all duration-300 px-8">
+              <Button className="w-full md:w-fit bg-gradient-primary hover:shadow-glow transition-all duration-300 px-8">
                 <Mail />
                 Subscribe
               </Button>

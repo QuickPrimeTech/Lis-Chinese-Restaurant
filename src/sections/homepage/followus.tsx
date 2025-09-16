@@ -94,15 +94,12 @@ export const FollowUs = () => {
           </p>
           <Button
             asChild
-            variant="outline"
             size="lg"
-            className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
-          >
-            <Link
-              href="https://www.instagram.com/lischineserestaurant"
-              target="_blank"
-              rel="noopener noreferrer"
+              
             >
+              <Link href="https://www.instagram.com/lischineserestaurant"
+              target="_blank"
+              rel="noopener noreferrer">
               <Instagram className="mr-2 h-5 w-5" />
               Follow @lischineserestaurant
             </Link>
