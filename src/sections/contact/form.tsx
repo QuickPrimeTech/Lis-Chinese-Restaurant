@@ -121,7 +121,7 @@ export default function ContactForm() {
                         onChange={(e) =>
                           handleInputChange("phone", e.target.value)
                         }
-                        placeholder="+1 (555) 123-4567"
+                        placeholder="+254 746815106"
                       />
                     </div>
                   </div>

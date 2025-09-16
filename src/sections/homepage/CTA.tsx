@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Calendar, ShoppingBag, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export const CTASection = () => {
   return (
@@ -41,16 +42,22 @@ export const CTASection = () => {
             <Button
               size="xl"
               variant="secondary"
+              asChild
             >
+              <Link href="/reservations">
               <Calendar className="mr-2 h-5 w-5 group-hover:animate-glow transition-all" />
               Book Your Table
+              </Link>
             </Button>
             <Button
               size="xl"
               variant="outline"
+              asChild
             >
+              <Link href={"/menu"}>
               <ShoppingBag className="mr-2 h-5 w-5 group-hover:animate-glow transition-all" />
               Order Takeaway
+              </Link>
             </Button>
           </div>
         </div>
