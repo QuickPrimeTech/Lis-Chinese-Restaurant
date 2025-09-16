@@ -70,7 +70,7 @@ export const MenuPreview = () => {
               </p>
               <Button
                 variant="outline"
-                className="border-white/30 text-white hover:bg-white hover:text-background transition-all duration-300"
+                className="border-white/30 text-foreground hover:bg-white transition-all duration-300"
                 asChild
               >
                 <Link href={category.link}>View Menu</Link>

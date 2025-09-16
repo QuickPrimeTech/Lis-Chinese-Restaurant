@@ -1,15 +1,10 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Instagram,
-  Mail,
-  Phone,
-  MapPin
-} from "lucide-react";
+import { Instagram, Mail, Phone, MapPin } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { BsTwitterX} from "react-icons/bs";
+import { BsTwitterX } from "react-icons/bs";
 import { FaTripadvisor } from "react-icons/fa";
 // import qrCode from "/qr-menu.jpg";
 
@@ -32,28 +27,27 @@ const Footer = () => {
       { name: "Desserts", path: "/menu#desserts" },
     ],
   };
-const socialLinks = [
-  {
-    icon: <FaTripadvisor className="h-5 w-5" />,
-    url: "https://www.tripadvisor.com/Restaurant_Review-g294207-d23859107-Reviews-Li_s_Chinese_Restaurant_Nairobi-Nairobi.html",
-    name: "Tripadvisor",
-    hover: "hover:bg-green-500 hover:text-white", // Tripadvisor solid green
-  },
-  {
-    icon: <Instagram className="h-5 w-5" />,
-    url: "https://www.instagram.com/lischineserestaurant/",
-    name: "Instagram",
-    hover:
-      "hover:bg-gradient-to-tr hover:from-yellow-700 hover:to-pink-600 hover:text-white", // IG pink→yellow gradient
-  },
-  {
-    icon: <BsTwitterX className="h-5 w-5" />,
-    url: "#",
-    name: "Twitter",
-    hover: "hover:bg-black hover:text-white", // Twitter solid black
-  },
-];
-
+  const socialLinks = [
+    {
+      icon: <FaTripadvisor className="h-5 w-5" />,
+      url: "https://www.tripadvisor.com/Restaurant_Review-g294207-d23859107-Reviews-Li_s_Chinese_Restaurant_Nairobi-Nairobi.html",
+      name: "Tripadvisor",
+      hover: "hover:bg-green-500 hover:text-white", // Tripadvisor solid green
+    },
+    {
+      icon: <Instagram className="h-5 w-5" />,
+      url: "https://www.instagram.com/lischineserestaurant/",
+      name: "Instagram",
+      hover:
+        "hover:bg-gradient-to-tr hover:from-yellow-700 hover:to-pink-600 hover:text-white", // IG pink→yellow gradient
+    },
+    {
+      icon: <BsTwitterX className="h-5 w-5" />,
+      url: "#",
+      name: "Twitter",
+      hover: "hover:bg-black hover:text-white", // Twitter solid black
+    },
+  ];
 
   return (
     <footer className="bg-card border-t border-border">
@@ -79,7 +73,7 @@ const socialLinks = [
               <div className="flex items-center text-muted-foreground">
                 <MapPin className="h-4 w-4 mr-3 text-primary" />
                 <span className="font-chivo">
-                  123 Luxury Avenue, New York, NY 10001
+                  QR74+JR2, PETROCITY-Gigiri, Limuru Rd, Nairobi
                 </span>
               </div>
               <div className="flex items-center text-muted-foreground">
@@ -89,7 +83,7 @@ const socialLinks = [
               <div className="flex items-center text-muted-foreground">
                 <Mail className="h-4 w-4 mr-3 text-primary" />
                 <span className="font-chivo">
-                  info@Li&apos;s Chinese Restaurant.com
+                  info@lischineserestaurantnairobi.com
                 </span>
               </div>
             </div>
@@ -189,21 +183,20 @@ const socialLinks = [
         <div className="border-t border-border py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             {/* Social Links */}
-<div className="flex space-x-4">
-  {socialLinks.map((social, index) => (
-    <Link
-      key={index}
-      href={social.url}
-      aria-label={social.name}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`bg-background border border-border p-3 rounded-full text-muted-foreground transition-all duration-300 ${social.hover}`}
-    >
-      {social.icon}
-    </Link>
-  ))}
-</div>
-
+            <div className="flex space-x-4">
+              {socialLinks.map((social, index) => (
+                <Link
+                  key={index}
+                  href={social.url}
+                  aria-label={social.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`bg-background border border-border p-3 rounded-full text-muted-foreground transition-all duration-300 ${social.hover}`}
+                >
+                  {social.icon}
+                </Link>
+              ))}
+            </div>
 
             {/* Copyright */}
             <div className="text-center text-muted-foreground font-chivo">

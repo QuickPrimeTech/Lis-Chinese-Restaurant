@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export const AboutSection = () => {
   const aboutItems = [
@@ -8,7 +9,8 @@ export const AboutSection = () => {
       title: "Reserve a Table",
       description:
         "Enjoy an exquisite dining experience in our elegant setting. Book a table and savor the flavors of our carefully curated menu.",
-      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009338/gallery3_zpz3pb.jpg",
+      image:
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009338/gallery3_zpz3pb.jpg",
       ctaText: "Reserve Now",
       ctaLink: "/reservations",
       reverse: false,
@@ -17,7 +19,8 @@ export const AboutSection = () => {
       title: "Host a Private Event",
       description:
         "Celebrate your special occasions in style. Our private event spaces and tailored services ensure an unforgettable experience.",
-      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758020425/private-event_tdby0l.jpg",
+      image:
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758020425/private-event_tdby0l.jpg",
       ctaText: "Book Event",
       ctaLink: "/private-events",
       reverse: true,
@@ -36,10 +39,10 @@ export const AboutSection = () => {
           >
             {/* Text Content */}
             <div className="md:w-1/2 flex flex-col justify-center space-y-6">
-              <h3 className="text-3xl md:text-4xl font-cinzel font-bold text-white">
+              <h3 className="text-3xl md:text-4xl font-cinzel font-bold text-foreground">
                 {item.title}
               </h3>
-              <p className="text-white/80 font-chivo leading-relaxed text-lg md:text-xl">
+              <p className="text-muted-foreground font-chivo leading-relaxed text-lg md:text-xl">
                 {item.description}
               </p>
               <Button
@@ -47,7 +50,9 @@ export const AboutSection = () => {
                 className="md:self-start hover:shadow-glow transition-all duration-300"
                 asChild
               >
-                <Link href={item.ctaLink}>{item.ctaText}</Link>
+                <Link href={item.ctaLink}>
+                  {item.ctaText} <ArrowRight />
+                </Link>
               </Button>
             </div>
 

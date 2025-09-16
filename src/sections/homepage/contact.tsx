@@ -84,11 +84,11 @@ export const ContactSection = () => {
                     Address
                   </h3>
                   <p className="text-muted-foreground font-chivo">
-                    123 Luxury Avenue
+                    QR74+JR2, Limuru Rd
                     <br />
-                    Fine Dining District
+                    PETROCITY – Gigiri
                     <br />
-                    New York, NY 10001
+                    Nairobi, Kenya
                   </p>
                 </div>
               </div>
@@ -101,11 +101,7 @@ export const ContactSection = () => {
                   <h3 className="font-cinzel font-semibold text-foreground mb-1">
                     Phone
                   </h3>
-                  <p className="text-muted-foreground font-chivo">
-                    0746815106
-                    <br />
-                    +1 (555) 123-5893
-                  </p>
+                  <p className="text-muted-foreground font-chivo">0746815106</p>
                 </div>
               </div>
 
@@ -118,9 +114,9 @@ export const ContactSection = () => {
                     Email
                   </h3>
                   <p className="text-muted-foreground font-chivo">
-                    reservations@Li&apos;s Chinese Restaurant.com
+                    reservations@lischineserestaurantnairobi.com.com
                     <br />
-                    info@Li&apos;s Chinese Restaurant.com
+                    info@lischineserestaurantnairobi.com.com
                   </p>
                 </div>
               </div>
@@ -132,16 +128,8 @@ export const ContactSection = () => {
                   </h3>
                   <div className="space-y-1 text-muted-foreground font-chivo">
                     <div className="flex justify-between">
-                      <span>Monday - Thursday</span>
-                      <span>5:00 PM - 11:00 PM</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Friday - Saturday</span>
-                      <span>5:00 PM - 12:00 AM</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Sunday</span>
-                      <span>5:00 PM - 10:00 PM</span>
+                      <span>Tuesday - Sunday</span>
+                      <span>11:00 AM - 10:30 PM</span>
                     </div>
                   </div>
                 </CardContent>

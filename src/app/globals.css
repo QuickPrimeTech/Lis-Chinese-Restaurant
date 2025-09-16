@@ -58,38 +58,38 @@
 }
 
 /* ----------------------------
-   RED LUXURY COLOR SYSTEM (OKLCH)
+   RED LUXURY COLOR SYSTEM (LIGHT MODE)
 ----------------------------- */
 :root {
-  /* Dark luxury base */
-  --background: oklch(23.436% 0.00247 248.181);
-  --foreground: oklch(100% 0.00011 271.152);
+  /* Light luxury base */
+  --background: oklch(0.98 0 95); /* near white */
+  --foreground: oklch(0.22 0.03 20); /* deep neutral for text */
 
-  --card: oklch(21.133% 0.00316 16.989);
-  --card-foreground: oklch(0.95 0.03 95);
+  --card: oklch(0.99 0 95);
+  --card-foreground: oklch(0.22 0.03 20);
 
-  --popover: oklch(0.07 0 0);
-  --popover-foreground: oklch(0.95 0.03 95);
+  --popover: oklch(1 0 95);
+  --popover-foreground: oklch(0.22 0.03 20);
 
   /* 🔴 Red as the brand color */
   --primary: oklch(0.6 0.25 30); /* deep luxurious red */
-  --primary-foreground: oklch(0.98 0.02 95);
-  --primary-glow: oklch(0.75 0.25 30); /* glowing red */
+  --primary-foreground: oklch(0.99 0 95);
+  --primary-glow: oklch(0.75 0.25 30);
 
-  --secondary: oklch(0.12 0 0);
-  --secondary-foreground: oklch(0.9 0.02 95);
+  --secondary: oklch(0.95 0 95);
+  --secondary-foreground: oklch(0.22 0.03 20);
 
-  --muted: oklch(0.1 0 0);
-  --muted-foreground: oklch(100% 0.00011 271.152);
+  --muted: oklch(0.96 0 95);
+  --muted-foreground: oklch(0.35 0.02 20);
 
-  --accent: oklch(0.55 0.18 20);
-  --accent-foreground: oklch(0.95 0.02 95);
+  --accent: oklch(0.9 0.05 30);
+  --accent-foreground: oklch(0.22 0.03 20);
 
-  --destructive: oklch(0.5 0.25 25);
-  --destructive-foreground: oklch(0.98 0.02 95);
+  --destructive: oklch(0.55 0.25 25);
+  --destructive-foreground: oklch(0.99 0 95);
 
-  --border: var(--color-gray-800);
-  --input: var(--color-gray-500);
+  --border: oklch(0.9 0 95);
+  --input: oklch(0.88 0 95);
   --ring: var(--primary);
 
   --radius: 0.75rem;
@@ -102,28 +102,29 @@
 
   --gradient-overlay: linear-gradient(
     135deg,
-    oklch(0.6 0.25 30 / 0.9),
-    oklch(0.75 0.25 30 / 0.6)
+    oklch(0.6 0.25 30 / 0.1),
+    oklch(0.75 0.25 30 / 0.05)
   );
 
-  --gradient-dark: linear-gradient(180deg, oklch(0.02 0 0), oklch(0.05 0 0));
-  /* Elegant shadows with red glow */
-  --shadow-luxury: 0 25px 50px -12px oklch(0.6 0.25 30 / 0.25);
-  --shadow-glow: 0 0 50px oklch(0.75 0.25 30 / 0.3);
+  --gradient-dark: linear-gradient(180deg, oklch(0.99 0 95), oklch(0.9 0 95));
+
+  /* Elegant shadows with subtle red glow */
+  --shadow-luxury: 0 10px 20px -5px oklch(0.6 0.25 30 / 0.1);
+  --shadow-glow: 0 0 20px oklch(0.7 0.25 30 / 0.15);
 
   /* Smooth transitions */
   --transition-luxury: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Sidebar (light mode fallback) */
-  --sidebar: oklch(0.98 0 0);
-  --sidebar-foreground: oklch(0.26 0.03 95);
+  /* Sidebar (light mode) */
+  --sidebar: oklch(0.98 0 95);
+  --sidebar-foreground: oklch(0.22 0.03 20);
   --sidebar-primary: oklch(0.6 0.25 30);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.96 0 0);
-  --sidebar-accent-foreground: oklch(0.1 0.05 250);
-  --sidebar-border: oklch(0.9 0 0);
-  --sidebar-ring: oklch(0.65 0.2 250);
+  --sidebar-primary-foreground: oklch(0.99 0 95);
+  --sidebar-accent: oklch(0.95 0.02 20);
+  --sidebar-accent-foreground: oklch(0.22 0.03 20);
+  --sidebar-border: oklch(0.9 0 95);
+  --sidebar-ring: oklch(0.65 0.2 30);
 
   /* Chart placeholders */
   --chart-1: oklch(0.6 0.25 30);
@@ -133,10 +134,11 @@
   --chart-5: oklch(0.7 0.2 20);
 }
 
-/* Dark mode enhancement */
+/* Dark mode (optional fallback for night mode) */
 .dark {
-  --primary-glow: oklch(0.8 0.25 30);
-  --shadow-glow: 0 0 60px oklch(0.8 0.25 30 / 0.4);
+  --background: oklch(0.12 0.01 250);
+  --foreground: oklch(0.98 0.02 95);
+  --shadow-glow: 0 0 40px oklch(0.8 0.25 30 / 0.3);
 }
 
 /* ----------------------------
@@ -190,10 +192,10 @@
 @keyframes glow {
   0%,
   100% {
-    filter: drop-shadow(0 0 20px oklch(0.6 0.25 30 / 0.3));
+    filter: drop-shadow(0 0 15px oklch(0.6 0.25 30 / 0.2));
   }
   50% {
-    filter: drop-shadow(0 0 30px oklch(0.75 0.25 30 / 0.5));
+    filter: drop-shadow(0 0 25px oklch(0.75 0.25 30 / 0.35));
   }
 }
 
@@ -203,6 +205,6 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
