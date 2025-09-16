@@ -11,7 +11,10 @@ const MenuItemCard = ({ item }: { item: Item }) => {
   const cartItem = items.find((i) => i.id === item.id);
 
   return (
-    <Card className="py-4 px-4 group hover:shadow-lg transition-all duration-300 border-border hover:border-primary/50 overflow-hidden">
+    <Card
+      id={`food-${item.id}`}
+      className="py-4 px-4 group hover:shadow-lg transition-all duration-300 border-border hover:border-primary/50 overflow-hidden"
+    >
       <CardContent className="p-0 flex items-center">
         {/* Image Section - New positioning */}
         {item.image && (
@@ -30,7 +33,11 @@ const MenuItemCard = ({ item }: { item: Item }) => {
         <div className="flex flex-col justify-between flex-1">
           <div>
             {/* Title and Price - New combined layout */}
-            <div className={`flex ${item.image && "flex-col"} justify-between mb-1`}>
+            <div
+              className={`flex ${
+                item.image && "flex-col"
+              } justify-between mb-1`}
+            >
               <h3 className="font-cinzel font-bold text-md md:text-lg lg:text-xl text-foreground tracking-wide">
                 {item.name}
               </h3>
@@ -38,7 +45,7 @@ const MenuItemCard = ({ item }: { item: Item }) => {
                 Ksh {item.price}
               </span>
             </div>
-            
+
             <p className="text-muted-foreground font-chivo text-sm leading-snug line-clamp-2 mb-3">
               {item.description}
             </p>
