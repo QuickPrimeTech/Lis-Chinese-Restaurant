@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { MapCard } from "@/components/contact/map-card";
 
 export const ContactSection = () => {
   return (
@@ -70,18 +71,7 @@ export const ContactSection = () => {
           {/* Location & Contact Info */}
           <div>
             {/* Map Placeholder */}
-            <div className="bg-card border border-border rounded-lg h-80 mb-8 flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5"></div>
-              <div className="text-center z-10">
-                <MapPin className="h-16 w-16 text-primary mx-auto mb-4" />
-                <p className="text-lg font-cinzel text-foreground">
-                  Interactive Map
-                </p>
-                <p className="text-muted-foreground font-chivo">
-                  123 Luxury Avenue, Fine Dining District
-                </p>
-              </div>
-            </div>
+            <MapCard />
 
             {/* Contact Information */}
             <div className="space-y-6">
