@@ -13,9 +13,12 @@ import {
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -65,7 +68,14 @@ export const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.path}
-                className="text-foreground hover:text-primary transition-colors font-chivo font-medium relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-sm"
+                className={cn(
+                  "hover:text-primary text-foreground transition-colors font-chivo font-medium relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-sm",
+                  pathname === "/" // ✅ Only apply homepage-specific behavior
+                    ? isScrolled
+                      ? "text-foreground" // homepage while scrolled
+                      : "text-white" // homepage before scroll
+                    : "text-foreground" // ✅ all other pages
+                )}
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>

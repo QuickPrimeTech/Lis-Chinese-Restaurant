@@ -8,11 +8,11 @@ import { MapCard } from "@/components/contact/map-card";
 
 export const ContactSection = () => {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background overflow-x-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
-          <div>
+          <div className="w-full">
             <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-foreground mb-6">
               Get in Touch
             </h2>
@@ -21,7 +21,7 @@ export const ContactSection = () => {
               you and help make your dining experience perfect.
             </p>
 
-            <Card className="bg-card border-border">
+            <Card className="bg-card border-border w-full">
               <CardHeader>
                 <CardTitle className="font-cinzel text-2xl">
                   Send us a Message
@@ -69,9 +69,11 @@ export const ContactSection = () => {
           </div>
 
           {/* Location & Contact Info */}
-          <div>
+          <div className="w-full space-y-6">
             {/* Map Placeholder */}
-            <MapCard />
+            <div className="w-full">
+              <MapCard />
+            </div>
 
             {/* Contact Information */}
             <div className="space-y-6">
@@ -83,7 +85,7 @@ export const ContactSection = () => {
                   <h3 className="font-cinzel font-semibold text-foreground mb-1">
                     Address
                   </h3>
-                  <p className="text-muted-foreground font-chivo">
+                  <p className="text-muted-foreground font-chivo break-words">
                     QR74+JR2, Limuru Rd
                     <br />
                     PETROCITY – Gigiri
@@ -101,11 +103,16 @@ export const ContactSection = () => {
                   <h3 className="font-cinzel font-semibold text-foreground mb-1">
                     Phone
                   </h3>
-                  <p className="text-muted-foreground font-chivo">0746815106</p>
+                  <a
+                    href="tel:+254746815106"
+                    className="text-muted-foreground font-chivo hover:underline break-words"
+                  >
+                    +254 746 815 106
+                  </a>
                 </div>
               </div>
 
-              <div className="flex items-start space-x-4">
+              <div className="w-full flex items-start space-x-4">
                 <div className="bg-primary/10 p-3 rounded-full">
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
@@ -113,15 +120,26 @@ export const ContactSection = () => {
                   <h3 className="font-cinzel font-semibold text-foreground mb-1">
                     Email
                   </h3>
-                  <p className="text-muted-foreground font-chivo">
-                    reservations@lischineserestaurantnairobi.com.com
-                    <br />
-                    info@lischineserestaurantnairobi.com.com
-                  </p>
+                  <div className="flex flex-col space-y-1">
+                    <a
+                      href="mailto:reservations@lischineserestaurantnairobi.com.com"
+                      className="text-muted-foreground font-chivo hover:underline"
+                      style={{ wordBreak: "break-all" }} // or use a Tailwind utility for break-all
+                    >
+                      reservations@lischineserestaurantnairobi.com
+                    </a>
+                    <a
+                      href="mailto:info@lischineserestaurantnairobi.com.com"
+                      className="text-muted-foreground font-chivo hover:underline"
+                      style={{ wordBreak: "break-all" }}
+                    >
+                      info@lischineserestaurantnairobi.com
+                    </a>
+                  </div>
                 </div>
               </div>
 
-              <Card className="bg-primary/5 border-primary/20">
+              <Card className="bg-primary/5 border-primary/20 w-full">
                 <CardContent className="p-6">
                   <h3 className="font-cinzel font-semibold text-foreground mb-2">
                     Hours of Operation
