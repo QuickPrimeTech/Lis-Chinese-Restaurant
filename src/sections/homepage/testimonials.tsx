@@ -15,11 +15,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BsGoogle } from "react-icons/bs";
 import { TestimonialDialog } from "@/components/testimonials/testimonial-dialog"; // 👈 import dialog
+import { Testimonial } from "@/types/testimonial";
 
 export const TestimonialCarousel = () => {
-  const [selectedTestimonial, setSelectedTestimonial] = useState<any | null>(
-    null
-  );
+  const [selectedTestimonial, setSelectedTestimonial] =
+    useState<Testimonial | null>(null);
 
   const testimonials = [
     {

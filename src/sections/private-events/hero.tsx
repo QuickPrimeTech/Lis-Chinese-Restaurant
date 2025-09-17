@@ -1,6 +1,5 @@
-"use client";
-
-const privateEventsHero = "/private-events-hero.jpg";
+const privateEventsHero =
+  "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758109375/private-events-hero.jpg";
 
 const Hero = () => {
   return (

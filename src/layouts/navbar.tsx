@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -70,6 +71,7 @@ export const Navbar = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
+            <ModeToggle />
             <Button
               asChild
               variant="default"
@@ -93,7 +95,7 @@ export const Navbar = () => {
                   <Menu className="h-6 w-6" aria-hidden="true" />
                 </Button>
               </SheetTrigger>
-              <SheetContent className="bg-background/10 backdrop-blur-xl border-r border-border/50 text-foreground">
+              <SheetContent className="bg-background backdrop-blur-xl border-r border-border/50 text-foreground">
                 <SheetHeader className="flex flex-row items-center space-x-3 pb-6 border-b border-border">
                   <Image
                     src="/logo.jpg"
@@ -108,6 +110,7 @@ export const Navbar = () => {
                 </SheetHeader>
 
                 <div className="flex px-6 flex-col mt-6 space-y-5">
+                  <ModeToggle />
                   {navigationItems.map((item) => (
                     <Link
                       key={item.name}

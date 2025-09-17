@@ -4,14 +4,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 
-const privateEventsHero = "/private-events-hero.jpg";
+const privateEventsHero =
+  "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758109094/private-event.jpg";
 
 const eventPackages = [
   {
     id: "intimate",
     name: "Intimate Gathering",
     capacity: "8-12 guests",
-    price: "2,500",
+    price: "5,500",
     features: [
       "Private dining room",
       "4-course tasting menu",
@@ -25,7 +26,7 @@ const eventPackages = [
     id: "celebration",
     name: "Celebration Package",
     capacity: "13-30 guests",
-    price: " 5,500",
+    price: " 40,500",
     features: [
       "Semi-private dining area",
       "Customizable menu options",
@@ -40,7 +41,7 @@ const eventPackages = [
     id: "corporate",
     name: "Corporate Experience",
     capacity: "20-50 guests",
-    price: " 12,000",
+    price: " 22,000",
     features: [
       "Exclusive restaurant buyout",
       "Multi-course dining experience",
@@ -74,7 +75,7 @@ const EventPackages = ({
         {eventPackages.map((pkg) => (
           <Card
             key={pkg.id}
-            className="group hover:shadow-luxury transition-all duration-300 border-border hover:border-primary/50"
+            className="py-0 pb-6 overflow-hidden group hover:shadow-luxury transition-all duration-300 border-border hover:border-primary/50"
           >
             <CardContent className="p-0">
               <div className="relative overflow-hidden rounded-t-lg h-48">
@@ -96,7 +97,7 @@ const EventPackages = ({
                     {pkg.name}
                   </h3>
                   <span className="font-cinzel font-bold text-lg text-primary">
-                    Ksh:{pkg.price}
+                    Ksh {pkg.price}
                   </span>
                 </div>
                 <ul className="space-y-2 mb-6">

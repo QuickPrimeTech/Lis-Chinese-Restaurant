@@ -28,10 +28,10 @@ export function ContactButton() {
       <PopoverContent
         side="top"
         align="end"
-        className="w-64 p-4 space-y-2 rounded-lg shadow-lg bg-white border border-gray-200"
+        className="w-64 p-4 space-y-2 rounded-lg shadow-lg bg-background border border-foreground/40"
       >
         <Button
-          className="w-full h-12 flex items-center justify-start gap-3 text-base bg-green-500 hover:bg-green-600"
+          className="w-full h-12 flex items-center justify-start gap-3 text-base bg-green-500 dark:bg-green-800 dark:hover:bg-green-700 hover:bg-green-600"
           asChild
         >
           <Link
@@ -44,7 +44,7 @@ export function ContactButton() {
           </Link>
         </Button>
         <Button
-          className="bg-indigo-500 hover:bg-indigo-600 w-full h-12 flex items-center justify-start gap-3 text-base"
+          className="bg-indigo-500 dark:bg-indigo-900 dark:hover:bg-indigo-800 hover:bg-indigo-700 w-full h-12 flex items-center justify-start gap-3 text-base"
           asChild
         >
           <Link

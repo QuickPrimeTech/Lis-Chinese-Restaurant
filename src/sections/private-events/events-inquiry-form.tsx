@@ -168,7 +168,8 @@ export default function EventInquiryForm() {
             Private Event Booking
           </h1>
           <p className="text-muted-foreground">
-            Tell us about your vision and we'll create a personalized proposal
+            Tell us about your vision and we&apos;ll create a personalized
+            proposal
           </p>
         </CardHeader>
 

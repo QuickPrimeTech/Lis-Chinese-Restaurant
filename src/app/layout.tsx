@@ -8,6 +8,7 @@ import { CartProvider } from "@/contexts/cart-provider";
 import { OrderProvider } from "@/contexts/order-context";
 import { CartButton } from "@/components/cart/cart-button";
 import { ContactButton } from "@/layouts/contact-button";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`
           ${geistSans.variable} 
@@ -82,15 +83,22 @@ export default function RootLayout({
           antialiased
         `}
       >
-        <OrderProvider>
-          <CartProvider>
-            <CartButton />
-            <Navbar />
-            {children}
-            <ContactButton />
-            <Footer />
-          </CartProvider>
-        </OrderProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <OrderProvider>
+            <CartProvider>
+              <CartButton />
+              <Navbar />
+              {children}
+              <ContactButton />
+              <Footer />
+            </CartProvider>
+          </OrderProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

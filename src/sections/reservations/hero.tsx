@@ -5,7 +5,7 @@ import Image from "next/image";
 export const HeroSection = () => (
   <section className="relative h-96 overflow-hidden">
     <Image
-      src="/reservations-hero.jpg"
+      src="https://res.cloudinary.com/quick-prime-tech/image/upload/v1758109786/reserve-hero.jpg"
       fill
       alt="li's chinese restaurant reservation image"
       className="object-cover"
@@ -17,7 +17,8 @@ export const HeroSection = () => (
           Reserve Your Table
         </h1>
         <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
-          Secure your seat at Li&apos;s Chinese Restaurant for an unforgettable dining experience
+          Secure your seat at Li&apos;s Chinese Restaurant for an unforgettable
+          dining experience
         </p>
       </div>
     </div>

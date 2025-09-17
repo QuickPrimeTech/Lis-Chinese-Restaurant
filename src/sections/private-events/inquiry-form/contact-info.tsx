@@ -28,7 +28,7 @@ export const ContactInfoStep: React.FC<ContactInfoStepProps> = ({
           Contact Information
         </h2>
         <p className="text-muted-foreground">
-          Let's start with your basic contact details
+          Let&apos;s start with your basic contact details
         </p>
       </div>
 
@@ -92,7 +92,7 @@ export const ContactInfoStep: React.FC<ContactInfoStepProps> = ({
             value={data.phone}
             onChange={(e) => onChange("phone", e.target.value)}
             className={errors.phone ? "border-destructive" : ""}
-            placeholder="(555) 123-4567"
+            placeholder="+254746815106"
           />
           {errors.phone && (
             <p className="text-sm text-destructive">{errors.phone}</p>

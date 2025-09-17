@@ -28,19 +28,27 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
 }) => {
   return (
     <div className="w-full mb-8">
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         {steps.slice(0, totalSteps).map((step, index) => {
           const isActive = currentStep === step.id;
           const isCompleted = currentStep > step.id;
-          const isLast = index === totalSteps - 1;
+          const isFirst = index === 0;
 
           return (
             <React.Fragment key={step.id}>
-              <div className="flex flex-col items-center">
-                {/* Step Circle */}
+              {!isFirst && (
                 <div
                   className={cn(
-                    "relative flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300",
+                    "flex-1 h-0.5 mt-6 transition-all duration-300",
+                    isCompleted ? "bg-primary" : "bg-muted-foreground/30"
+                  )}
+                />
+              )}
+              {/* Circle + Label */}
+              <div className="flex flex-col items-center">
+                <div
+                  className={cn(
+                    "flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300",
                     isCompleted &&
                       "bg-primary border-primary text-primary-foreground shadow-glow",
                     isActive &&
@@ -52,33 +60,17 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
                 >
                   <step.icon className="w-5 h-5" />
                 </div>
-
-                {/* Step Label - Hidden on mobile */}
-                <div className="hidden sm:block mt-2 text-center">
-                  <span
-                    className={cn(
-                      "text-sm font-medium transition-colors duration-300",
-                      isActive && "text-primary",
-                      isCompleted && "text-primary",
-                      !isActive && !isCompleted && "text-muted-foreground"
-                    )}
-                  >
-                    {step.title}
-                  </span>
-                </div>
+                <span
+                  className={cn(
+                    "hidden sm:block mt-2 text-sm font-medium transition-colors duration-300",
+                    isActive && "text-primary",
+                    isCompleted && "text-primary",
+                    !isActive && !isCompleted && "text-muted-foreground"
+                  )}
+                >
+                  {step.title}
+                </span>
               </div>
-
-              {/* Connecting Line */}
-              {!isLast && (
-                <div className="flex-1 mx-2 sm:mx-4">
-                  <div
-                    className={cn(
-                      "h-0.5 transition-all duration-300",
-                      isCompleted ? "bg-primary" : "bg-muted-foreground/30"
-                    )}
-                  />
-                </div>
-              )}
             </React.Fragment>
           );
         })}
