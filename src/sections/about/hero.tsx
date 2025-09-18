@@ -7,7 +7,7 @@ export default function AboutHero() {
     <section className="relative h-96 overflow-hidden">
       <div className="absolute inset-0 bg-cover bg-center" />
       <Image
-        src="/about-hero.jpg"
+        src="/team4.jpg"
         alt="Li's Chinese about us image"
         fill
         className="object-cover"
@@ -19,8 +19,8 @@ export default function AboutHero() {
             Our Story
           </h1>
           <p className="text-xl text-muted-foreground font-chivo max-w-3xl mx-auto">
-            Discover the passion, tradition, and innovation that make
-            Li&apos;s Chinese Restaurant a culinary destination
+            Discover the passion, tradition, and innovation that make Li&apos;s
+            Chinese Restaurant a culinary destination
           </p>
         </div>
       </div>
