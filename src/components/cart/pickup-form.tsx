@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { MapPin, Clock, CalendarIcon } from "lucide-react";
+import { MapPin, Clock, CalendarIcon, ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { useOrder } from "@/contexts/order-context";
@@ -43,7 +43,14 @@ import {
  *   to avoid Zod TS mismatches across versions.
  * - Then refine the date to ensure it's within [today, today+7days].
  */
+/**
+ * Schema & Types
+ */
 const pickupSchema = z.object({
+  fullName: z.string().min(1, "Full name is required"),
+
+  email: z.string().email("Enter a valid email").optional().or(z.literal("")), // allow empty string if skipped
+
   date: z.date().refine(
     (date) => {
       if (Number.isNaN(date.getTime())) return false;
@@ -81,8 +88,9 @@ export function PickupForm({ onContinue }: PickupFormProps) {
     resolver: zodResolver(pickupSchema),
     mode: "onTouched",
     defaultValues: {
-      // date intentionally left undefined until user picks one
-      date: undefined as unknown as Date, // typed as Date but may be undefined initially
+      fullName: "",
+      email: "",
+      date: undefined as unknown as Date,
       time: "",
       phone: "",
       instructions: "",
@@ -104,7 +112,7 @@ export function PickupForm({ onContinue }: PickupFormProps) {
     const selected = getSelectedDate();
     const isToday = selected && selected.toDateString() === now.toDateString();
 
-    for (let hour = 9; hour <= 22; hour++) {
+    for (let hour = 11; hour <= 22; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
         const slotTime = new Date(selected || now);
         slotTime.setHours(hour, minute, 0, 0);
@@ -193,6 +201,20 @@ export function PickupForm({ onContinue }: PickupFormProps) {
           <CardDescription>Choose your preferred date & time</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {/* Full Name */}
+          <div className="space-y-2">
+            <Label>Full Name *</Label>
+            <Input
+              type="text"
+              placeholder="Enter your full name"
+              {...form.register("fullName")}
+            />
+            {form.formState.errors.fullName && (
+              <p className="text-xs text-red-500">
+                {form.formState.errors.fullName.message}
+              </p>
+            )}
+          </div>
           {/* Date */}
           <div className="space-y-2">
             <Label>Pickup Date *</Label>
@@ -288,10 +310,23 @@ export function PickupForm({ onContinue }: PickupFormProps) {
               </p>
             )}
           </div>
-
+          {/* Email (Optional) */}
+          <div className="space-y-2">
+            <Label>Email (Optional)</Label>
+            <Input
+              type="email"
+              placeholder="you@example.com"
+              {...form.register("email")}
+            />
+            {form.formState.errors.email && (
+              <p className="text-xs text-red-500">
+                {form.formState.errors.email.message}
+              </p>
+            )}
+          </div>
           {/* Instructions */}
           <div className="space-y-2">
-            <Label>Special Instructions</Label>
+            <Label>Special Instructions (Optional)</Label>
             <Textarea
               rows={2}
               placeholder="Any special requests"
@@ -317,7 +352,7 @@ export function PickupForm({ onContinue }: PickupFormProps) {
       </Card>
 
       <Button type="submit" size="lg" className="w-full">
-        Continue to Payment
+        Continue to Payment <ArrowRight />
       </Button>
     </form>
   );

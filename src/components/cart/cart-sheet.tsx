@@ -27,6 +27,7 @@ import {
   AlertTriangle,
   MapPin,
   CheckCircle2,
+  ArrowRight,
 } from "lucide-react";
 import { useCart } from "@/contexts/cart-provider";
 import { CartItem } from "./cart-item";
@@ -106,16 +107,15 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
               className="flex items-center gap-3 p-2 bg-background rounded-lg border border-border"
             >
               {item.image && (
-
                 <div className="relative w-10 h-10 bg-muted rounded-md overflow-hidden flex-shrink-0">
-                <Image
-                  fill
-                  src={item.image || "/placeholder.svg"}
-                  alt={item.name}
-                  className="object-cover"
+                  <Image
+                    fill
+                    src={item.image || "/placeholder.svg"}
+                    alt={item.name}
+                    className="object-cover"
                   />
-              </div>
-                )}
+                </div>
+              )}
 
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium truncate">{item.name}</p>
@@ -265,7 +265,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                           className="flex-1 bg-gradient-primary hover:shadow-glow"
                           onClick={handleProceedToDetails}
                         >
-                          Continue to Pickup
+                          Continue to Pickup <ArrowRight />
                         </Button>
                       </div>
                     </div>

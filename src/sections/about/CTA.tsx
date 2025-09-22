@@ -1,6 +1,7 @@
 // @/sections/about/CTA.tsx
 
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function AboutCTA() {
   return (
@@ -18,15 +19,12 @@ export default function AboutCTA() {
             size="lg"
             variant="secondary"
             className="bg-background text-primary hover:bg-background/90"
+            asChild
           >
-            Make a Reservation
+            <Link href="/reservations">Make a Reservation</Link>
           </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-          >
-            View Our Menu
+          <Button size="lg" variant="outline" asChild>
+            <Link href={"/menu"}>View Our Menu</Link>
           </Button>
         </div>
       </div>

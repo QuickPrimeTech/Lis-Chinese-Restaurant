@@ -4,7 +4,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { CreditCard, Loader2, Lock } from "lucide-react";
+import { CreditCard, Loader, Loader2, Lock } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -93,12 +93,12 @@ export function CardPaymentForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         {/* Secure banner */}
-        <div className="bg-blue-950 border border-blue-700 rounded-lg p-4 mb-4">
-          <div className="flex items-center gap-2 text-blue-50 mb-2">
+        <div className="bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-700 rounded-lg p-4 mb-4">
+          <div className="flex items-center gap-2 text-blue-900 dark:text-blue-50 mb-2">
             <Lock className="h-4 w-4" />
             <span className="text-sm font-medium">Secure Payment</span>
           </div>
-          <p className="text-xs text-blue-200">
+          <p className="text-xs text-blue-700 dark:text-blue-200">
             Your payment information is encrypted and secure
           </p>
         </div>
@@ -193,7 +193,7 @@ export function CardPaymentForm({
         <div className="bg-card rounded-lg p-4 mt-4">
           <div className="flex justify-between items-center">
             <span className="font-semibold">Total Amount:</span>
-            <span className="text-xl font-bold text-green-600">
+            <span className="text-xl font-bold text-blue-600">
               Ksh {total.toFixed(2)}
             </span>
           </div>
@@ -213,7 +213,7 @@ export function CardPaymentForm({
           <Button type="submit" className="flex-1" disabled={isProcessing}>
             {isProcessing ? (
               <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                <Loader className="h-4 w-4 mr-2 animate-spin" />
                 Processing...
               </>
             ) : (

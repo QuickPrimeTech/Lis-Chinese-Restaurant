@@ -116,12 +116,12 @@ export function MpesaPaymentForm({
 
   return (
     <div className="space-y-4">
-      <div className="bg-green-950 border border-green-700 rounded-lg p-4 mb-4">
-        <div className="flex items-center gap-2 text-green-50 mb-2">
+      <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-700 rounded-lg p-4 mb-4">
+        <div className="flex items-center gap-2 text-green-900 dark:text-green-50 mb-2">
           <Shield className="h-4 w-4" />
           <span className="text-sm font-medium">M-Pesa Secure Payment</span>
         </div>
-        <p className="text-xs text-green-200">
+        <p className="text-xs text-green-700 dark:text-green-200">
           Pay securely using your M-Pesa mobile money account
         </p>
       </div>
