@@ -162,20 +162,23 @@ export function PickupForm({ onContinue }: PickupFormProps) {
       className="space-y-6 w-full max-sm:pb-16"
     >
       {/* Location */}
-      <Card className="w-full bg-green-950 border-green-700">
+      <Card className="w-full bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-700">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-green-50">
+          <CardTitle className="flex items-center gap-2 text-green-900 dark:text-green-50">
             <MapPin className="h-4 w-4" />
             Pickup Location
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-sm text-green-200 space-y-1">
+        <CardContent className="text-sm text-green-700 dark:text-green-200 space-y-1">
           <p>
-            <strong>123 Main Street, Westlands</strong>
+            <strong className="mr-2">Located in: PETROCITY-Gigiri</strong>
           </p>
-          <p>Nairobi, Kenya</p>
+          <p>Address: QR74+JR2, Limuru Rd, Nairobi</p>
           <p className="pt-2">
-            <strong>Hours:</strong> Daily 9:00 AM - 10:00 PM
+            <strong className="mr-2">Opening Days:</strong> Tuesday – Sunday
+          </p>
+          <p>
+            <strong className="mr-2">Hours:</strong>11:00 AM – 10:30 PM
           </p>
         </CardContent>
       </Card>
@@ -299,11 +302,13 @@ export function PickupForm({ onContinue }: PickupFormProps) {
       </Card>
 
       {/* Policy */}
-      <Card className="bg-amber-950 border-amber-700">
+      <Card className="bg-amber-50 dark:bg-amber-950 border-amber-200 dark:border-amber-700">
         <CardHeader>
-          <CardTitle className="text-amber-50">Pickup Policy</CardTitle>
+          <CardTitle className="text-amber-900 dark:text-amber-50">
+            Pickup Policy
+          </CardTitle>
         </CardHeader>
-        <CardContent className="text-sm text-amber-200 space-y-1">
+        <CardContent className="text-sm text-amber-700 dark:text-amber-200 space-y-1">
           <p>• No pickup fee</p>
           <p>• Arrive within 15 minutes of scheduled time</p>
           <p>• Bring valid ID for verification</p>
