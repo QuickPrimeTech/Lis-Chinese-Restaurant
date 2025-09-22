@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { MapPin, Clock, CalendarIcon, ArrowRight } from "lucide-react";
-
 import { cn } from "@/lib/utils";
 import { useOrder } from "@/contexts/order-context";
 
@@ -97,6 +96,21 @@ export function PickupForm({ onContinue }: PickupFormProps) {
     },
   });
 
+  // Load saved details once on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("pickupUserDetails");
+    if (saved) {
+      const data = JSON.parse(saved);
+      form.reset({
+        ...form.getValues(), // keep current defaults
+        fullName: data.fullName || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        instructions: data.instructions || "",
+      });
+    }
+  }, [form]);
+
   // Helper: generate time slots based on the currently selected date (from form or local)
   const getSelectedDate = (): Date | undefined => {
     // prefer react-hook-form value if present (it will be a Date if valid)
@@ -140,6 +154,16 @@ export function PickupForm({ onContinue }: PickupFormProps) {
 
   // onSubmit will receive typed values (date is Date due to schema)
   const onSubmit = (values: PickupFormValues) => {
+    localStorage.setItem(
+      "pickupUserDetails",
+      JSON.stringify({
+        fullName: values.fullName,
+        email: values.email,
+        phone: values.phone,
+        instructions: values.instructions,
+      })
+    );
+
     // values.date is a Date (per schema), but to be defensive copy it
     const scheduledTime = new Date(values.date.getTime());
     const [hours, minutes] = values.time.split(":").map(Number);
