@@ -42,7 +42,7 @@ export function CartPopover({
             </span>
           </div>
 
-          <ScrollArea className="h-48">
+          <ScrollArea className="h-fit max-h-48">
             {items.slice(0, maxItems).map((item) => (
               <div
                 key={item.id}
