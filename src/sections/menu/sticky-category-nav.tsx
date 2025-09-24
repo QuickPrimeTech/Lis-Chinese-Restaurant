@@ -278,7 +278,7 @@ export default function StickyCategoryNav() {
 
         {/* ✅ Categories scroll, search keeps priority */}
         {!isMobileSearchOpen && (
-          <ScrollArea className="flex-1 w-full min-w-0 bg-gray-200 dark:bg-gray-800 rounded-md px-2 py-0.5">
+          <ScrollArea className="flex-1 w-full min-w-0 bg-gray-200 dark:bg-gray-800 rounded-full px-2 py-0.5">
             <div className="flex space-x-2 py-1 px-1">
               {categories.map((c) => (
                 <Button

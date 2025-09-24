@@ -46,7 +46,7 @@ export function MapCard() {
             <Link
               rel="noopener noreferrer"
               target="_blank"
-              href="https://www.google.com/maps/place/Forodhani+Restaurant/@-4.0595868,39.6799082,17z/data=!3m1!4b1!4m6!3m5!1s0x1840131d814f3f19:0x22d4f7eb89d2d4cc!8m2!3d-4.0595868!4d39.6799082!16s%2Fg%2F11c1qspwll?entry=ttu&g_ep=EgoyMDI1MDcxNi4wIKXMDSoASAFQAw%3D%3D"
+              href="https://www.google.com/maps/place/Li's+Chinese+Restaurant/@-1.2359985,36.8021432,17z/data=!3m1!4b1!4m6!3m5!1s0x182f1774bd49e983:0x8cc5ef01c9b23983!8m2!3d-1.2359985!4d36.8070141!16s%2Fg%2F11pvhrdjfy?entry=ttu&g_ep=EgoyMDI1MDkyMS4wIKXMDSoASAFQAw%3D%3D"
             >
               Open in Google Maps
             </Link>

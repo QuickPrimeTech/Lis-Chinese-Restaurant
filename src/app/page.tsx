@@ -7,7 +7,7 @@ import { FAQSection } from "@/sections/homepage/FAQs";
 import { FollowUs } from "@/sections/homepage/followus";
 import { HeroSection } from "@/sections/homepage/hero";
 import { MenuPreview } from "@/sections/homepage/menu-preview";
-import { OfferSection } from "@/sections/homepage/offer";
+// import { OfferSection } from "@/sections/homepage/offer";
 import { TestimonialCarousel } from "@/sections/homepage/testimonials";
 
 export const metadata = {
@@ -22,7 +22,7 @@ export default function Home() {
     <>
       <HeroSection />
       <MenuPreview />
-      <OfferSection />
+      {/* <OfferSection /> */}
       <TestimonialCarousel />
       <AboutSection />
       <CTASection />

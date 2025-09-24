@@ -30,32 +30,32 @@ const Footer = () => {
   };
   const socialLinks = [
     {
-      icon: <FaTripadvisor className="h-5 w-5" />,
+      icon: FaTripadvisor,
       url: "https://www.tripadvisor.com/Restaurant_Review-g294207-d23859107-Reviews-Li_s_Chinese_Restaurant_Nairobi-Nairobi.html",
       name: "Tripadvisor",
       hover: "hover:bg-green-500 hover:text-white", // Tripadvisor solid green
     },
     {
-      icon: <Instagram className="h-5 w-5" />,
+      icon: Instagram,
       url: "https://www.instagram.com/lischineserestaurant/",
       name: "Instagram",
       hover:
         "hover:bg-gradient-to-tr hover:from-yellow-700 hover:to-pink-600 hover:text-white", // IG pink→yellow gradient
     },
     {
-      icon: <BsTwitterX className="h-5 w-5" />,
+      icon: BsTwitterX,
       url: "#",
       name: "Twitter",
       hover: "hover:bg-black hover:text-white", // Twitter solid black
     },
     {
-      icon: <FaTiktok className="h-5 w-5" />,
+      icon: FaTiktok,
       url: "#", // Replace with actual TikTok URL
       name: "TikTok",
       hover: "hover:bg-black hover:text-white", // TikTok solid black
     },
     {
-      icon: <FaLinkedinIn className="h-5 w-5" />,
+      icon: FaLinkedinIn,
       url: "#", // Replace with actual LinkedIn URL
       name: "LinkedIn",
       hover: "hover:bg-blue-700 hover:text-white", // LinkedIn solid blue
@@ -203,7 +203,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className={`bg-background border border-border p-3 rounded-full text-muted-foreground transition-all duration-300 ${social.hover}`}
                 >
-                  {social.icon}
+                  <social.icon className="size-5" />
                 </Link>
               ))}
             </div>

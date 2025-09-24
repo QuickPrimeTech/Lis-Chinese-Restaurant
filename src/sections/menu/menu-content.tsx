@@ -3,6 +3,7 @@ import MenuSections from "@/sections/menu/menu-sections";
 import type { Item } from "@/types/menu";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 interface MenuContentProps {
   menuItems: Record<string, Item[]>;
@@ -15,9 +16,15 @@ export default function MenuContent({ menuItems }: MenuContentProps) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Fixed Download Button (keeps its width, never pushed) */}
         <div className="flex justify-center mt-8 px-2">
-          <Button className="border-primary whitespace-nowrap">
-            <ExternalLink className="mr-2 h-4 w-4" />
-            View PDF Menu
+          <Button className="border-primary whitespace-nowrap" asChild>
+            <Link
+              href={"/pdf-menu.pdf"}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              View PDF Menu
+              <ExternalLink />
+            </Link>
           </Button>
         </div>
         <MenuSections menuItems={menuItems} />
