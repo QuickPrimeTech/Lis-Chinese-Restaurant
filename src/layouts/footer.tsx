@@ -5,7 +5,7 @@ import { Instagram, Mail, Phone, MapPin } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { BsTwitterX } from "react-icons/bs";
-import { FaTripadvisor } from "react-icons/fa";
+import { FaLinkedinIn, FaTiktok, FaTripadvisor } from "react-icons/fa";
 import { FooterCurrentYear } from "@/components/footer-current-year";
 // import qrCode from "/qr-menu.jpg";
 
@@ -47,6 +47,18 @@ const Footer = () => {
       url: "#",
       name: "Twitter",
       hover: "hover:bg-black hover:text-white", // Twitter solid black
+    },
+    {
+      icon: <FaTiktok className="h-5 w-5" />,
+      url: "#", // Replace with actual TikTok URL
+      name: "TikTok",
+      hover: "hover:bg-black hover:text-white", // TikTok solid black
+    },
+    {
+      icon: <FaLinkedinIn className="h-5 w-5" />,
+      url: "#", // Replace with actual LinkedIn URL
+      name: "LinkedIn",
+      hover: "hover:bg-blue-700 hover:text-white", // LinkedIn solid blue
     },
   ];
 
@@ -132,18 +144,15 @@ const Footer = () => {
             <h3 className="font-cinzel font-semibold text-foreground mb-6">
               Digital Menu
             </h3>
-            <Card className="bg-background border-border">
-              <CardContent className="p-4 text-center">
-                <Image
-                  src="/qr.jpeg"
-                  width={300}
-                  height={300}
-                  alt="QR Code for Digital Menu"
-                  className="w-32 h-32 mx-auto mb-4 rounded-lg"
-                />
-                <p className="text-sm text-muted-foreground font-chivo mb-4">
-                  Scan for instant access to our complete menu
-                </p>
+            <Card className="bg-background border-border py-0">
+              <CardContent className="p-2 text-center">
+                <div className="relative w-full aspect-square mb-4 rounded-lg overflow-hidden">
+                  <Image
+                    src="https://res.cloudinary.com/quick-prime-tech/image/upload/v1758718147/qr-code.jpg"
+                    fill
+                    alt="QR Code for Digital Menu"
+                  />
+                </div>
                 <Button
                   variant="outline"
                   size="sm"
