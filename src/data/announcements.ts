@@ -1,4 +1,4 @@
-import { CalendarX, Gift } from "lucide-react";
+import { CalendarX, Receipt } from "lucide-react";
 
 export const announcements: Record<
   string,
@@ -7,19 +7,14 @@ export const announcements: Record<
   "/": [
     {
       icon: CalendarX,
-      message: "We are closed every Monday.",
+      message: "Closed Mondays. Open Tue–Sun, 11:00 AM – 10:30 PM",
     },
   ],
   "/menu": [
     {
-      icon: Gift,
-      message: "Happy Hour! Get 10% off appetizers between 4–6pm daily.",
-    },
-  ],
-  "/private-events": [
-    {
-      icon: Gift,
-      message: "Book your private event now and enjoy a complimentary dessert.",
+      icon: Receipt,
+      message:
+        "All prices are subject to 16% VAT and 2% Catering Levy as per regulations.",
     },
   ],
 };

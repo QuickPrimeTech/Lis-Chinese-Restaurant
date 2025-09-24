@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Search, X, ArrowDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { menuItems } from "@/data/menu-data";
+import { useSiteHeader } from "@/layouts/site-header";
 
 const categories = Object.entries(menuItems).map(([key, items]) => ({
   id: key,
@@ -25,6 +26,7 @@ export default function StickyCategoryNav() {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const suggestionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const { announcementOpen } = useSiteHeader();
 
   // ✅ Detect desktop vs mobile
   useEffect(() => {
@@ -180,7 +182,11 @@ export default function StickyCategoryNav() {
   };
 
   return (
-    <div className="sticky top-20 z-40 bg-background/95 backdrop-blur-md border-b border-border/50 shadow-soft">
+    <div
+      className={`sticky ${
+        announcementOpen ? "top-30" : "top-20"
+      } z-40 bg-background/95 rounded-md backdrop-blur-md border-b border-border/50 shadow-soft`}
+    >
       <div className="flex items-center p-3 gap-3 max-w-7xl mx-auto">
         {/* ✅ Search always has priority space */}
         <div

@@ -11,13 +11,11 @@ interface MenuContentProps {
 export default function MenuContent({ menuItems }: MenuContentProps) {
   return (
     <>
+      <StickyCategoryNav />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <StickyCategoryNav />
         {/* Fixed Download Button (keeps its width, never pushed) */}
         <div className="flex justify-center mt-8 px-2">
-          <Button
-            className="border-primary whitespace-nowrap"
-          >
+          <Button className="border-primary whitespace-nowrap">
             <ExternalLink className="mr-2 h-4 w-4" />
             View PDF Menu
           </Button>

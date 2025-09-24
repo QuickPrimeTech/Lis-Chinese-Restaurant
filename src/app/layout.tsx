@@ -90,15 +90,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <OrderProvider>
-            <CartProvider>
-              <CartButton />
-              <SiteHeader />
-              {children}
-              <ContactButton />
-              <Footer />
-            </CartProvider>
-          </OrderProvider>
+          <SiteHeader>
+            <OrderProvider>
+              <CartProvider>
+                <CartButton />
+                {children}
+                <ContactButton />
+                <Footer />
+              </CartProvider>
+            </OrderProvider>
+          </SiteHeader>
         </ThemeProvider>
       </body>
     </html>
