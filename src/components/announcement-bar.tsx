@@ -34,7 +34,7 @@ export function AnnouncementBar({
     <div className="bg-gradient-to-r from-primary to-primary/70 text-white py-2 px-4 relative z-40">
       <div
         ref={containerRef}
-        className="container mx-auto flex items-center justify-between overflow-hidden"
+        className="container mx-auto flex items-center justify-between overflow-hidden group"
       >
         {/* Marquee wrapper */}
         <div className="flex-1 overflow-hidden">
@@ -42,7 +42,8 @@ export function AnnouncementBar({
             ref={contentRef}
             className={cn(
               "flex items-center space-x-2 text-sm font-medium whitespace-nowrap",
-              isOverflowing && "w-max animate-[marquee_15s_linear_infinite]"
+              isOverflowing &&
+                "w-max animate-[marquee_15s_linear_infinite] group-hover:[animation-play-state:paused]"
             )}
           >
             {children}
