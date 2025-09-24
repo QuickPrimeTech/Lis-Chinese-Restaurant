@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { BsTwitterX } from "react-icons/bs";
 import { FaTripadvisor } from "react-icons/fa";
+import { FooterCurrentYear } from "@/components/footer-current-year";
 // import qrCode from "/qr-menu.jpg";
 
 const Footer = () => {
@@ -200,10 +201,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <div className="text-center text-muted-foreground font-chivo">
-              <p>
-                &copy; 2024 Li&apos;s Chinese Restaurant Restaurant. All rights
-                reserved.
-              </p>
+              <FooterCurrentYear />
             </div>
 
             {/* Legal Links */}

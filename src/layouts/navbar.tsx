@@ -1,3 +1,5 @@
+// @/layouts/navbar
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -16,7 +18,11 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-export const Navbar = () => {
+type NavbarProps = {
+  className?: string;
+};
+
+export const Navbar = ({ className }: NavbarProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
@@ -37,11 +43,14 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-background/70 backdrop-blur-md border-b border-border shadow-lg"
-          : "bg-transparent border-b border-primary/20"
-      }`}
+      className={cn(
+        `fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? "bg-background/70 backdrop-blur-md border-b border-border shadow-lg"
+            : "bg-transparent border-b border-primary/20"
+        }`,
+        className
+      )}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">

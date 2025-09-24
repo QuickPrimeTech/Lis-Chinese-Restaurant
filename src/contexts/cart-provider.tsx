@@ -12,7 +12,6 @@ import React, {
 export interface CartItem extends Item {
   id: string; // Keep as number for easier math
   quantity: number;
-
 }
 
 interface CartState {
@@ -38,9 +37,9 @@ export const useCart = () => {
   return context;
 };
 
-interface CartProviderProps {
+type CartProviderProps = {
   children: ReactNode;
-}
+};
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
