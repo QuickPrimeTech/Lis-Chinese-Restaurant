@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Cinzel, Chivo } from "next/font/google"; // 👈 add these
 import "./globals.css";
-import { Navbar } from "@/layouts/navbar";
 import Footer from "@/layouts/footer";
 import { CartProvider } from "@/contexts/cart-provider";
 import { OrderProvider } from "@/contexts/order-context";

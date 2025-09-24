@@ -18,6 +18,9 @@ interface CartState {
   items: CartItem[];
   total: number;
   itemCount: number;
+  finalTotal: number;
+  vatAmount: number;
+  levyAmount: number;
 }
 
 interface CartContextType extends CartState {
@@ -45,6 +48,15 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
   const [total, setTotal] = useState(0);
   const [itemCount, setItemCount] = useState(0);
+
+  //Calculating the final total after all taxes:
+  // Tax rates
+  const VAT_RATE = 0.16;
+  const LEVY_RATE = 0.02;
+
+  const vatAmount = total * VAT_RATE;
+  const levyAmount = total * LEVY_RATE;
+  const finalTotal = total + vatAmount + levyAmount;
 
   // 🔄 Helper function to recalc totals
   const recalcTotals = (cartItems: CartItem[]) => {
@@ -115,6 +127,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const value: CartContextType = {
     items,
     total,
+    finalTotal,
+    vatAmount,
+    levyAmount,
     itemCount,
     addToCart,
     removeFromCart,

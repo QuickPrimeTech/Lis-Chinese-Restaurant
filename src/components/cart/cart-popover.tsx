@@ -8,10 +8,11 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ShoppingCart, Eye } from "lucide-react";
+import { ShoppingCart, Eye, ArrowRight } from "lucide-react";
 import { useCart } from "@/contexts/cart-provider";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Image from "next/image";
+import { PriceBreakdown } from "./price-breakdown";
 
 interface CartPopoverProps {
   children: React.ReactNode;
@@ -26,8 +27,8 @@ export function CartPopover({
   onOpenChange,
   onCheckout,
 }: CartPopoverProps) {
-  const { items, total, itemCount } = useCart();
-
+  const { items, itemCount } = useCart();
+  const maxItems = 3;
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
@@ -41,9 +42,12 @@ export function CartPopover({
             </span>
           </div>
 
-          <ScrollArea className="space-y-2 max-h-48">
-            {items.slice(0, 3).map((item) => (
-              <div key={item.id} className="flex items-center gap-3 py-2">
+          <ScrollArea className="h-48">
+            {items.slice(0, maxItems).map((item) => (
+              <div
+                key={item.id}
+                className="flex border px-2 rounded-sm items-center mt-2 gap-3 py-1.5"
+              >
                 {item.image && (
                   <div className="relative w-10 h-10 bg-muted rounded-md flex-shrink-0 overflow-hidden">
                     <Image
@@ -69,7 +73,7 @@ export function CartPopover({
             {items.length > 3 && (
               <div className="text-center py-2">
                 <p className="text-sm text-muted-foreground">
-                  +{items.length - 3} more items
+                  +{items.length - maxItems} more items
                 </p>
               </div>
             )}
@@ -79,12 +83,9 @@ export function CartPopover({
 
           <Separator className="my-3" />
 
-          <div className="flex items-center justify-between mb-3">
-            <span className="font-semibold">Total:</span>
-            <span className="font-bold text-lg">Ksh {total.toFixed(2)}</span>
-          </div>
-
-          <div className="flex gap-2">
+          <PriceBreakdown />
+          <Separator />
+          <div className="flex gap-2 mt-2">
             <Button
               variant="outline"
               size="sm"
@@ -96,6 +97,7 @@ export function CartPopover({
             </Button>
             <Button size="sm" className="flex-1" onClick={onCheckout}>
               Checkout
+              <ArrowRight />
             </Button>
           </div>
         </div>

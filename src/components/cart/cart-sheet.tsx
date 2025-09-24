@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import {
   Sheet,
@@ -7,7 +8,6 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -34,9 +34,10 @@ import { CartItem } from "./cart-item";
 import { CardPaymentForm } from "./card-payment-form";
 import { MpesaPaymentForm } from "./mpesa-payment-form";
 import { PickupForm } from "./pickup-form";
-import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CartSuccess } from "./cart-success";
+import { OrderSummary } from "./order-summary";
+import { PriceBreakdown } from "./price-breakdown";
 
 interface CartSheetProps {
   open: boolean;
@@ -59,13 +60,11 @@ type LastOrder = {
 type CheckoutStep = "cart" | "details" | "payment" | "success";
 
 export function CartSheet({ open, onOpenChange }: CartSheetProps) {
-  const { items, total, itemCount, clearCart } = useCart();
+  const { items, finalTotal, itemCount, clearCart } = useCart();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("cart");
   const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("card");
   const [lastOrder, setLastOrder] = useState<LastOrder | null>(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
-
-  const finalTotal = total;
 
   const handleBackToCart = () => setCurrentStep("cart");
   const handleBackToDetails = () => setCurrentStep("details");
@@ -94,59 +93,6 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   };
 
   if (currentStep === "success" && !open) setCurrentStep("cart");
-
-  const renderOrderSummary = () => (
-    <div className="bg-card rounded-xl p-4 space-y-3 shadow-luxury">
-      <h4 className="font-semibold text-foreground">Order Summary</h4>
-
-      <ScrollArea className="h-40 pr-2">
-        <div className="space-y-2">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center gap-3 p-2 bg-background rounded-lg border border-border"
-            >
-              {item.image && (
-                <div className="relative w-10 h-10 bg-muted rounded-md overflow-hidden flex-shrink-0">
-                  <Image
-                    fill
-                    src={item.image || "/placeholder.svg"}
-                    alt={item.name}
-                    className="object-cover"
-                  />
-                </div>
-              )}
-
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium truncate">{item.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  {item.quantity}x Ksh {item.price}
-                </p>
-              </div>
-
-              <p className="text-sm font-semibold whitespace-nowrap">
-                Ksh {(item.price * item.quantity).toFixed(2)}
-              </p>
-            </div>
-          ))}
-        </div>
-      </ScrollArea>
-
-      <Separator />
-
-      <div className="space-y-1 text-sm">
-        <div className="flex justify-between">
-          <span>Subtotal ({itemCount} items):</span>
-          <span>Ksh {total.toFixed(2)}</span>
-        </div>
-        <Separator className="my-2" />
-        <div className="flex justify-between font-semibold text-base text-primary">
-          <span>Total:</span>
-          <span>Ksh {finalTotal.toFixed(2)}</span>
-        </div>
-      </div>
-    </div>
-  );
 
   const getStepTitle = () => {
     switch (currentStep) {
@@ -241,19 +187,9 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                         </span>
                       </div>
 
-                      <div className="space-y-2 mb-4">
-                        <div className="flex justify-between text-sm">
-                          <span>Subtotal:</span>
-                          <span>Ksh {total.toFixed(2)}</span>
-                        </div>
-                        <Separator />
-                        <div className="flex justify-between font-semibold text-lg text-primary">
-                          <span>Total:</span>
-                          <span>Ksh {finalTotal.toFixed(2)}</span>
-                        </div>
-                      </div>
+                      <PriceBreakdown className="text-lg" />
 
-                      <div className="flex gap-2 max-sm:pb-16">
+                      <div className="flex gap-2 max-sm:pb-16 mt-2">
                         <Button
                           variant="outline"
                           className="flex-1"
@@ -275,7 +211,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                 {/* Details Step */}
                 {currentStep === "details" && (
                   <div className="flex-1 min-h-0 overflow-y-auto custom-scroll p-6 space-y-6">
-                    {renderOrderSummary()}
+                    <OrderSummary />
                     <PickupForm onContinue={handleProceedToPayment} />
                   </div>
                 )}
@@ -283,7 +219,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                 {/* Payment Step */}
                 {currentStep === "payment" && (
                   <div className="flex-1 min-h-0 overflow-y-auto custom-scroll p-6 space-y-6">
-                    {renderOrderSummary()}
+                    <OrderSummary />
                     <div>
                       <h4 className="font-semibold mb-4">
                         Choose Payment Method
