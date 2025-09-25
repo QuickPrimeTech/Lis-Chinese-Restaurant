@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 
 import {
   Form,
@@ -23,6 +24,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { experienceSchema, ExperienceData } from "@/lib/form-schema";
 import { getDefaultValues } from "@/lib/get-default-values";
+import { useJobApplication } from "@/contexts/job-application";
 
 const positions = [
   "Head Chef",
@@ -60,14 +62,28 @@ const languageOptions = [
 ];
 
 export function ExperienceStep() {
+  const { updateFormData, nextStep } = useJobApplication();
+
   const form = useForm<ExperienceData>({
     resolver: zodResolver(experienceSchema),
     defaultValues: getDefaultValues(experienceSchema),
   });
 
+  // Sync values to context, ensuring all arrays are string[]
+  useEffect(() => {
+    const subscription = form.watch((values) => {
+      updateFormData({
+        ...values,
+        skills: (values.skills || []).filter(Boolean) as string[],
+        languages: (values.languages || []).filter(Boolean) as string[],
+      });
+    });
+    return () => subscription.unsubscribe();
+  }, [form.watch, updateFormData]);
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <div className="space-y-6">
         {/* Position */}
         <FormField
           control={form.control}
@@ -153,13 +169,10 @@ export function ExperienceStep() {
                       id={skill}
                       checked={field.value.includes(skill)}
                       onCheckedChange={(checked) => {
-                        if (checked) {
-                          field.onChange([...field.value, skill]);
-                        } else {
-                          field.onChange(
-                            field.value.filter((s) => s !== skill)
-                          );
-                        }
+                        const newSkills = checked
+                          ? [...field.value, skill]
+                          : field.value.filter((s) => s !== skill);
+                        field.onChange(newSkills);
                       }}
                     />
                     <FormLabel htmlFor={skill} className="text-sm font-normal">
@@ -187,13 +200,10 @@ export function ExperienceStep() {
                       id={language}
                       checked={field.value.includes(language)}
                       onCheckedChange={(checked) => {
-                        if (checked) {
-                          field.onChange([...field.value, language]);
-                        } else {
-                          field.onChange(
-                            field.value.filter((l) => l !== language)
-                          );
-                        }
+                        const newLanguages = checked
+                          ? [...field.value, language]
+                          : field.value.filter((l) => l !== language);
+                        field.onChange(newLanguages);
                       }}
                     />
                     <FormLabel
@@ -210,14 +220,14 @@ export function ExperienceStep() {
           )}
         />
 
-        {/* Submit (for step testing, remove if wrapped in multi-step) */}
         <button
-          type="submit"
+          type="button"
+          onClick={() => nextStep()}
           className="px-4 py-2 rounded-lg bg-primary text-primary-foreground"
         >
           Continue
         </button>
-      </form>
+      </div>
     </Form>
   );
 }

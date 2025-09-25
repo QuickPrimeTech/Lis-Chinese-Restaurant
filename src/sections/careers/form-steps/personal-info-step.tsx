@@ -2,8 +2,11 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 
 import { personalInfoSchema, PersonalInfoData } from "@/lib/form-schema";
+import { getDefaultValues } from "@/lib/get-default-values";
+import { useJobApplication } from "@/contexts/job-application";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,22 +26,36 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { getDefaultValues } from "@/lib/get-default-values";
 
 export function PersonalInfoStep() {
+  const { updateFormData } = useJobApplication();
+
   const form = useForm<PersonalInfoData>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: getDefaultValues(personalInfoSchema),
     mode: "onChange",
   });
 
+  // Sync values to context as they change
+  useEffect(() => {
+    const subscription = form.watch((values) => {
+      // Make sure optional strings are always defined (or empty string)
+      updateFormData({
+        ...values,
+        firstName: values.firstName || "",
+        lastName: values.lastName || "",
+        email: values.email || "",
+        phone: values.phone || "",
+        address: values.address || "",
+        dateOfBirth: values.dateOfBirth || "",
+      });
+    });
+    return () => subscription.unsubscribe();
+  }, [form.watch, updateFormData]);
+
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6"
-        noValidate
-      >
+      <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -161,7 +178,7 @@ export function PersonalInfoStep() {
             </FormItem>
           )}
         />
-      </form>
+      </div>
     </Form>
   );
 }
