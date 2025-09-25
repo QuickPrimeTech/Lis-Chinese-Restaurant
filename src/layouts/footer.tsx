@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Instagram, Mail, Phone, MapPin } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { BsTwitterX } from "react-icons/bs";
+import { BsPinterest, BsTwitterX } from "react-icons/bs";
 import { FaLinkedinIn, FaTiktok, FaTripadvisor } from "react-icons/fa";
 import { FooterCurrentYear } from "@/components/footer-current-year";
 // import qrCode from "/qr-menu.jpg";
@@ -44,21 +44,27 @@ const Footer = () => {
     },
     {
       icon: BsTwitterX,
-      url: "#",
+      url: "https://x.com/LisChinese",
       name: "Twitter",
       hover: "hover:bg-black hover:text-white", // Twitter solid black
     },
     {
       icon: FaTiktok,
-      url: "#", // Replace with actual TikTok URL
+      url: "https://www.tiktok.com/@lischineserestaurantnrb", // Replace with actual TikTok URL
       name: "TikTok",
       hover: "hover:bg-black hover:text-white", // TikTok solid black
     },
     {
       icon: FaLinkedinIn,
-      url: "#", // Replace with actual LinkedIn URL
+      url: "https://www.linkedin.com/in/li-s-chinese-restaurant-nairobi-316672379", // Replace with actual LinkedIn URL
       name: "LinkedIn",
       hover: "hover:bg-blue-700 hover:text-white", // LinkedIn solid blue
+    },
+    {
+      icon: BsPinterest,
+      url: "https://www.pinterest.com/lischineserestaurant/", // Replace with actual LinkedIn URL
+      name: "Pintrest",
+      hover: "hover:bg-rose-600 hover:text-white", // LinkedIn solid blue
     },
   ];
 
