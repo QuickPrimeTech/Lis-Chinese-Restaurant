@@ -1,13 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { FormData } from "@/sections/careers/job-application-form";
 import { BriefcaseBusiness, Clock, FileText, User } from "lucide-react";
+import { useJobApplication } from "@/contexts/job-application";
 
-interface ReviewStepProps {
-  data: FormData;
-}
-
-export function ReviewStep({ data }: ReviewStepProps) {
+export function ReviewStep() {
+  const { formData: data } = useJobApplication();
   return (
     <div className="space-y-6">
       <div className="text-center mb-6">

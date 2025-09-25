@@ -1,38 +1,41 @@
 import { z } from "zod";
 
 export const personalInfoSchema = z.object({
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
-  address: z.string().min(10, "Please enter your full address"),
-  dateOfBirth: z.string().min(1, "Date of birth is required"),
+  firstName: z.string().min(2, "First name is required"),
+  lastName: z.string().min(2, "Last name is required"),
+  email: z.string().email("Invalid email"),
+  phone: z.string().min(10, "Phone must be at least 10 digits"),
+  address: z.string().min(5, "Address is required"),
+  dateOfBirth: z.string().nonempty("Date of birth is required"),
 });
 
 export const experienceSchema = z.object({
-  position: z.string().min(1, "Please select a position"),
-  experience: z.string().min(1, "Please select your experience level"),
-  previousEmployment: z
-    .string()
-    .min(10, "Please describe your previous employment"),
-  skills: z.array(z.string()).min(1, "Please select at least one skill"),
-  languages: z.array(z.string()).min(1, "Please select at least one language"),
+  position: z.string().nonempty("Position is required"),
+  experience: z.string().nonempty("Experience is required"),
+  previousEmployment: z.string().optional(),
+  skills: z.array(z.string()).min(1, "At least one skill is required"),
+  languages: z.array(z.string()).min(1, "At least one language is required"),
 });
 
 export const availabilitySchema = z.object({
-  startDate: z.string().min(1, "Start date is required"),
-  availability: z.array(z.string()).min(1, "Please select at least one day"),
-  hoursPerWeek: z.string().min(1, "Please select your preferred hours"),
+  startDate: z.string().nonempty("Start date is required"),
+  availability: z.array(z.string()).min(1, "Select at least one availability"),
+  hoursPerWeek: z.enum(["part-time", "full-time", "flexible"]),
 });
 
 export const documentsSchema = z.object({
-  resume: z.instanceof(File, { message: "Please upload your resume" }),
-  coverLetter: z
-    .string()
-    .min(50, "Cover letter must be at least 50 characters"),
-  references: z.string().min(20, "Please provide at least one reference"),
+  resume: z.instanceof(File).nullable(),
+  coverLetter: z.string().optional(),
+  references: z.string().optional(),
 });
 
+// 🔹 Full schema (if you want final validation on submit)
+export const jobApplicationSchema = personalInfoSchema
+  .merge(experienceSchema)
+  .merge(availabilitySchema)
+  .merge(documentsSchema);
+
+export type FormData = z.infer<typeof jobApplicationSchema>;
 export type PersonalInfoData = z.infer<typeof personalInfoSchema>;
 export type ExperienceData = z.infer<typeof experienceSchema>;
 export type AvailabilityData = z.infer<typeof availabilitySchema>;
