@@ -25,12 +25,22 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { getDefaultValues } from "@/lib/get-default-values";
+import { useEffect } from "react";
+import { useJobApplication } from "@/contexts/job-application";
 
 export function DocumentsStep() {
+  const { updateFormData } = useJobApplication();
   const form = useForm<DocumentsData>({
     resolver: zodResolver(documentsSchema),
     defaultValues: getDefaultValues(documentsSchema),
   });
+
+  useEffect(() => {
+    const subscription = form.watch((values) => {
+      updateFormData(values);
+    });
+    return () => subscription.unsubscribe();
+  }, [form.watch, updateFormData]);
 
   const handleFileChange =
     (onChange: (file: File | undefined) => void) =>
@@ -41,7 +51,7 @@ export function DocumentsStep() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <div className="space-y-6">
         {/* Resume Upload */}
         <FormField
           control={form.control}
@@ -154,7 +164,7 @@ export function DocumentsStep() {
         >
           Continue
         </button>
-      </form>
+      </div>
     </Form>
   );
 }
