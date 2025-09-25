@@ -4,7 +4,7 @@ import { FaHeart } from "react-icons/fa";
 export function CareersHero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-accent/10 to-background py-24 px-4">
-      <div className="absolute inset-0 bg-[url('/elegant-chinese-restaurant-interior-with-warm-ligh.jpg')] bg-cover bg-center opacity-5" />
+      <div className="absolute inset-0" />
 
       <div className="relative max-w-4xl mx-auto text-center">
         {/* Badge */}

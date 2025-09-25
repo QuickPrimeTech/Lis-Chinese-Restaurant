@@ -1,19 +1,18 @@
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
+import { useForm, UseFormReturn } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  personalInfoSchema,
+  experienceSchema,
   availabilitySchema,
   documentsSchema,
-  experienceSchema,
   jobApplicationSchema,
-  personalInfoSchema,
   type FormData,
 } from "@/lib/form-schema";
 import { getDefaultValues } from "@/lib/get-default-values";
-import { useForm, UseFormReturn } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-// Step schemas
 const stepSchemas = [
   personalInfoSchema,
   experienceSchema,
@@ -21,7 +20,6 @@ const stepSchemas = [
   documentsSchema,
 ];
 
-// Context type
 interface JobApplicationContextType {
   formData: FormData;
   updateFormData: (data: Partial<FormData>) => void;
@@ -41,7 +39,6 @@ const defaultFormData: FormData = {
   ...getDefaultValues(documentsSchema),
 };
 
-// Context creation
 const JobApplicationContext = createContext<
   JobApplicationContextType | undefined
 >(undefined);
@@ -55,23 +52,32 @@ export const JobApplicationProvider = ({
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const updateFormData = (data: Partial<FormData>) => {
-    setFormData((prev) => ({ ...prev, ...data }));
-  };
-
-  const resetFormData = () => setFormData(defaultFormData);
-
-  // Initialize react-hook-form
   const methods = useForm<FormData>({
     resolver: zodResolver(jobApplicationSchema),
     defaultValues: formData,
     mode: "onChange",
   });
 
-  // Function to go to next step
+  const updateFormData = (data: Partial<FormData>) => {
+    setFormData((prev) => ({ ...prev, ...data }));
+
+    // Update react-hook-form fields
+    Object.entries(data).forEach(([key, value]) => {
+      methods.setValue(key as keyof FormData, value as any, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    });
+  };
+
+  const resetFormData = () => {
+    setFormData(defaultFormData);
+    methods.reset(defaultFormData);
+  };
+
   const nextStep = async () => {
     const currentSchema = stepSchemas[currentStep];
-    const keys = Object.keys(currentSchema.shape) as Array<keyof FormData>;
+    const keys = Object.keys(currentSchema.shape) as (keyof FormData)[];
     const isValid = await methods.trigger(keys);
     if (isValid) setCurrentStep((s) => s + 1);
   };
@@ -97,10 +103,9 @@ export const JobApplicationProvider = ({
 
 export const useJobApplication = () => {
   const context = useContext(JobApplicationContext);
-  if (!context) {
+  if (!context)
     throw new Error(
       "useJobApplication must be used within a JobApplicationProvider"
     );
-  }
   return context;
 };
