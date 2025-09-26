@@ -24,6 +24,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 type NavbarProps = {
   className?: string;
@@ -170,7 +171,6 @@ export const Navbar = ({ className }: NavbarProps) => {
                 </SheetHeader>
 
                 <div className="flex px-6 flex-col mt-6 space-y-5">
-                  <ModeToggle />
                   {[...primaryLinks, ...dropdownLinks].map((item) => (
                     <Link
                       key={item.name}
@@ -188,6 +188,16 @@ export const Navbar = ({ className }: NavbarProps) => {
                   >
                     <Link href="/reservations">Reservations</Link>
                   </Button>
+                </div>
+                <div className="px-6 py-3">
+                  <Card>
+                    <CardContent>
+                      <h1 className="font-bold text-muted-foreground mb-3">
+                        Accessiblity
+                      </h1>
+                      <ModeToggle />
+                    </CardContent>
+                  </Card>
                 </div>
               </SheetContent>
             </Sheet>
