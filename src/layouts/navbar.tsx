@@ -12,16 +12,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ChevronDown, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -47,13 +41,13 @@ export const Navbar = ({ className }: NavbarProps) => {
   const primaryLinks = [
     { name: "Home", path: "/" },
     { name: "Menu", path: "/menu" },
+    { name: "Private Events", path: "/private-events" },
     { name: "Gallery", path: "/gallery" },
     { name: "Contact", path: "/contact" },
   ];
 
   const dropdownLinks = [
     { name: "About Us", path: "/about" },
-    { name: "Private Events", path: "/private-events" },
     { name: "Careers", path: "/careers" },
   ];
 
@@ -106,29 +100,34 @@ export const Navbar = ({ className }: NavbarProps) => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
-
-            {/* Dropdown for extra links */}
             <NavigationMenu>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Simple</NavigationMenuTrigger>
+                <NavigationMenuTrigger
+                  className={cn(
+                    "bg-transparent",
+                    pathname === "/" // ✅ Only apply homepage-specific behavior
+                      ? isScrolled
+                        ? "text-foreground hover:text-foreground"
+                        : "text-white hover:text-white"
+                      : "text-foreground",
+                    "hover:bg-transparent"
+                  )}
+                >
+                  More
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[200px] gap-4">
+                  <ul className="grid w-[200px] gap-4 list-none">
                     <li>
-                      <NavigationMenuLink asChild>
-                        <Link href="#">Components</Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link href="#">Documentation</Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link href="#">Blocks</Link>
-                      </NavigationMenuLink>
+                      {dropdownLinks.map((link) => (
+                        <NavigationMenuLink asChild key={link.path}>
+                          <Link href={link.path}>{link.name}</Link>
+                        </NavigationMenuLink>
+                      ))}
                     </li>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenu>
-
             <ModeToggle />
             <Button
               asChild
