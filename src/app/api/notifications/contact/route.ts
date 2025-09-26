@@ -11,15 +11,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { firstName, lastName, email, phone, inquiryType, message } = body;
 
-    const submissionDate = new Date().toLocaleDateString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-
     // 1. Send email to owner
     const { error: ownerError } = await resend.emails.send({
       from: "QuickPrimeTech <support@quickprimetech.com>", // ✅ verified sender

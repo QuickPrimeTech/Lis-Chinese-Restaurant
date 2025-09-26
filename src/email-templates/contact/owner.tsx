@@ -215,7 +215,7 @@ export const OwnerConfirmationEmail = ({
                       fontStyle: "italic",
                     }}
                   >
-                    "{message}"
+                    &quot;{message}&quot;
                   </p>
                 </td>
               </tr>
@@ -318,7 +318,7 @@ export const OwnerConfirmationEmail = ({
                 lineHeight: "1.4",
               }}
             >
-              This email was automatically generated from your restaurant's
+              This email was automatically generated from your restaurant&apos;s
               contact form.
               <br />
               Please respond to the customer within 24 hours for the best

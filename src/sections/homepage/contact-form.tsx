@@ -57,11 +57,10 @@ export function ContactForm() {
         throw new Error("Failed to send message");
       }
 
-      const data = await res.json();
       toast.success("Your inquiry has been sent successfully!");
 
       form.reset();
-    } catch (err) {
+    } catch {
       toast.error("Problem occured. Please check your internet connection!");
     }
   };
