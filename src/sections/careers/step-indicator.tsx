@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import {
   BriefcaseBusinessIcon,
   Check,
-  CheckIcon,
   ClockIcon,
   EyeIcon,
   FileTextIcon,

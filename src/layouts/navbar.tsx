@@ -21,6 +21,7 @@ import {
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
+  NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 
@@ -101,32 +102,34 @@ export const Navbar = ({ className }: NavbarProps) => {
               </Link>
             ))}
             <NavigationMenu>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger
-                  className={cn(
-                    "bg-transparent",
-                    pathname === "/" // ✅ Only apply homepage-specific behavior
-                      ? isScrolled
-                        ? "text-foreground hover:text-foreground"
-                        : "text-white hover:text-white"
-                      : "text-foreground",
-                    "hover:bg-transparent"
-                  )}
-                >
-                  More
-                </NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[200px] gap-4 list-none">
-                    <li>
-                      {dropdownLinks.map((link) => (
-                        <NavigationMenuLink asChild key={link.path}>
-                          <Link href={link.path}>{link.name}</Link>
-                        </NavigationMenuLink>
-                      ))}
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger
+                    className={cn(
+                      "bg-transparent",
+                      pathname === "/" // ✅ Only apply homepage-specific behavior
+                        ? isScrolled
+                          ? "text-foreground hover:text-foreground"
+                          : "text-white hover:text-white"
+                        : "text-foreground",
+                      "hover:bg-transparent"
+                    )}
+                  >
+                    More
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[200px] gap-4 list-none">
+                      <li>
+                        {dropdownLinks.map((link) => (
+                          <NavigationMenuLink asChild key={link.path}>
+                            <Link href={link.path}>{link.name}</Link>
+                          </NavigationMenuLink>
+                        ))}
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
             </NavigationMenu>
             <ModeToggle />
             <Button

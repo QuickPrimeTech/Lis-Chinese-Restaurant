@@ -1,14 +1,6 @@
 "use client";
-
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import {
   Form,
   FormControl,
@@ -17,12 +9,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { PersonalInfoData, personalInfoSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getDefaultValues } from "@/lib/get-default-values";
-import { format } from "date-fns";
 import { NavigationButtons } from "./navigation-buttons";
 import { useCareer } from "@/contexts/career-provider";
 

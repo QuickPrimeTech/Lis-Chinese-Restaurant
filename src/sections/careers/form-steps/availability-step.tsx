@@ -1,10 +1,7 @@
 "use client";
-
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -22,7 +19,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { validateAvailability } from "@/lib/form-validation"; // optional
 import { AvailabilityData, availabilitySchema } from "@/lib/form-schema";
 import { getDefaultValues } from "@/lib/get-default-values";
 import { NavigationButtons } from "./navigation-buttons";
