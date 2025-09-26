@@ -1,10 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { MapCard } from "@/components/contact/map-card";
+import { ContactForm } from "./contact-form";
 
 export const ContactSection = () => {
   return (
@@ -21,51 +18,7 @@ export const ContactSection = () => {
               you and help make your dining experience perfect.
             </p>
 
-            <Card className="bg-card border-border w-full">
-              <CardHeader>
-                <CardTitle className="font-cinzel text-2xl">
-                  Send us a Message
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" placeholder="John" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" placeholder="Doe" />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="john@example.com"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
-                  <Input id="phone" placeholder="+254 746815106" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    rows={6}
-                    placeholder="Tell us about your inquiry or special requests..."
-                  />
-                </div>
-                <Button
-                  size="lg"
-                  className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
-                >
-                  Send Message
-                </Button>
-              </CardContent>
-            </Card>
+            <ContactForm />
           </div>
 
           {/* Location & Contact Info */}
