@@ -1,5 +1,4 @@
 // @/layouts/navbar
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -13,10 +12,23 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 type NavbarProps = {
   className?: string;
@@ -32,13 +44,17 @@ export const Navbar = ({ className }: NavbarProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navigationItems = [
+  const primaryLinks = [
     { name: "Home", path: "/" },
     { name: "Menu", path: "/menu" },
-    { name: "Private Events", path: "/private-events" },
     { name: "Gallery", path: "/gallery" },
-    { name: "About Us", path: "/about" },
     { name: "Contact", path: "/contact" },
+  ];
+
+  const dropdownLinks = [
+    { name: "About Us", path: "/about" },
+    { name: "Private Events", path: "/private-events" },
+    { name: "Careers", path: "/careers" },
   ];
 
   return (
@@ -73,7 +89,7 @@ export const Navbar = ({ className }: NavbarProps) => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navigationItems.map((item) => (
+            {primaryLinks.map((item) => (
               <Link
                 key={item.name}
                 href={item.path}
@@ -81,15 +97,38 @@ export const Navbar = ({ className }: NavbarProps) => {
                   "hover:text-primary text-foreground transition-colors font-chivo font-medium relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-sm",
                   pathname === "/" // ✅ Only apply homepage-specific behavior
                     ? isScrolled
-                      ? "text-foreground" // homepage while scrolled
-                      : "text-white" // homepage before scroll
-                    : "text-foreground" // ✅ all other pages
+                      ? "text-foreground"
+                      : "text-white"
+                    : "text-foreground"
                 )}
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
+
+            {/* Dropdown for extra links */}
+            <NavigationMenu>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger>Simple</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[200px] gap-4">
+                    <li>
+                      <NavigationMenuLink asChild>
+                        <Link href="#">Components</Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link href="#">Documentation</Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link href="#">Blocks</Link>
+                      </NavigationMenuLink>
+                    </li>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+            </NavigationMenu>
+
             <ModeToggle />
             <Button
               asChild
@@ -130,7 +169,7 @@ export const Navbar = ({ className }: NavbarProps) => {
 
                 <div className="flex px-6 flex-col mt-6 space-y-5">
                   <ModeToggle />
-                  {navigationItems.map((item) => (
+                  {[...primaryLinks, ...dropdownLinks].map((item) => (
                     <Link
                       key={item.name}
                       href={item.path}

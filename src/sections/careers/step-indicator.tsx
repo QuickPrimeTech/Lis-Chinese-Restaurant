@@ -1,6 +1,10 @@
+"use client";
+
+import { useCareer } from "@/contexts/career-provider";
 import { cn } from "@/lib/utils";
 import {
   BriefcaseBusinessIcon,
+  Check,
   CheckIcon,
   ClockIcon,
   EyeIcon,
@@ -8,12 +12,7 @@ import {
   UserIcon,
 } from "lucide-react";
 
-interface StepIndicatorProps {
-  currentStep: number;
-  totalSteps: number;
-}
-
-const stepIcons = [
+export const stepIcons = [
   { icon: UserIcon, label: "Personal Info" },
   { icon: BriefcaseBusinessIcon, label: "Experience" },
   { icon: ClockIcon, label: "Availability" },
@@ -21,17 +20,23 @@ const stepIcons = [
   { icon: EyeIcon, label: "Review" },
 ];
 
-export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
+export function StepIndicator() {
+  const { currentStep } = useCareer();
+  const totalSteps = stepIcons.length;
+
   return (
     <div className="w-full mb-8">
-      <div className="flex items-center justify-between relative">
-        {/* Connecting line */}
-        <div className="absolute top-6 left-0 right-0 h-0.5 bg-muted -z-10">
-          <div
-            className="h-full bg-primary transition-all duration-500 ease-in-out"
-            style={{ width: `${(currentStep / (totalSteps - 1)) * 100}%` }}
-          />
-        </div>
+      <div className="relative flex items-center justify-between">
+        {/* Connector line behind all steps */}
+        <div className="absolute top-5 md:top-6 w-full h-0.5 bg-muted-foreground " />
+
+        {/* Active progress line */}
+        <div
+          className="absolute top-5 md:top-6 left-6 h-0.5 bg-primary transition-all duration-500"
+          style={{
+            width: `calc(${(currentStep / (totalSteps - 1)) * 100}% - 1.5rem)`,
+          }}
+        />
 
         {stepIcons.map((step, index) => {
           const Icon = step.icon;
@@ -40,11 +45,11 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
           const isUpcoming = index > currentStep;
 
           return (
-            <div key={index} className="flex flex-col items-center relative">
+            <div key={index} className="flex flex-col relative">
               {/* Step circle */}
               <div
                 className={cn(
-                  "w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-300 bg-background",
+                  "w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center border-2 transition-all duration-300 bg-background z-10",
                   {
                     "border-primary bg-primary text-primary-foreground":
                       isCompleted,
@@ -55,23 +60,25 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
                   }
                 )}
               >
-                {isCompleted ? <CheckIcon /> : <Icon />}
+                {isCompleted ? (
+                  <Check className="size-5 md:size-6" />
+                ) : (
+                  <Icon className="size-5 md:size-6" />
+                )}
               </div>
 
               {/* Step label */}
-              <div className="mt-3 text-center hidden sm:block">
-                <p
-                  className={cn(
-                    "text-xs font-medium transition-colors duration-300",
-                    {
-                      "text-primary": isCompleted || isCurrent,
-                      "text-muted-foreground": isUpcoming,
-                    }
-                  )}
-                >
-                  {step.label}
-                </p>
-              </div>
+              <p
+                className={cn(
+                  "mt-2 text-[10px] sm:text-xs font-medium transition-colors duration-300 text-center",
+                  {
+                    "text-primary": isCompleted || isCurrent,
+                    "text-muted-foreground": isUpcoming,
+                  }
+                )}
+              >
+                {step.label}
+              </p>
             </div>
           );
         })}

@@ -1,13 +1,13 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { FormData } from "@/sections/careers/job-application-form";
 import { BriefcaseBusiness, Clock, FileText, User } from "lucide-react";
+import { useCareer } from "@/contexts/career-provider";
+import { NavigationButtons } from "./navigation-buttons";
 
-interface ReviewStepProps {
-  data: FormData;
-}
-
-export function ReviewStep({ data }: ReviewStepProps) {
+export function ReviewStep() {
+  const { data } = useCareer();
   return (
     <div className="space-y-6">
       <div className="text-center mb-6">
@@ -34,7 +34,7 @@ export function ReviewStep({ data }: ReviewStepProps) {
             </div>
             <div>
               <span className="text-sm text-muted-foreground">Email:</span>
-              <p className="font-medium">{data.email}</p>
+              <p className="font-medium break-words">{data.email}</p>
             </div>
             <div>
               <span className="text-sm text-muted-foreground">Phone:</span>
@@ -84,7 +84,7 @@ export function ReviewStep({ data }: ReviewStepProps) {
             </div>
           )}
 
-          {data.skills.length > 0 && (
+          {data.skills?.length && (
             <div>
               <span className="text-sm text-muted-foreground">Skills:</span>
               <div className="flex flex-wrap gap-2 mt-2">
@@ -97,7 +97,7 @@ export function ReviewStep({ data }: ReviewStepProps) {
             </div>
           )}
 
-          {data.languages.length > 0 && (
+          {data.languages?.length && (
             <div>
               <span className="text-sm text-muted-foreground">Languages:</span>
               <div className="flex flex-wrap gap-2 mt-2">
@@ -133,7 +133,7 @@ export function ReviewStep({ data }: ReviewStepProps) {
             </div>
           </div>
 
-          {data.availability.length > 0 && (
+          {data.availability?.length && (
             <div>
               <span className="text-sm text-muted-foreground">
                 Available Times:
@@ -186,6 +186,7 @@ export function ReviewStep({ data }: ReviewStepProps) {
           )}
         </CardContent>
       </Card>
+      <NavigationButtons />
     </div>
   );
 }

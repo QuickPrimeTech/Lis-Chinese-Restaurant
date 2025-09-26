@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -11,208 +9,149 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-import { validatePersonalInfo } from "@/lib/form-validation";
-import type { FormData } from "@/sections/careers/job-application-form";
+import { useForm } from "react-hook-form";
+import { PersonalInfoData, personalInfoSchema } from "@/lib/form-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { getDefaultValues } from "@/lib/get-default-values";
+import { format } from "date-fns";
+import { NavigationButtons } from "./navigation-buttons";
+import { useCareer } from "@/contexts/career-provider";
 
-interface PersonalInfoStepProps {
-  data: FormData;
-  updateData: (data: Partial<FormData>) => void;
-  onValidationChange: (isValid: boolean) => void;
-}
+export function PersonalInfoStep() {
+  const { data } = useCareer();
 
-function formatDate(dateString: string): string {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  const form = useForm<PersonalInfoData>({
+    resolver: zodResolver(personalInfoSchema),
+    defaultValues: {
+      ...getDefaultValues(personalInfoSchema), // base defaults
+      ...data, // overwrite with saved values if they exist
+    },
+    mode: "onSubmit",
+    reValidateMode: "onChange",
   });
-}
-
-function formatDateForInput(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-export function PersonalInfoStep({
-  data,
-  updateData,
-  onValidationChange,
-}: PersonalInfoStepProps) {
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [touchedFields, setTouchedFields] = useState<Record<string, boolean>>(
-    {}
-  );
-
-  useEffect(() => {
-    const validation = validatePersonalInfo({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      phone: data.phone,
-      address: data.address,
-      dateOfBirth: data.dateOfBirth,
-    });
-
-    const filteredErrors: Record<string, string> = {};
-    Object.keys(validation.errors).forEach((field) => {
-      if (touchedFields[field]) {
-        filteredErrors[field] = validation.errors[field];
-      }
-    });
-
-    setErrors(filteredErrors);
-    onValidationChange(validation.isValid);
-  }, [
-    data.firstName,
-    data.lastName,
-    data.email,
-    data.phone,
-    data.address,
-    data.dateOfBirth,
-    touchedFields,
-  ]);
-
-  const handleInputChange = (field: keyof FormData, value: string) => {
-    updateData({ [field]: value });
-    setTouchedFields((prev) => ({ ...prev, [field]: true }));
-  };
-
-  const handleInputBlur = (field: keyof FormData) => {
-    setTouchedFields((prev) => ({ ...prev, [field]: true }));
-  };
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="firstName">First Name *</Label>
-          <Input
-            id="firstName"
-            placeholder="Enter your first name"
-            value={data.firstName}
-            onChange={(e) => handleInputChange("firstName", e.target.value)}
-            onBlur={() => handleInputBlur("firstName")}
-            className={errors.firstName ? "border-destructive" : ""}
+    <Form {...form}>
+      <form className="space-y-6">
+        {/* First + Last Name */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First Name *</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your first name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          {errors.firstName && (
-            <p className="text-sm text-destructive">{errors.firstName}</p>
-          )}
+
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last Name *</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your last name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="lastName">Last Name *</Label>
-          <Input
-            id="lastName"
-            placeholder="Enter your last name"
-            value={data.lastName}
-            onChange={(e) => handleInputChange("lastName", e.target.value)}
-            onBlur={() => handleInputBlur("lastName")}
-            className={errors.lastName ? "border-destructive" : ""}
+        {/* Email + Phone */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email Address *</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder="your.email@example.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          {errors.lastName && (
-            <p className="text-sm text-destructive">{errors.lastName}</p>
-          )}
-        </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="email">Email Address *</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="your.email@example.com"
-            value={data.email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
-            onBlur={() => handleInputBlur("email")}
-            className={errors.email ? "border-destructive" : ""}
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone Number *</FormLabel>
+                <FormControl>
+                  <Input type="tel" placeholder="+254 700 000 000" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          {errors.email && (
-            <p className="text-sm text-destructive">{errors.email}</p>
-          )}
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number *</Label>
-          <Input
-            id="phone"
-            type="tel"
-            placeholder="+254 700 000 000"
-            value={data.phone}
-            onChange={(e) => handleInputChange("phone", e.target.value)}
-            onBlur={() => handleInputBlur("phone")}
-            className={errors.phone ? "border-destructive" : ""}
-          />
-          {errors.phone && (
-            <p className="text-sm text-destructive">{errors.phone}</p>
+        {/* Address */}
+        <FormField
+          control={form.control}
+          name="address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Address *</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Enter your full address"
+                  rows={3}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="address">Address *</Label>
-        <Textarea
-          id="address"
-          placeholder="Enter your full address"
-          rows={3}
-          value={data.address}
-          onChange={(e) => handleInputChange("address", e.target.value)}
-          onBlur={() => handleInputBlur("address")}
-          className={errors.address ? "border-destructive" : ""}
         />
-        {errors.address && (
-          <p className="text-sm text-destructive">{errors.address}</p>
-        )}
-      </div>
 
-      <div className="space-y-2">
-        <Label>Date of Birth *</Label>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                "w-full justify-start text-left font-normal",
-                !data.dateOfBirth && "text-muted-foreground",
-                errors.dateOfBirth && "border-destructive"
-              )}
-              onBlur={() => handleInputBlur("dateOfBirth")}
-            >
-              <span className="mr-2">📅</span>
-              {data.dateOfBirth ? (
-                formatDate(data.dateOfBirth)
-              ) : (
-                <span>Pick a date</span>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={
-                data.dateOfBirth ? new Date(data.dateOfBirth) : undefined
-              }
-              onSelect={(date) => {
-                if (date) {
-                  handleInputChange("dateOfBirth", formatDateForInput(date));
-                }
-              }}
-              disabled={(date) =>
-                date > new Date() || date < new Date("1900-01-01")
-              }
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
-        {errors.dateOfBirth && (
-          <p className="text-sm text-destructive">{errors.dateOfBirth}</p>
-        )}
-      </div>
-    </div>
+        {/* Date of Birth */}
+        <FormField
+          control={form.control}
+          name="dateOfBirth"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Date of Birth *</FormLabel>
+              <FormControl>
+                <Input
+                  type="date"
+                  placeholder="Select your date of birth"
+                  max={new Date().toISOString().split("T")[0]} // disable future dates
+                  min="1900-01-01" // earliest allowed date
+                  {...field}
+                  value={field.value ? field.value.split("T")[0] : ""}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <NavigationButtons form={form} />
+      </form>
+    </Form>
   );
 }
