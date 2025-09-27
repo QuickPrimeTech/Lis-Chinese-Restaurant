@@ -13,7 +13,7 @@ export async function POST(req: Request) {
 
     // 1. Send email to owner
     const { error: ownerError } = await resend.emails.send({
-      from: "QuickPrimeTech <support@quickprimetech.com>", // ✅ verified sender
+      from: "QuickPrimeTech <system@quickprimetech.com>", // ✅ verified sender
       to: ["quickprimetech@gmail.com"], // owner inbox
       subject: "📩 New Customer Inquiry Received",
       react: OwnerConfirmationEmail({

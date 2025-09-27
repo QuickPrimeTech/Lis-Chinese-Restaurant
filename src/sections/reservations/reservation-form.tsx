@@ -10,6 +10,7 @@ import {
   UtensilsCrossed,
   NotebookText,
   CheckCircle,
+  Loader,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
@@ -34,6 +35,7 @@ export const ReservationFormSection = ({
 }) => {
   const [step, setStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<ReservationFormValues>({
     resolver: zodResolver(FormSchema),
@@ -82,10 +84,29 @@ export const ReservationFormSection = ({
 
   const handlePrevStep = () => setStep((prev) => prev - 1);
 
-  const onSubmit = (data: ReservationFormValues) => {
-    setIsSubmitted(true);
-    toast.success("Reservation confirmed! Check your WhatsApp for details.");
-    console.log("Reservation data:", data);
+  const onSubmit = async (values: ReservationFormValues) => {
+    // sending the request to the server to book the reservations
+    try {
+      setIsSubmitting(true);
+      const res = await fetch("/api/notifications/reservations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      toast.success("Your reservation request has been sent successfully!");
+      setIsSubmitting(false);
+    } catch {
+      setIsSubmitting(false);
+      toast.error("Problem occured. Please check your internet connection!");
+    }
+    form.reset();
   };
 
   const handleNewReservation = () => {
@@ -197,7 +218,8 @@ export const ReservationFormSection = ({
                     <Button
                       type="button"
                       onClick={handleNextStep}
-                      size={"default"}
+                      size="default"
+                      disabled={isSubmitting}
                       className={cn(
                         "ml-auto transition-all duration-300",
                         step === 4
@@ -209,6 +231,11 @@ export const ReservationFormSection = ({
                         <>
                           Next
                           <ChevronRight />
+                        </>
+                      ) : isSubmitting ? (
+                        <>
+                          <Loader className="animate-spin" />
+                          Confirming...
                         </>
                       ) : (
                         <>
