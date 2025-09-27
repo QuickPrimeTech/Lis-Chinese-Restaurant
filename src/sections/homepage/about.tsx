@@ -10,7 +10,7 @@ export const AboutSection = () => {
       description:
         "Enjoy an exquisite dining experience in our elegant setting. Book a table and savor the flavors of our carefully curated menu.",
       image:
-        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009338/gallery3_zpz3pb.jpg",
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758995159/reservations.jpg",
       ctaText: "Reserve Now",
       ctaLink: "/reservations",
       reverse: false,
@@ -20,7 +20,7 @@ export const AboutSection = () => {
       description:
         "Celebrate your special occasions in style. Our private event spaces and tailored services ensure an unforgettable experience.",
       image:
-        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758020425/private-event_tdby0l.jpg",
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758995385/private-events.jpg",
       ctaText: "Book Event",
       ctaLink: "/private-events",
       reverse: true,

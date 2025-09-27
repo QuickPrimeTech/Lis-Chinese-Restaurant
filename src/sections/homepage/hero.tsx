@@ -17,13 +17,15 @@ export const HeroSection = () => {
         "Enjoy dim sum, noodles, and stir-fried favorites made fresh every day.",
     },
     {
-      image: "/hero2.jpg",
+      image:
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758994129/hero-image.jpg",
       title: "A Place to Share",
       subtitle:
         "Perfect for family dinners, hot pot with friends, or a cozy night out.",
     },
     {
-      image: "/hero3.jpg",
+      image:
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758994706/IMG_5777_e8j5qw.jpg",
       title: "Made with Care",
       subtitle:
         "Our chefs use fresh ingredients and traditional recipes for every dish.",
@@ -78,7 +80,7 @@ export const HeroSection = () => {
                     </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
-                    <Link href="/menu">Order Now</Link>
+                    <Link href="/menu">See Menu</Link>
                   </Button>
                 </div>
               </div>
