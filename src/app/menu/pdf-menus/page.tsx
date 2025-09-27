@@ -9,11 +9,10 @@ export default function PDFMenus() {
       <div className="container mx-auto px-6 py-12">
         {/* Main Title */}
         <div className="text-center mb-16 animate-fade-in">
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-ivory mb-4">
+          <h1 className="font-serif text-5xl md:text-6xl font-bold mb-4">
             Our Menus
           </h1>
-          <div className="mx-auto h-1 w-24 bg-gradient-gold rounded-full mb-6" />
-          <p className="text-xl text-ivory/80 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover our carefully curated selection of exquisite dishes and
             handcrafted beverages
           </p>
