@@ -1,6 +1,9 @@
 // @/emails/contact/owner.tsx
 
 import { site } from "@/config/site-config";
+import { EmailHeader } from "../components/header";
+import { EmailContactInfo } from "../components/contact-info";
+import { EmailFooter } from "../components/footer";
 
 type EmailTemplateProps = {
   customerName: string;
@@ -38,41 +41,7 @@ export const OwnerConfirmationEmail = ({
       }}
     >
       {/* Header */}
-      <table
-        cellPadding="0"
-        cellSpacing="0"
-        border={0}
-        style={{ width: "100%", backgroundColor: "hsl(0, 65%, 45%)" }}
-      >
-        <tr>
-          <td style={{ padding: "24px 32px", textAlign: "center" }}>
-            <h1
-              style={{
-                color: "#ffffff",
-                fontSize: "28px",
-                fontWeight: "bold",
-                margin: "0",
-                letterSpacing: "1px",
-              }}
-            >
-              {restaurant.name}
-            </h1>
-            <p
-              style={{
-                color: "hsl(45, 100%, 85%)",
-                fontSize: "16px",
-                margin: "8px 0 0 0",
-                fontWeight: "300",
-              }}
-            >
-              {restaurant.tagline}
-            </p>
-          </td>
-        </tr>
-      </table>
-
-      {/* Golden Accent Bar */}
-      <div style={{ height: "4px", backgroundColor: "hsl(45, 100%, 51%)" }} />
+      <EmailHeader />
 
       {/* Main Content */}
       <table
@@ -92,7 +61,7 @@ export const OwnerConfirmationEmail = ({
                 margin: "0 0 16px 0",
               }}
             >
-              New Customer Inquiry Received
+              New Customer {inquiryType} Inquiry Received
             </h2>
 
             <p
@@ -103,8 +72,8 @@ export const OwnerConfirmationEmail = ({
                 margin: "0 0 24px 0",
               }}
             >
-              You have received a new inquiry from a potential customer. Please
-              find the details below:
+              You have received a new {inquiryType} inquiry from a potential
+              customer. Please find the details below:
             </p>
 
             {/* Customer Information Card */}
@@ -255,78 +224,13 @@ export const OwnerConfirmationEmail = ({
             </table>
 
             {/* Restaurant Info */}
-            <table
-              cellPadding="0"
-              cellSpacing="0"
-              border={0}
-              style={{
-                width: "100%",
-                backgroundColor: "hsl(45, 33%, 98%)",
-                borderRadius: "8px",
-                border: "1px solid hsl(45, 20%, 90%)",
-              }}
-            >
-              <tr>
-                <td style={{ padding: "20px", textAlign: "center" }}>
-                  <h4
-                    style={{
-                      color: "hsl(0, 65%, 45%)",
-                      fontSize: "16px",
-                      fontWeight: "600",
-                      margin: "0 0 12px 0",
-                    }}
-                  >
-                    {restaurant.name}
-                  </h4>
-                  <p
-                    style={{
-                      color: "hsl(220, 13%, 40%)",
-                      fontSize: "14px",
-                      margin: "4px 0",
-                      lineHeight: "1.4",
-                    }}
-                  >
-                    📍 {restaurant.address}
-                    <br />
-                    📞 {restaurant.phone}
-                    <br />
-                    ✉️ {restaurant.email}
-                    <br />
-                    🌐 {restaurant.website}
-                  </p>
-                </td>
-              </tr>
-            </table>
+            <EmailContactInfo />
           </td>
         </tr>
       </table>
 
       {/* Footer */}
-      <table
-        cellPadding="0"
-        cellSpacing="0"
-        border={0}
-        style={{ width: "100%", backgroundColor: "hsl(220, 13%, 18%)" }}
-      >
-        <tr>
-          <td style={{ padding: "20px 32px", textAlign: "center" }}>
-            <p
-              style={{
-                color: "hsl(45, 100%, 85%)",
-                fontSize: "12px",
-                margin: "0",
-                lineHeight: "1.4",
-              }}
-            >
-              This email was automatically generated from your restaurant&apos;s
-              contact form.
-              <br />
-              Please respond to the customer within 24 hours for the best
-              experience.
-            </p>
-          </td>
-        </tr>
-      </table>
+      <EmailFooter />
     </div>
   );
 };
