@@ -179,8 +179,8 @@ export const ReservationFormSection = ({
                   {/* Navigation Buttons */}
                   <div
                     className={cn(
-                      "flex",
-                      step > 1 ? "justify-between" : "justify-end"
+                      "flex gap-2  justify-start",
+                      step > 1 && "justify-between"
                     )}
                   >
                     {step > 1 && (
@@ -197,7 +197,7 @@ export const ReservationFormSection = ({
                     <Button
                       type="button"
                       onClick={handleNextStep}
-                      size={step === 4 ? "lg" : "default"}
+                      size={"default"}
                       className={cn(
                         "ml-auto transition-all duration-300",
                         step === 4
@@ -205,8 +205,17 @@ export const ReservationFormSection = ({
                           : "bg-primary hover:bg-primary/90"
                       )}
                     >
-                      {step < 4 ? "Next" : "Confirm Reservation"}
-                      <ChevronRight className="h-4 w-4 ml-2" />
+                      {step < 4 ? (
+                        <>
+                          Next
+                          <ChevronRight />
+                        </>
+                      ) : (
+                        <>
+                          Confirm Reservation
+                          <CheckCircle />
+                        </>
+                      )}
                     </Button>
                   </div>
                 </form>

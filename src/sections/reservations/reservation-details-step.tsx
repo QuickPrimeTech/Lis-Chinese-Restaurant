@@ -177,18 +177,20 @@ export const ReservationDetailsStep = ({
             "No slots left today"
           )}
         </p>
-        <p className="flex items-center gap-2">
-          <Info className="h-4 w-4 text-primary" />
-          Book at least{" "}
-          <span className="font-medium text-foreground">
-            {RESTAURANT_CONFIG.MINIMUM_ADVANCE_HOURS} hours
-          </span>{" "}
-          in advance. Max booking:{" "}
-          <span className="font-medium text-foreground">
-            {RESTAURANT_CONFIG.MAX_ADVANCE_DAYS} days
-          </span>{" "}
-          ahead.
-        </p>
+        <div className="flex gap-2">
+          <Info className="size-4 text-primary" />
+          <p>
+            Book at least{" "}
+            <span className="font-medium text-foreground">
+              {RESTAURANT_CONFIG.MINIMUM_ADVANCE_HOURS} hours
+            </span>{" "}
+            in advance. Max booking:{" "}
+            <span className="font-medium text-foreground">
+              {RESTAURANT_CONFIG.MAX_ADVANCE_DAYS} days
+            </span>{" "}
+            ahead.
+          </p>
+        </div>
       </div>
     </div>
   );
