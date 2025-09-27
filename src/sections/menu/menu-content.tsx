@@ -17,11 +17,7 @@ export default function MenuContent({ menuItems }: MenuContentProps) {
         {/* Fixed Download Button (keeps its width, never pushed) */}
         <div className="flex justify-center mt-8 px-2">
           <Button className="border-primary whitespace-nowrap" asChild>
-            <Link
-              href={"/pdf-menu.pdf"}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
+            <Link href={"/pdf-menus"}>
               View PDF Menu
               <ExternalLink />
             </Link>
