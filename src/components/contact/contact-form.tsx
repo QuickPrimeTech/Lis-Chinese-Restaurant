@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader, Send } from "lucide-react";
-import { contactFormSchema } from "@/schema/contact-form";
+import { contactFormSchema } from "@/schemas/contact-form";
 import { toast } from "sonner";
 
 // Infer form type from schema

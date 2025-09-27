@@ -23,7 +23,7 @@ import {
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ReservationFormValues } from "@/types/reservations";
+import { ReservationFormValues } from "@/schemas/reservations";
 
 interface ReservationDetailsStepProps {
   form: UseFormReturn<ReservationFormValues>;
@@ -31,7 +31,11 @@ interface ReservationDetailsStepProps {
   guestCounts: string[];
 }
 
-export const ReservationDetailsStep = ({ form, timeSlots, guestCounts }: ReservationDetailsStepProps) => {
+export const ReservationDetailsStep = ({
+  form,
+  timeSlots,
+  guestCounts,
+}: ReservationDetailsStepProps) => {
   return (
     <div className="grid md:grid-cols-3 gap-4 md:gap-6 transition-all duration-500 ease-in-out">
       <FormField
@@ -39,7 +43,9 @@ export const ReservationDetailsStep = ({ form, timeSlots, guestCounts }: Reserva
         name="date"
         render={({ field }) => (
           <FormItem className="flex flex-col">
-            <FormLabel className="font-medium">Date <span className="text-destructive">*</span></FormLabel>
+            <FormLabel className="font-medium">
+              Date <span className="text-destructive">*</span>
+            </FormLabel>
             <Popover>
               <PopoverTrigger asChild>
                 <FormControl>
@@ -79,7 +85,9 @@ export const ReservationDetailsStep = ({ form, timeSlots, guestCounts }: Reserva
         name="time"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-medium">Time <span className="text-destructive">*</span></FormLabel>
+            <FormLabel className="font-medium">
+              Time <span className="text-destructive">*</span>
+            </FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger className="w-full transition-all duration-200 hover:border-primary/50">
@@ -103,7 +111,9 @@ export const ReservationDetailsStep = ({ form, timeSlots, guestCounts }: Reserva
         name="guests"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-medium">Guests <span className="text-destructive">*</span></FormLabel>
+            <FormLabel className="font-medium">
+              Guests <span className="text-destructive">*</span>
+            </FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger className="w-full transition-all duration-200 hover:border-primary/50">

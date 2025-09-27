@@ -134,16 +134,95 @@ export const CustomerConfirmationEmail = ({
                 border: "1px solid hsl(45, 20%, 90%)",
                 marginBottom: "20px",
               }}
+              cellPadding="0"
+              cellSpacing="0"
+              role="presentation"
             >
               <tr>
-                <td style={{ padding: "20px", textAlign: "center" }}>
-                  <p style={{ margin: "0", fontWeight: "bold" }}>
+                <td
+                  style={{
+                    padding: "20px",
+                    textAlign: "left",
+                    fontFamily: "Arial, sans-serif",
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: "0",
+                      fontWeight: "bold",
+                      fontSize: "16px",
+                    }}
+                  >
                     {restaurant.name}
                   </p>
-                  <p style={{ margin: "4px 0" }}>📍 {restaurant.address}</p>
-                  <p style={{ margin: "4px 0" }}>📞 {restaurant.phone}</p>
-                  <p style={{ margin: "4px 0" }}>✉️ {restaurant.email}</p>
-                  <p style={{ margin: "4px 0" }}>🌐 {restaurant.website}</p>
+                  <p style={{ margin: "4px 0", fontSize: "14px" }}>
+                    {restaurant.address}
+                  </p>
+
+                  <table
+                    role="presentation"
+                    cellPadding="0"
+                    cellSpacing="0"
+                    style={{ marginTop: "12px", width: "100%" }}
+                  >
+                    <tr>
+                      <td style={{ paddingBottom: "8px", textAlign: "left" }}>
+                        <a
+                          href={`tel:${restaurant.phone}`}
+                          style={{
+                            backgroundColor: "#007BFF",
+                            color: "#ffffff",
+                            textDecoration: "none",
+                            padding: "10px 18px",
+                            borderRadius: "4px",
+                            display: "inline-block",
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          📞 Call Us
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ paddingBottom: "8px", textAlign: "left" }}>
+                        <a
+                          href={`mailto:${restaurant.email}`}
+                          style={{
+                            backgroundColor: "#28A745",
+                            color: "#ffffff",
+                            textDecoration: "none",
+                            padding: "10px 18px",
+                            borderRadius: "4px",
+                            display: "inline-block",
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          ✉️ Reply
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style={{ textAlign: "left" }}>
+                        <a
+                          href={`https://${restaurant.website}`}
+                          style={{
+                            backgroundColor: "#6C757D",
+                            color: "#ffffff",
+                            textDecoration: "none",
+                            padding: "10px 18px",
+                            borderRadius: "4px",
+                            display: "inline-block",
+                            fontSize: "14px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          🌐 Visit Website
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>
@@ -163,13 +242,101 @@ export const CustomerConfirmationEmail = ({
         </tr>
       </table>
 
+      {/* Social Links Footer */}
+      <table
+        style={{ width: "100%", backgroundColor: "#ffffff", marginTop: 20 }}
+      >
+        <tr>
+          <td style={{ padding: 16, textAlign: "center" }}>
+            <p
+              style={{
+                margin: "0 0 8px 0",
+                fontSize: 14,
+                color: "hsl(220, 13%, 40%)",
+              }}
+            >
+              Connect with us
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "12px",
+              }}
+            >
+              <a
+                href={site.socials.tripAdvisor}
+                style={{
+                  color: "hsl(0,65%,45%)",
+                  textDecoration: "none",
+                  fontSize: 14,
+                }}
+              >
+                TripAdvisor
+              </a>
+              <a
+                href={site.socials.instagram}
+                style={{
+                  color: "hsl(0,65%,45%)",
+                  textDecoration: "none",
+                  fontSize: 14,
+                }}
+              >
+                Instagram
+              </a>
+              <a
+                href={site.socials.x}
+                style={{
+                  color: "hsl(0,65%,45%)",
+                  textDecoration: "none",
+                  fontSize: 14,
+                }}
+              >
+                X
+              </a>
+              <a
+                href={site.socials.tiktok}
+                style={{
+                  color: "hsl(0,65%,45%)",
+                  textDecoration: "none",
+                  fontSize: 14,
+                }}
+              >
+                TikTok
+              </a>
+              <a
+                href={site.socials.linkedIn}
+                style={{
+                  color: "hsl(0,65%,45%)",
+                  textDecoration: "none",
+                  fontSize: 14,
+                }}
+              >
+                LinkedIn
+              </a>
+              <a
+                href={site.socials.pintrest}
+                style={{
+                  color: "hsl(0,65%,45%)",
+                  textDecoration: "none",
+                  fontSize: 14,
+                }}
+              >
+                Pinterest
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+
       {/* Footer */}
-      <table style={{ width: "100%", backgroundColor: "hsl(220, 13%, 18%)" }}>
+      <table style={{ width: "100%", backgroundColor: "hsl(0, 65%, 45%)" }}>
         <tr>
           <td style={{ padding: "16px", textAlign: "center" }}>
             <p
               style={{
-                color: "hsl(45, 100%, 85%)",
+                color: "hsl(0, 0%, 100%)",
                 fontSize: "12px",
                 margin: "0",
               }}

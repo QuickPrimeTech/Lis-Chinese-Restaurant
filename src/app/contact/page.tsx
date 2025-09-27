@@ -1,5 +1,6 @@
 // @/app/contact/page.tsx
 
+import { ContactForm } from "@/components/contact/contact-form";
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 
@@ -14,9 +15,7 @@ export const metadata: Metadata = {
 const ContactInfo = dynamic(() => import("@/sections/contact/info"), {
   ssr: !!false,
 });
-const ContactForm = dynamic(() => import("@/sections/contact/form"), {
-  ssr: !!false,
-});
+
 const ContactQuickActions = dynamic(
   () => import("@/sections/contact/quick-actions"),
   { ssr: !!false }

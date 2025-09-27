@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FormSchema } from "@/types/reservations";
+import { FormSchema } from "@/schemas/reservations";
 import * as z from "zod";
 
 interface AdditionalInfoStepProps {
@@ -22,7 +22,10 @@ interface AdditionalInfoStepProps {
   occasions: string[];
 }
 
-export const AdditionalInfoStep = ({ form, occasions }: AdditionalInfoStepProps) => {
+export const AdditionalInfoStep = ({
+  form,
+  occasions,
+}: AdditionalInfoStepProps) => {
   return (
     <div className="space-y-6 transition-all duration-500 ease-in-out">
       {/* Occasion Select */}
@@ -31,7 +34,7 @@ export const AdditionalInfoStep = ({ form, occasions }: AdditionalInfoStepProps)
         name="occasion"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-medium">Occasion</FormLabel>
+            <FormLabel className="font-medium">Occasion (optional)</FormLabel>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger className="transition-all duration-200 hover:border-primary/50">
@@ -57,7 +60,9 @@ export const AdditionalInfoStep = ({ form, occasions }: AdditionalInfoStepProps)
         name="requests"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-medium">Special Requests</FormLabel>
+            <FormLabel className="font-medium">
+              Special Requests (optional)
+            </FormLabel>
             <FormControl>
               <Textarea
                 placeholder="Any dietary restrictions, seating preferences, celebrations, or other special requests..."

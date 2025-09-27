@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { MapCard } from "@/components/contact/map-card";
-import { ContactForm } from "./contact-form";
+import { ContactForm } from "../../components/contact/contact-form";
 
 export const ContactSection = () => {
   return (

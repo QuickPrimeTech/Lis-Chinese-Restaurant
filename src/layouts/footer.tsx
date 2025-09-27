@@ -7,6 +7,8 @@ import Image from "next/image";
 import { BsPinterest, BsTwitterX } from "react-icons/bs";
 import { FaLinkedinIn, FaTiktok, FaTripadvisor } from "react-icons/fa";
 import { FooterCurrentYear } from "@/components/footer-current-year";
+import { site } from "@/config/site-config";
+
 // import qrCode from "/qr-menu.jpg";
 
 const Footer = () => {
@@ -31,38 +33,38 @@ const Footer = () => {
   const socialLinks = [
     {
       icon: FaTripadvisor,
-      url: "https://www.tripadvisor.com/Restaurant_Review-g294207-d23859107-Reviews-Li_s_Chinese_Restaurant_Nairobi-Nairobi.html",
+      url: site.socials.tripAdvisor,
       name: "Tripadvisor",
       hover: "hover:bg-green-500 hover:text-white", // Tripadvisor solid green
     },
     {
       icon: Instagram,
-      url: "https://www.instagram.com/lischineserestaurant/",
+      url: site.socials.instagram,
       name: "Instagram",
       hover:
         "hover:bg-gradient-to-tr hover:from-yellow-700 hover:to-pink-600 hover:text-white", // IG pink→yellow gradient
     },
     {
       icon: BsTwitterX,
-      url: "https://x.com/LisChinese",
+      url: site.socials.x,
       name: "Twitter",
       hover: "hover:bg-black hover:text-white", // Twitter solid black
     },
     {
       icon: FaTiktok,
-      url: "https://www.tiktok.com/@lischineserestaurantnrb", // Replace with actual TikTok URL
+      url: site.socials.tiktok, // Replace with actual TikTok URL
       name: "TikTok",
       hover: "hover:bg-black hover:text-white", // TikTok solid black
     },
     {
       icon: FaLinkedinIn,
-      url: "https://www.linkedin.com/in/li-s-chinese-restaurant-nairobi-316672379", // Replace with actual LinkedIn URL
+      url: site.socials.linkedIn, // Replace with actual LinkedIn URL
       name: "LinkedIn",
       hover: "hover:bg-blue-700 hover:text-white", // LinkedIn solid blue
     },
     {
       icon: BsPinterest,
-      url: "https://www.pinterest.com/lischineserestaurant/", // Replace with actual LinkedIn URL
+      url: site.socials.pintrest, // Replace with actual LinkedIn URL
       name: "Pintrest",
       hover: "hover:bg-rose-600 hover:text-white", // LinkedIn solid blue
     },

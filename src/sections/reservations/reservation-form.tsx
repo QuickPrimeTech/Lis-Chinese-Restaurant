@@ -1,12 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChevronRight,
   ChevronLeft,
@@ -22,15 +17,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 
-// Import step components
 import { PersonalInfoStep } from "./personal-info-step";
-import { ReservationDetailsStep } from "./reservation-details-step"; // ✅ fixed import
+import { ReservationDetailsStep } from "./reservation-details-step";
 import { DiningPreferenceStep } from "./dining-preference-step";
 import { AdditionalInfoStep } from "./additional-info-step";
 import { SuccessStep } from "./success-step";
 
-// Schema & type
-import { FormSchema, ReservationFormValues } from "@/types/reservations";
+import { FormSchema, ReservationFormValues } from "@/schemas/reservations";
 
 export const ReservationFormSection = ({
   timeSlots,
@@ -58,24 +51,34 @@ export const ReservationFormSection = ({
       occasion: "",
       requests: "",
     },
+    mode: "onChange",
+    reValidateMode: "onChange",
   });
 
   // -------------------------
-  // Step navigation handlers
+  // Step navigation
   // -------------------------
   const handleNextStep = async () => {
     let fieldsToValidate: (keyof ReservationFormValues)[] = [];
 
-    if (step === 1) fieldsToValidate = ["firstName", "lastName", "email", "phone"];
+    if (step === 1)
+      fieldsToValidate = ["firstName", "lastName", "email", "phone"];
     if (step === 2) fieldsToValidate = ["date", "time", "guests"];
     if (step === 3) fieldsToValidate = ["diningPreference"];
+    if (step === 4) fieldsToValidate = ["occasion", "requests"];
 
     const isValid = await form.trigger(fieldsToValidate);
 
-    if (isValid) {
-      setStep((prev) => prev + 1);
-    } else {
+    if (!isValid) {
       toast.error("Please check the highlighted fields and try again.");
+      return;
+    }
+
+    // ✅ Special case for last step: submit instead of going to step 5
+    if (step === 4) {
+      onSubmit(form.getValues());
+    } else {
+      setStep((prev) => prev + 1);
     }
   };
 
@@ -83,7 +86,6 @@ export const ReservationFormSection = ({
 
   const onSubmit = (data: ReservationFormValues) => {
     setIsSubmitted(true);
-    setStep(5);
     toast.success("Reservation confirmed! Check your WhatsApp for details.");
     console.log("Reservation data:", data);
   };
@@ -97,7 +99,10 @@ export const ReservationFormSection = ({
   const stepLabels = [
     { label: "Personal Info", icon: <User className="h-4 w-4" /> },
     { label: "Date & Time", icon: <Clock className="h-4 w-4" /> },
-    { label: "Dining Preference", icon: <UtensilsCrossed className="h-4 w-4" /> },
+    {
+      label: "Dining Preference",
+      icon: <UtensilsCrossed className="h-4 w-4" />,
+    },
     { label: "Additional Info", icon: <NotebookText className="h-4 w-4" /> },
     { label: "Confirmed", icon: <CheckCircle className="h-4 w-4" /> },
   ];
@@ -131,7 +136,9 @@ export const ReservationFormSection = ({
                       <span
                         className={cn(
                           "w-5 h-5 rounded-full flex items-center justify-center border border-current text-xs",
-                          current === step ? "bg-primary-foreground text-primary" : ""
+                          current === step
+                            ? "bg-primary-foreground text-primary"
+                            : ""
                         )}
                       >
                         {item.icon}
@@ -158,10 +165,7 @@ export const ReservationFormSection = ({
               />
             ) : (
               <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-6 md:space-y-8"
-                >
+                <form className="space-y-6 md:space-y-8">
                   {step === 1 && <PersonalInfoStep form={form} />}
                   {step === 2 && (
                     <ReservationDetailsStep
@@ -193,24 +197,20 @@ export const ReservationFormSection = ({
                         Back
                       </Button>
                     )}
-                    {step < 4 ? (
-                      <Button
-                        type="button"
-                        onClick={handleNextStep}
-                        className="ml-auto bg-primary hover:bg-primary/90 transition-all duration-300"
-                      >
-                        Next
-                        <ChevronRight className="h-4 w-4 ml-2" />
-                      </Button>
-                    ) : (
-                      <Button
-                        type="submit"
-                        size="lg"
-                        className="ml-auto bg-gradient-primary hover:opacity-90 transition-all duration-300 text-lg px-6 py-3"
-                      >
-                        Confirm Reservation
-                      </Button>
-                    )}
+                    <Button
+                      type="button"
+                      onClick={handleNextStep}
+                      size={step === 4 ? "lg" : "default"}
+                      className={cn(
+                        "ml-auto transition-all duration-300",
+                        step === 4
+                          ? "bg-gradient-primary hover:opacity-90 text-lg px-6 py-3"
+                          : "bg-primary hover:bg-primary/90"
+                      )}
+                    >
+                      {step < 4 ? "Next" : "Confirm Reservation"}
+                      <ChevronRight className="h-4 w-4 ml-2" />
+                    </Button>
                   </div>
                 </form>
               </Form>

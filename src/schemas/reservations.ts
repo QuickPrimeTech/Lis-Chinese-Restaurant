@@ -1,3 +1,5 @@
+// @/schemas/reservations.ts
+
 import * as z from "zod";
 
 // Step 1: Personal Info
@@ -39,7 +41,9 @@ const Step4Schema = z.object({
 });
 
 // Final Schema
-export const FormSchema = Step1Schema.merge(Step2Schema).merge(Step3Schema).merge(Step4Schema);
+export const FormSchema = Step1Schema.merge(Step2Schema)
+  .merge(Step3Schema)
+  .merge(Step4Schema);
 
 // TypeScript type
 export type ReservationFormValues = z.infer<typeof FormSchema>;

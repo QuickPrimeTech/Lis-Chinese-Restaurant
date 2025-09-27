@@ -7,7 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ReservationFormValues } from "@/types/reservations";
+import { ReservationFormValues } from "@/schemas/reservations";
 
 interface PersonalInfoStepProps {
   form: UseFormReturn<ReservationFormValues>;
@@ -21,10 +21,12 @@ export const PersonalInfoStep = ({ form }: PersonalInfoStepProps) => {
         name="firstName"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-medium">First Name <span className="text-destructive">*</span></FormLabel>
+            <FormLabel className="font-medium">
+              First Name <span className="text-destructive">*</span>
+            </FormLabel>
             <FormControl>
-              <Input 
-                placeholder="Enter your first name" 
+              <Input
+                placeholder="Enter your first name"
                 {...field}
                 className="transition-all duration-200 focus:ring-2 focus:ring-primary/20"
               />
@@ -38,10 +40,12 @@ export const PersonalInfoStep = ({ form }: PersonalInfoStepProps) => {
         name="lastName"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-medium">Last Name <span className="text-destructive">*</span></FormLabel>
+            <FormLabel className="font-medium">
+              Last Name <span className="text-destructive">*</span>
+            </FormLabel>
             <FormControl>
-              <Input 
-                placeholder="Enter your last name" 
+              <Input
+                placeholder="Enter your last name"
                 {...field}
                 className="transition-all duration-200 focus:ring-2 focus:ring-primary/20"
               />
@@ -55,10 +59,12 @@ export const PersonalInfoStep = ({ form }: PersonalInfoStepProps) => {
         name="email"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-medium">Email <span className="text-destructive">*</span></FormLabel>
+            <FormLabel className="font-medium">
+              Email <span className="text-destructive">*</span>
+            </FormLabel>
             <FormControl>
-              <Input 
-                placeholder="john@example.com" 
+              <Input
+                placeholder="john@example.com"
                 type="email"
                 {...field}
                 className="transition-all duration-200 focus:ring-2 focus:ring-primary/20"
@@ -73,10 +79,12 @@ export const PersonalInfoStep = ({ form }: PersonalInfoStepProps) => {
         name="phone"
         render={({ field }) => (
           <FormItem>
-            <FormLabel className="font-medium">Phone <span className="text-destructive">*</span></FormLabel>
+            <FormLabel className="font-medium">
+              Phone <span className="text-destructive">*</span>
+            </FormLabel>
             <FormControl>
-              <Input 
-                placeholder="+254 746815106" 
+              <Input
+                placeholder="+254 746815106"
                 type="tel"
                 {...field}
                 className="transition-all duration-200 focus:ring-2 focus:ring-primary/20"

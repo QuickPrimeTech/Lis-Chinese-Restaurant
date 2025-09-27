@@ -8,9 +8,19 @@ export const site = {
   restaurant: {
     name: "Li's Chinese Restaurant Nairobi",
     tagline: "Authentic Chinese Cuisine • Nairobi",
-    address: "Westlands, Nairobi, Kenya",
-    phone: "+254 20 123 4567",
+    phone: "+254 746 815 106",
     email: "info@lischineserestaurant.co.ke",
-    website: "www.lischineserestaurant.co.ke",
+    website: "www.lischineserestaurantnairobi.co.ke/",
+    address: "QR74+JR2, PETROCITY-Gigiri, Limuru Rd, Nairobi",
+  },
+  socials: {
+    tripAdvisor:
+      "https://www.tripadvisor.com/Restaurant_Review-g294207-d23859107-Reviews-Li_s_Chinese_Restaurant_Nairobi-Nairobi.html",
+    instagram: "https://www.instagram.com/lischineserestaurant/",
+    x: "https://x.com/LisChinese",
+    tiktok: "https://www.tiktok.com/@lischineserestaurantnrb",
+    linkedIn:
+      "https://www.linkedin.com/in/li-s-chinese-restaurant-nairobi-316672379",
+    pintrest: "https://www.pinterest.com/lischineserestaurant/",
   },
 };

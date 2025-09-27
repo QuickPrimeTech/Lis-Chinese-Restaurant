@@ -95,7 +95,7 @@ export default function RootLayout({
               <CartProvider>
                 <CartButton />
                 {children}
-                <Toaster richColors position="top-left" />
+                <Toaster richColors position="top-right" />
                 <ContactButton />
                 <Footer />
               </CartProvider>
