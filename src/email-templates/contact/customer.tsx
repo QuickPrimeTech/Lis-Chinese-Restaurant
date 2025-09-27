@@ -1,6 +1,8 @@
 // @/emails/contact/user.tsx
 
 import { site } from "@/config/site-config";
+import { EmailSocials } from "../components/socials";
+import { EmailFooter } from "../components/footer";
 
 type CustomerConfirmationEmailProps = {
   customerName: string;
@@ -243,111 +245,10 @@ export const CustomerConfirmationEmail = ({
       </table>
 
       {/* Social Links Footer */}
-      <table
-        style={{ width: "100%", backgroundColor: "#ffffff", marginTop: 20 }}
-      >
-        <tr>
-          <td style={{ padding: 16, textAlign: "center" }}>
-            <p
-              style={{
-                margin: "0 0 8px 0",
-                fontSize: 14,
-                color: "hsl(220, 13%, 40%)",
-              }}
-            >
-              Connect with us
-            </p>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                gap: "12px",
-              }}
-            >
-              <a
-                href={site.socials.tripAdvisor}
-                style={{
-                  color: "hsl(0,65%,45%)",
-                  textDecoration: "none",
-                  fontSize: 14,
-                }}
-              >
-                TripAdvisor
-              </a>
-              <a
-                href={site.socials.instagram}
-                style={{
-                  color: "hsl(0,65%,45%)",
-                  textDecoration: "none",
-                  fontSize: 14,
-                }}
-              >
-                Instagram
-              </a>
-              <a
-                href={site.socials.x}
-                style={{
-                  color: "hsl(0,65%,45%)",
-                  textDecoration: "none",
-                  fontSize: 14,
-                }}
-              >
-                X
-              </a>
-              <a
-                href={site.socials.tiktok}
-                style={{
-                  color: "hsl(0,65%,45%)",
-                  textDecoration: "none",
-                  fontSize: 14,
-                }}
-              >
-                TikTok
-              </a>
-              <a
-                href={site.socials.linkedIn}
-                style={{
-                  color: "hsl(0,65%,45%)",
-                  textDecoration: "none",
-                  fontSize: 14,
-                }}
-              >
-                LinkedIn
-              </a>
-              <a
-                href={site.socials.pintrest}
-                style={{
-                  color: "hsl(0,65%,45%)",
-                  textDecoration: "none",
-                  fontSize: 14,
-                }}
-              >
-                Pinterest
-              </a>
-            </div>
-          </td>
-        </tr>
-      </table>
+      <EmailSocials />
 
       {/* Footer */}
-      <table style={{ width: "100%", backgroundColor: "hsl(0, 65%, 45%)" }}>
-        <tr>
-          <td style={{ padding: "16px", textAlign: "center" }}>
-            <p
-              style={{
-                color: "hsl(0, 0%, 100%)",
-                fontSize: "12px",
-                margin: "0",
-              }}
-            >
-              This is an automated confirmation email from {restaurant.name}.
-              <br />
-              You don’t need to reply unless you want to add more details.
-            </p>
-          </td>
-        </tr>
-      </table>
+      <EmailFooter />
     </div>
   );
 };

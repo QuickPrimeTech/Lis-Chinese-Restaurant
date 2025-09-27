@@ -1,4 +1,4 @@
-import { CheckCircle, MessageCircle, Phone, Calendar } from "lucide-react";
+import { CheckCircle, Mail, Phone, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ReservationFormValues } from "@/schemas/reservations";
@@ -35,12 +35,12 @@ export const SuccessStep = ({
 
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <MessageCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+              <Mail className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
               <div>
-                <div className="font-medium">WhatsApp Confirmation</div>
+                <div className="font-medium">Email Notification</div>
                 <div className="text-sm text-muted-foreground">
-                  You&apos;ll receive a WhatsApp message with your reservation
-                  details shortly.
+                  You&apos;ll receive an email with your reservation details
+                  shortly.
                 </div>
               </div>
             </div>
@@ -61,8 +61,8 @@ export const SuccessStep = ({
               <div>
                 <div className="font-medium">Need to Cancel?</div>
                 <div className="text-sm text-muted-foreground">
-                  Simply text us on WhatsApp if you need to cancel or modify
-                  your reservation.
+                  Simply reply to the confirmation email if you need to cancel
+                  or modify your reservation.
                 </div>
               </div>
             </div>

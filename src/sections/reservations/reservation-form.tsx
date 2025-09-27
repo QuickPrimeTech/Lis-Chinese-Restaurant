@@ -26,11 +26,9 @@ import { SuccessStep } from "./success-step";
 import { FormSchema, ReservationFormValues } from "@/schemas/reservations";
 
 export const ReservationFormSection = ({
-  timeSlots,
   guestCounts,
   occasions,
 }: {
-  timeSlots: string[];
   guestCounts: string[];
   occasions: string[];
 }) => {
@@ -170,7 +168,6 @@ export const ReservationFormSection = ({
                   {step === 2 && (
                     <ReservationDetailsStep
                       form={form}
-                      timeSlots={timeSlots}
                       guestCounts={guestCounts}
                     />
                   )}
