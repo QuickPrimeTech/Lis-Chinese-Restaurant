@@ -1,3 +1,5 @@
+// @/components/cart/mpesa-steps/mpesa-error-step.tsx
+
 import { useCart } from "@/contexts/cart-provider";
 import { formatDisplayPhone } from "@/utils/payments";
 import { Smartphone, XCircle } from "lucide-react";
@@ -5,13 +7,15 @@ import { Button } from "@/components/ui/button";
 
 type MpesaErrorStepProps = {
   formattedPhone: string;
-  //   onRetry: () => void;
+  onRetry: () => void;
+  onChangePhone: () => void; // <-- new prop
 };
 
 export function MpesaErrorStep({
   formattedPhone,
-}: //   onRetry,
-MpesaErrorStepProps) {
+  onRetry,
+  onChangePhone,
+}: MpesaErrorStepProps) {
   const { finalTotal } = useCart();
 
   return (
@@ -57,14 +61,16 @@ MpesaErrorStepProps) {
         </div>
       </div>
 
-      {/* Retry Button */}
-      <div>
+      {/* Actions */}
+      <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <Button
-          //   onClick={onRetry}
-          className="bg-green-600 hover:bg-green-700 w-full sm:w-auto"
+          onClick={onChangePhone}
+          variant="outline"
+          className="w-full sm:w-auto"
         >
-          Retry Payment
+          Use Different Phone
         </Button>
+        <Button onClick={onRetry}>Retry Payment</Button>
       </div>
     </div>
   );

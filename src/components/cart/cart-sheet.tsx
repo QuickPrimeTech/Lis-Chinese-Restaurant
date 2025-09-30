@@ -32,12 +32,13 @@ import {
 import { useCart } from "@/contexts/cart-provider";
 import { CartItem } from "./cart-item";
 import { CardPaymentForm } from "./card-payment-form";
-import { MpesaPaymentForm } from "./mpesa-payment/mpesa-payment-form";
+import { MpesaPaymentForm } from "./mpesa-steps/mpesa-payment-form";
 import { PickupForm } from "./pickup-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CartSuccess } from "./cart-success";
 import { OrderSummary } from "./order-summary";
 import { PriceBreakdown } from "./price-breakdown";
+import { MpesaPaymentStep } from "./mpesa-payment-step";
 
 interface CartSheetProps {
   open: boolean;
@@ -255,7 +256,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                             onBack={handleBackToDetails}
                           />
                         ) : (
-                          <MpesaPaymentForm
+                          <MpesaPaymentStep
                             onSuccess={handlePaymentSuccess}
                             onBack={handleBackToDetails}
                           />

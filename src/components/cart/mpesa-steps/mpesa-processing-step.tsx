@@ -1,3 +1,5 @@
+// @/components/cart/mpesa-steps/mpesa-processing-step.tsx
+
 import { useCart } from "@/contexts/cart-provider";
 import { formatDisplayPhone } from "@/utils/payments";
 import { Smartphone, CheckCircle, Loader } from "lucide-react";
