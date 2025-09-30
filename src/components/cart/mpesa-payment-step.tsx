@@ -85,11 +85,16 @@ export function MpesaPaymentStep({ onSuccess, onBack }: MpesaPaymentStepProps) {
       } else {
         throw new Error("Invalid response from server");
       }
-    } catch (error: any) {
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        // ✅ Safe handling with proper typing
+        toast.error(
+          error.response?.data?.message || "Payment failed. Try again."
+        );
+      } else {
+        toast.error("Unexpected error. Please try again.");
+      }
       console.error("Payment error:", error);
-      toast.error(
-        error.response?.data?.message || "Payment failed. Try again."
-      );
       setStep("error");
     }
   };
