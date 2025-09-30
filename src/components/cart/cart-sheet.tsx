@@ -32,7 +32,6 @@ import {
 import { useCart } from "@/contexts/cart-provider";
 import { CartItem } from "./cart-item";
 import { CardPaymentForm } from "./card-payment-form";
-import { MpesaPaymentForm } from "./mpesa-steps/mpesa-payment-form";
 import { PickupForm } from "./pickup-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CartSuccess } from "./cart-success";
