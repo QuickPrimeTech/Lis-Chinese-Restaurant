@@ -5,15 +5,19 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Search, X, ArrowDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { menuItems } from "@/data/menu-data";
 import { useSiteHeader } from "@/layouts/site-header";
+import { Item } from "@/types/menu";
 
-const categories = Object.entries(menuItems).map(([key, items]) => ({
-  id: key,
-  label: items[0]?.category || key,
-}));
+type StickyCategoryNavProps = {
+  menuItems: Record<string, Item[]>;
+};
 
-export default function StickyCategoryNav() {
+export default function StickyCategoryNav({
+  menuItems,
+}: StickyCategoryNavProps) {
+  const [categories, setCategories] = useState<{ id: string; label: string }[]>(
+    []
+  );
   const [active, setActive] = useState(categories[0]?.id || "");
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState<
@@ -28,11 +32,26 @@ export default function StickyCategoryNav() {
   const suggestionRefs = useRef<(HTMLDivElement | null)[]>([]);
   const { announcementOpen } = useSiteHeader();
 
+  // ✅ Update categories whenever menuItems changes
+  useEffect(() => {
+    if (menuItems && Object.keys(menuItems).length > 0) {
+      const newCategories = Object.entries(menuItems).map(([key, items]) => ({
+        id: key,
+        label: items[0]?.category || key,
+      }));
+      setCategories(newCategories);
+      if (!active && newCategories.length > 0) {
+        setActive(newCategories[0].id);
+      }
+    }
+  }, [menuItems]);
+
   // ✅ Detect desktop vs mobile
   useEffect(() => {
     const checkIsDesktop = () => setIsDesktop(window.innerWidth >= 640);
     checkIsDesktop();
     window.addEventListener("resize", checkIsDesktop);
+
     return () => window.removeEventListener("resize", checkIsDesktop);
   }, []);
 
@@ -63,8 +82,10 @@ export default function StickyCategoryNav() {
     };
   }, [isMobileSearchOpen, search]);
 
-  // ✅ Track active category
+  // ✅ Track active category dynamically
   useEffect(() => {
+    if (categories.length === 0) return;
+
     const handleScroll = () => {
       const offsets = categories
         .map((c) => {
@@ -72,20 +93,26 @@ export default function StickyCategoryNav() {
           return el ? { id: c.id, top: el.offsetTop } : null;
         })
         .filter(Boolean) as { id: string; top: number }[];
+
       if (offsets.length === 0) return;
 
-      const scrollY = window.scrollY + 200;
+      const scrollY = window.scrollY + 200; // adjust offset for header height
       const current = offsets.reduce((prev, curr) =>
         Math.abs(curr.top - scrollY) < Math.abs(prev.top - scrollY)
           ? curr
           : prev
       );
-      if (current) setActive(current.id);
+
+      if (current && current.id !== active) {
+        setActive(current.id);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // run once on mount in case we're already scrolled
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [categories, active]);
 
   // ✅ Scroll to food/card
   const scrollToElement = (id: string) => {
