@@ -31,24 +31,15 @@ export default function StickyCategoryNav({
   const inputRef = useRef<HTMLInputElement>(null);
   const suggestionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [active, setActive] = useState("");
+  // ✅ derive categories from props (no useEffect needed)
+  const categories = getCategories(menuItems);
+
+  const [active, setActive] = useState(categories[0]?.id ?? "");
   const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
-
-  // --- Effects ---
-  // Categories update
-  useEffect(() => {
-    if (!menuItems || Object.keys(menuItems).length === 0) return;
-    const newCategories = getCategories(menuItems);
-    setCategories(newCategories);
-    if (!active && newCategories.length > 0) {
-      setActive(newCategories[0].id);
-    }
-  }, [menuItems]);
 
   // Desktop check
   useEffect(() => {
@@ -187,8 +178,6 @@ export default function StickyCategoryNav({
       setIsMobileSearchOpen(false);
     }
   };
-
-  // --- Render ---
   return (
     <div
       className={cn(
