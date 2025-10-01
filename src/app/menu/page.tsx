@@ -45,7 +45,6 @@ export default async function MenuPage() {
     },
     {}
   );
-  console.log("grouped by category ---->", groupedByCategory);
   return (
     <div className="min-h-screen bg-background">
       <MenuContent menuItems={groupedByCategory} />
