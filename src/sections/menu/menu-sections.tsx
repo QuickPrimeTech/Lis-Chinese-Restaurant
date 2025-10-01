@@ -1,5 +1,3 @@
-"use client";
-
 import MenuSection from "@/sections/menu/menu-section";
 import type { Item } from "@/types/menu";
 

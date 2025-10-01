@@ -1,34 +1,56 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Search, X, ArrowDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { menuItems } from "@/data/menu-data";
 import { useSiteHeader } from "@/layouts/site-header";
+import { Item } from "@/types/menu";
 
-const categories = Object.entries(menuItems).map(([key, items]) => ({
-  id: key,
-  label: items[0]?.category || key,
-}));
+// Types
+type StickyCategoryNavProps = {
+  menuItems: Record<string, Item[]>;
+};
+type Category = { id: string; label: string };
+type Suggestion = { id: string; name: string; category: string };
 
-export default function StickyCategoryNav() {
-  const [active, setActive] = useState(categories[0]?.id || "");
-  const [search, setSearch] = useState("");
-  const [suggestions, setSuggestions] = useState<
-    { id: string; name: string; category: string }[]
-  >([]);
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
-  const [isDesktop, setIsDesktop] = useState(false);
+// Helpers
+function getCategories(menuItems: Record<string, Item[]>): Category[] {
+  return Object.entries(menuItems).map(([key, items]) => ({
+    id: key,
+    label: items[0]?.category || key,
+  }));
+}
 
+export default function StickyCategoryNav({
+  menuItems,
+}: StickyCategoryNavProps) {
+  const { announcementOpen } = useSiteHeader();
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const suggestionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const { announcementOpen } = useSiteHeader();
 
-  // ✅ Detect desktop vs mobile
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [active, setActive] = useState("");
+  const [search, setSearch] = useState("");
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  // --- Effects ---
+  // Categories update
+  useEffect(() => {
+    if (!menuItems || Object.keys(menuItems).length === 0) return;
+    const newCategories = getCategories(menuItems);
+    setCategories(newCategories);
+    if (!active && newCategories.length > 0) {
+      setActive(newCategories[0].id);
+    }
+  }, [menuItems]);
+
+  // Desktop check
   useEffect(() => {
     const checkIsDesktop = () => setIsDesktop(window.innerWidth >= 640);
     checkIsDesktop();
@@ -36,13 +58,10 @@ export default function StickyCategoryNav() {
     return () => window.removeEventListener("resize", checkIsDesktop);
   }, []);
 
-  // ✅ Outside click & escape
+  // Click outside & escape
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
+      if (!containerRef.current?.contains(e.target as Node)) {
         setSuggestions([]);
         setHighlightedIndex(-1);
         if (isMobileSearchOpen && !search) setIsMobileSearchOpen(false);
@@ -63,50 +82,47 @@ export default function StickyCategoryNav() {
     };
   }, [isMobileSearchOpen, search]);
 
-  // ✅ Track active category
+  // Active category tracking
   useEffect(() => {
+    if (categories.length === 0) return;
+
     const handleScroll = () => {
+      const scrollY = window.scrollY + 200;
       const offsets = categories
         .map((c) => {
           const el = document.getElementById(c.id);
           return el ? { id: c.id, top: el.offsetTop } : null;
         })
         .filter(Boolean) as { id: string; top: number }[];
+
       if (offsets.length === 0) return;
 
-      const scrollY = window.scrollY + 200;
       const current = offsets.reduce((prev, curr) =>
         Math.abs(curr.top - scrollY) < Math.abs(prev.top - scrollY)
           ? curr
           : prev
       );
-      if (current) setActive(current.id);
+
+      if (current?.id && current.id !== active) {
+        setActive(current.id);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [categories, active]);
 
-  // ✅ Scroll to food/card
-  const scrollToElement = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      window.scrollTo({
-        top: el.offsetTop - 120,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  // ✅ Update suggestions on search
+  // Suggestions update
   useEffect(() => {
     if (!search.trim()) {
       setSuggestions([]);
       setHighlightedIndex(-1);
       return;
     }
-    const results: { id: string; name: string; category: string }[] = [];
-    Object.values(menuItems).forEach((items) => {
+
+    const results: Suggestion[] = [];
+    Object.values(menuItems).forEach((items) =>
       items.forEach((item) => {
         if (
           item.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -118,13 +134,28 @@ export default function StickyCategoryNav() {
             category: item.category,
           });
         }
-      });
-    });
+      })
+    );
+
     setSuggestions(results.slice(0, 8));
     setHighlightedIndex(-1);
-  }, [search]);
+  }, [search, menuItems]);
 
-  // ✅ Keyboard navigation
+  // --- Handlers ---
+  const scrollToElement = useCallback((id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      window.scrollTo({ top: el.offsetTop - 120, behavior: "smooth" });
+    }
+  }, []);
+
+  const handleSuggestionClick = (s: Suggestion) => {
+    setSearch(s.name);
+    scrollToElement(s.id);
+    setSuggestions([]);
+    setHighlightedIndex(-1);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (suggestions.length === 0) return;
 
@@ -132,46 +163,22 @@ export default function StickyCategoryNav() {
       e.preventDefault();
       setHighlightedIndex((prev) => {
         const next = prev < suggestions.length - 1 ? prev + 1 : 0;
-        suggestionRefs.current[next]?.scrollIntoView({
-          block: "nearest",
-          behavior: "smooth",
-        });
+        suggestionRefs.current[next]?.scrollIntoView({ block: "nearest" });
         return next;
       });
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
       setHighlightedIndex((prev) => {
         const next = prev > 0 ? prev - 1 : suggestions.length - 1;
-        suggestionRefs.current[next]?.scrollIntoView({
-          block: "nearest",
-          behavior: "smooth",
-        });
+        suggestionRefs.current[next]?.scrollIntoView({ block: "nearest" });
         return next;
       });
-    } else if (e.key === "Enter") {
+    } else if (e.key === "Enter" && highlightedIndex >= 0) {
       e.preventDefault();
-      if (highlightedIndex >= 0 && suggestions[highlightedIndex]) {
-        const selected = suggestions[highlightedIndex];
-        setSearch(selected.name);
-        scrollToElement(selected.id);
-        setSuggestions([]);
-        setHighlightedIndex(-1);
-      }
+      handleSuggestionClick(suggestions[highlightedIndex]);
     }
   };
 
-  const handleSuggestionClick = (s: {
-    id: string;
-    name: string;
-    category: string;
-  }) => {
-    setSearch(s.name);
-    scrollToElement(s.id);
-    setSuggestions([]);
-    setHighlightedIndex(-1);
-  };
-
-  // ✅ Mobile toggle
   const handleMobileSearchToggle = () => {
     setIsMobileSearchOpen(!isMobileSearchOpen);
     if (!isMobileSearchOpen) {
@@ -181,14 +188,16 @@ export default function StickyCategoryNav() {
     }
   };
 
+  // --- Render ---
   return (
     <div
-      className={`sticky ${
+      className={cn(
+        "sticky z-40 bg-background/95 rounded-md backdrop-blur-md border-b border-border/50 shadow-soft",
         announcementOpen ? "top-30" : "top-20"
-      } z-40 bg-background/95 rounded-md backdrop-blur-md border-b border-border/50 shadow-soft`}
+      )}
     >
       <div className="flex items-center p-3 gap-3 max-w-7xl mx-auto">
-        {/* ✅ Search always has priority space */}
+        {/* Search */}
         <div
           ref={containerRef}
           className={cn(
@@ -197,27 +206,24 @@ export default function StickyCategoryNav() {
             !isDesktop && isMobileSearchOpen ? "flex-1" : "w-auto"
           )}
         >
-          {/* Mobile toggle button */}
           {!isDesktop && !isMobileSearchOpen && (
             <Button
               variant="outline"
               size="icon"
               onClick={handleMobileSearchToggle}
-              className="shrink-0"
             >
               <Search className="h-5 w-5" />
             </Button>
           )}
 
-          {/* Search input */}
           {(isDesktop || isMobileSearchOpen) && (
             <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
-              {!isDesktop && isMobileSearchOpen && (
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              {!isDesktop && (
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute right-1 top-1/2 -translate-y-1/2 z-10 h-8 w-8"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
                   onClick={() => {
                     setIsMobileSearchOpen(false);
                     setSearch("");
@@ -233,13 +239,10 @@ export default function StickyCategoryNav() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className={cn(
-                  "pl-10 text-sm bg-card/50 border-border/50 focus:border-primary focus:ring-primary/20 transition-all",
-                  !isDesktop && isMobileSearchOpen ? "pr-10" : ""
-                )}
+                className="pl-10 text-sm bg-card/50 border-border/50 focus:border-primary focus:ring-primary/20"
               />
 
-              {/* ✅ Suggestions dropdown */}
+              {/* Suggestions */}
               {suggestions.length > 0 && (
                 <div className="absolute z-50 mt-2 w-full bg-card/95 backdrop-blur-md border border-border/50 rounded-lg shadow-elevated">
                   <ScrollArea className="max-h-80">
@@ -276,9 +279,9 @@ export default function StickyCategoryNav() {
           )}
         </div>
 
-        {/* ✅ Categories scroll, search keeps priority */}
+        {/* Categories */}
         {!isMobileSearchOpen && (
-          <ScrollArea className="flex-1 w-full min-w-0 bg-gray-200 dark:bg-gray-800 rounded-full px-2 py-0.5">
+          <ScrollArea className="flex-1 w-full min-w-0 rounded-full px-2 py-0.5 bg-foreground/10">
             <div className="flex space-x-2 py-1 px-1">
               {categories.map((c) => (
                 <Button
@@ -286,10 +289,11 @@ export default function StickyCategoryNav() {
                   size="sm"
                   variant={active === c.id ? "secondary" : "outline"}
                   onClick={() => scrollToElement(c.id)}
-                  className={`whitespace-nowrap font-medium ${
+                  className={cn(
+                    "whitespace-nowrap font-medium rounded-full px-4 py-2 text-xs sm:text-sm",
                     active === c.id &&
-                    "bg-foreground/80 hover:bg-foreground/90 text-background"
-                  } px-4 py-2 text-xs sm:text-sm rounded-full`}
+                      "bg-foreground/80 hover:bg-foreground/90 text-background"
+                  )}
                 >
                   {c.label}
                 </Button>
