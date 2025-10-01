@@ -14,16 +14,18 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 export default async function MenuPage() {
+  const USER_ID = process.env.USER_ID; // ✅ load from env
+
   const { data, error } = await supabase
     .from("menu_items")
-    .select("id, name, description, price, category, image_url");
+    .select("id, name, description, price, category, image_url, user_id") // ensure user_id exists
+    .eq("user_id", USER_ID); // ✅ filter by env USER_ID
 
   if (error) {
     console.error("Error fetching menu items:", error.message);
     return <div>Failed to load menu.</div>;
   }
 
-  // Map DB shape → Item type
   const items: Item[] =
     data?.map((item) => ({
       id: String(item.id),
@@ -45,6 +47,7 @@ export default async function MenuPage() {
     },
     {}
   );
+
   return (
     <div className="min-h-screen bg-background">
       <MenuContent menuItems={groupedByCategory} />
