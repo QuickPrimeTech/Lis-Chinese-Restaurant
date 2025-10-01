@@ -18,8 +18,11 @@ export default async function MenuPage() {
 
   const { data, error } = await supabase
     .from("menu_items")
-    .select("id, name, description, price, category, image_url, user_id") // ensure user_id exists
-    .eq("user_id", USER_ID); // ✅ filter by env USER_ID
+    .select(
+      "id, name, description, price, category, image_url, user_id, is_available"
+    )
+    .eq("user_id", USER_ID) // ✅ filter by user
+    .eq("is_available", true); // ✅ only available items
 
   if (error) {
     console.error("Error fetching menu items:", error.message);
