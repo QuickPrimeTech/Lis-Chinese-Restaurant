@@ -99,13 +99,11 @@ const Footer = () => {
               </div>
               <div className="flex items-center text-muted-foreground">
                 <Phone className="h-4 w-4 mr-3 text-primary" />
-                <span className="font-chivo">0746815106</span>
+                <span className="font-chivo">{site.emails.inquiries}</span>
               </div>
               <div className="flex items-center text-muted-foreground">
                 <Mail className="h-4 w-4 mr-3 text-primary" />
-                <span className="font-chivo">
-                  info@lischineserestaurantnairobi.com
-                </span>
+                <span className="font-chivo">{site.emails.inquiries}</span>
               </div>
             </div>
           </div>

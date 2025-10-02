@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { MapCard } from "@/components/contact/map-card";
 import { ContactForm } from "../../components/contact/contact-form";
+import { site } from "@/config/site-config";
 
 export const ContactSection = () => {
   return (
@@ -60,7 +61,7 @@ export const ContactSection = () => {
                     href="tel:+254746815106"
                     className="text-muted-foreground font-chivo hover:underline break-words"
                   >
-                    +254 746 815 106
+                    {site.restaurant.phone}
                   </a>
                 </div>
               </div>
@@ -75,18 +76,18 @@ export const ContactSection = () => {
                   </h3>
                   <div className="flex flex-col space-y-1">
                     <a
-                      href="mailto:reservations@lischineserestaurantnairobi.com.com"
+                      href={`mailto:${site.emails.reservations}`}
                       className="text-muted-foreground font-chivo hover:underline"
                       style={{ wordBreak: "break-all" }} // or use a Tailwind utility for break-all
                     >
-                      reservations@lischineserestaurantnairobi.com
+                      {site.emails.reservations};
                     </a>
                     <a
-                      href="mailto:info@lischineserestaurantnairobi.com.com"
+                      href={`mailto:${site.emails.inquiries}`}
                       className="text-muted-foreground font-chivo hover:underline"
                       style={{ wordBreak: "break-all" }}
                     >
-                      info@lischineserestaurantnairobi.com
+                      {site.emails.inquiries};
                     </a>
                   </div>
                 </div>
