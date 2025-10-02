@@ -29,7 +29,7 @@ export default function GalleryContent({ galleryItems }: GalleryContentProps) {
   return (
     <div className="py-16">
       {/* Filter Buttons */}
-      <section className="py-6 border-b sticky top-20 z-50 bg-background/70 backdrop-blur-sm mb-8">
+      <section className="py-6 border-b sticky top-20 z-40 bg-background/70 backdrop-blur-sm mb-8">
         <ScrollArea className="w-full container px-4 whitespace-nowrap">
           <div className="flex gap-3 px-4">
             {filters.map((f) => (

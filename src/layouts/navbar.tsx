@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -157,37 +158,42 @@ export const Navbar = ({ className }: NavbarProps) => {
                 </Button>
               </SheetTrigger>
               <SheetContent className="bg-background backdrop-blur-xl border-r border-border/50 text-foreground">
-                <SheetHeader className="flex flex-row items-center space-x-3 pb-6 border-b border-border">
-                  <Image
-                    src="/logo.jpg"
-                    alt="Li's Chinese Restaurant Logo"
-                    width={36}
-                    height={36}
-                    className="rounded-full"
-                  />
-                  <SheetTitle className="text-xl font-cinzel font-bold text-primary">
-                    Li&apos;s Chinese Restaurant
-                  </SheetTitle>
-                </SheetHeader>
+                <SheetClose asChild>
+                  <SheetHeader className="flex flex-row items-center space-x-3 pb-6 border-b border-border">
+                    <Image
+                      src="/logo.jpg"
+                      alt="Li's Chinese Restaurant Logo"
+                      width={36}
+                      height={36}
+                      className="rounded-full"
+                    />
+                    <SheetTitle className="text-xl font-cinzel font-bold text-primary">
+                      Li&apos;s Chinese Restaurant
+                    </SheetTitle>
+                  </SheetHeader>
+                </SheetClose>
 
                 <div className="flex px-6 flex-col mt-6 space-y-5">
                   {[...primaryLinks, ...dropdownLinks].map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.path}
-                      className="text-lg font-chivo font-medium hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-sm"
-                    >
-                      {item.name}
-                    </Link>
+                    <SheetClose key={item.name} asChild>
+                      <Link
+                        href={item.path}
+                        className="text-lg font-chivo font-medium hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:rounded-sm"
+                      >
+                        {item.name}
+                      </Link>
+                    </SheetClose>
                   ))}
-                  <Button
-                    asChild
-                    variant="default"
-                    size="lg"
-                    className="bg-gradient-primary hover:shadow-glow transition-all duration-300 mt-6"
-                  >
-                    <Link href="/reservations">Reservations</Link>
-                  </Button>
+                  <SheetClose asChild>
+                    <Button
+                      asChild
+                      variant="default"
+                      size="lg"
+                      className="bg-gradient-primary hover:shadow-glow transition-all duration-300 mt-6"
+                    >
+                      <Link href="/reservations">Reservations</Link>
+                    </Button>
+                  </SheetClose>
                 </div>
                 <div className="px-6 py-3">
                   <Card>

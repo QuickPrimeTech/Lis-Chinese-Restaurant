@@ -163,8 +163,9 @@ const Footer = () => {
                   variant="outline"
                   size="sm"
                   className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                  asChild
                 >
-                  View Menu Online
+                  <Link href={"/menu"}>View Menu Online</Link>
                 </Button>
               </CardContent>
             </Card>
