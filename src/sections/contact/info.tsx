@@ -2,6 +2,7 @@
 
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
+import { site } from "@/config/site-config";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
 export default function ContactInfo() {
@@ -54,14 +55,11 @@ export default function ContactInfo() {
                   <h3 className="font-cinzel font-semibold text-foreground mb-2">
                     Call Us
                   </h3>
-                  <div className="text-muted-foreground font-chivo">
-                    <p className="mb-1">
-                      Reservations: +254&nbsp;746&nbsp;815&nbsp;106
-                    </p>
-                    <p className="mb-1">
-                      Events: +254&nbsp;746&nbsp;815&nbsp;106
-                    </p>
-                    <p>General: +254&nbsp;746&nbsp;815&nbsp;106</p>
+                  <div className="text-muted-foreground font-chivo space-y-1">
+                    <p>Reservations: {site.emails.reservations}</p>
+                    <p>Events: +254&nbsp;746&nbsp;815&nbsp;106</p>
+                    <p>General: {site.emails.inquiries}</p>
+                    <p>Orders: {site.emails.orders}</p>
                   </div>
                 </div>
               </div>

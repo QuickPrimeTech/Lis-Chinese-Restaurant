@@ -13,6 +13,12 @@ export const site = {
     website: "www.lischineserestaurantnairobi.co.ke/",
     address: "QR74+JR2, PETROCITY-Gigiri, Limuru Rd, Nairobi",
   },
+  emails: {
+    reservations: "reservations@lischineserestaurantnairobi.co.ke",
+    orders: "orders@lischineserestaurantnairobi.co.ke",
+    careers: "careers@lischineserestaurantnairobi.co.ke",
+    inquiries: "info@lischineserestaurantnairobi.co.ke",
+  },
   socials: {
     tripAdvisor:
       "https://www.tripadvisor.com/Restaurant_Review-g294207-d23859107-Reviews-Li_s_Chinese_Restaurant_Nairobi-Nairobi.html",

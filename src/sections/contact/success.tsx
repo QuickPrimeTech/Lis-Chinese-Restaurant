@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Phone, Clock, Mail } from "lucide-react";
+import { site } from "@/config/site-config";
 
 type FormData = {
   firstName: string;
@@ -32,8 +33,8 @@ export default function ContactSuccess({
               Message Sent Successfully!
             </h1>
             <p className="text-xl text-muted-foreground font-chivo leading-relaxed mb-8">
-              Thank you for reaching out to Li&apos;s Chinese Restaurant. We&apos;ve
-              received your message and will respond within 24 hours.
+              Thank you for reaching out to Li&apos;s Chinese Restaurant.
+              We&apos;ve received your message and will respond within 24 hours.
             </p>
 
             <Card className="bg-card border-primary/20 shadow-luxury">
@@ -71,7 +72,7 @@ export default function ContactSuccess({
                         Urgent Matters
                       </p>
                       <p className="text-muted-foreground text-sm">
-                        Call us at 0746815106
+                        Call us at {site.restaurant.phone}
                       </p>
                     </div>
                   </div>

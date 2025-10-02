@@ -46,7 +46,7 @@ export default function GalleryContent({ galleryItems }: GalleryContentProps) {
         </ScrollArea>
       </section>
 
-      <div className="container mx-auto">
+      <div className="container px-4 mx-auto">
         {/* Masonry Grid */}
         <GalleryGrid images={filteredImages} />
       </div>
