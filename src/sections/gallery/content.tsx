@@ -1,21 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { GalleryGrid } from "@/sections/gallery/gallery-grid";
-import { galleryData } from "@/data/gallery-data";
+import { GalleryImage } from "@/types/gallery";
 
-// Add "all" at the beginning of the filters
-const filters = ["all", ...Object.keys(galleryData)];
+interface GalleryContentProps {
+  galleryItems: GalleryImage[];
+}
 
-export default function GalleryContent() {
+export default function GalleryContent({ galleryItems }: GalleryContentProps) {
   const [filter, setFilter] = useState("all");
+
+  // Build filters dynamically from categories
+  const filters = useMemo(() => {
+    const categories = Array.from(
+      new Set(galleryItems.map((item) => item.category).filter(Boolean))
+    );
+    return ["all", ...categories];
+  }, [galleryItems]);
 
   const filteredImages =
     filter === "all"
-      ? Object.values(galleryData).flat()
-      : galleryData[filter] || [];
+      ? galleryItems
+      : galleryItems.filter((item) => item.category === filter);
 
   return (
     <div className="py-16">
