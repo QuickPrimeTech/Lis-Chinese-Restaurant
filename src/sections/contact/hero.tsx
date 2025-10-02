@@ -7,7 +7,7 @@ export default function ContactHero() {
     <section className="relative h-96 overflow-hidden">
       {/* Hero Section */}
       <Image
-        src="/contact-hero.jpg"
+        src="https://res.cloudinary.com/quick-prime-tech/image/upload/v1759425693/contact-hero-image.jpg"
         alt="Contact Hero"
         fill
         className="absolute inset-0 object-cover"
