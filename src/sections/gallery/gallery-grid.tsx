@@ -30,7 +30,7 @@ export function GalleryGrid({ images }: GalleryGridProps) {
     <div className="columns-1 md:columns-3 lg:columns-5 gap-6 space-y-6">
       {images.map((image, index) => (
         <Card
-          key={`${image.src}-${index}`}
+          key={`${image.id}-${index}`}
           className="py-0 break-inside-avoid group overflow-hidden hover:shadow-luxury transition-all duration-300 border border-border hover:border-primary/50"
         >
           <CardContent className="p-0">
@@ -44,7 +44,7 @@ export function GalleryGrid({ images }: GalleryGridProps) {
                   className="relative cursor-pointer"
                 >
                   <Image
-                    src={image.src}
+                    src={image.image}
                     alt={image.title ?? "Gallery image"}
                     width={800}
                     height={600}
@@ -86,12 +86,12 @@ export function GalleryGrid({ images }: GalleryGridProps) {
                   <CarouselContent className="w-full h-full">
                     {images.map((img, i) => (
                       <CarouselItem
-                        key={`${img.src}-${i}`}
+                        key={`${img.id}-${i}`}
                         className="flex justify-center items-center w-full h-full"
                       >
                         <div className="relative w-full max-h-[80vh] flex justify-center items-center">
                           <Image
-                            src={img.src}
+                            src={img.image}
                             alt={img.title ?? "Gallery image"}
                             width={1600}
                             height={1000}

@@ -1,7 +1,9 @@
 // @/types/gallery
 
 export interface GalleryImage {
-  src: string;
-  title?: string;
-  description?: string;
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  image: string;
 }
