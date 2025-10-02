@@ -1,5 +1,4 @@
 // @/app/page.tsx
-
 import { AboutSection } from "@/sections/homepage/about";
 import { ContactSection } from "@/sections/homepage/contact";
 import { CTASection } from "@/sections/homepage/CTA";
@@ -9,6 +8,7 @@ import { HeroSection } from "@/sections/homepage/hero";
 import { MenuPreview } from "@/sections/homepage/menu-preview";
 // import { OfferSection } from "@/sections/homepage/offer";
 import { TestimonialCarousel } from "@/sections/homepage/testimonials";
+import { supabase } from "@/lib/supabase/server";
 
 export const metadata = {
   title:
@@ -17,7 +17,23 @@ export const metadata = {
     "Welcome to Li's Chinese Restaurant in Nairobi. Enjoy fresh, authentic Chinese food in a warm and inviting space. Perfect for family meals, friends, or a special night out.",
 };
 
-export default function Home() {
+// ✅ enable ISR (regenerates every 60s)
+export const revalidate = 60;
+
+export default async function Home() {
+  const USER_ID = process.env.USER_ID;
+
+  // Fetch FAQs
+  const { data: faqs, error } = await supabase
+    .from("faqs")
+    .select("id, question, answer, is_published")
+    .eq("user_id", USER_ID)
+    .eq("is_published", true);
+
+  if (error) {
+    console.error("Error fetching FAQs:", error.message);
+  }
+
   return (
     <>
       <HeroSection />
@@ -27,7 +43,7 @@ export default function Home() {
       <AboutSection />
       <CTASection />
       <ContactSection />
-      <FAQSection />
+      <FAQSection faqs={faqs ?? []} /> {/* ✅ pass fetched faqs */}
       <FollowUs />
     </>
   );

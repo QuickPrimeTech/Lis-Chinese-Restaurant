@@ -56,10 +56,7 @@ export default function ContactInfo() {
                     Call Us
                   </h3>
                   <div className="text-muted-foreground font-chivo space-y-1">
-                    <p>Reservations: {site.emails.reservations}</p>
-                    <p>Events: +254&nbsp;746&nbsp;815&nbsp;106</p>
-                    <p>General: {site.emails.inquiries}</p>
-                    <p>Orders: {site.emails.orders}</p>
+                    <p>Phone Number: {site.restaurant.phone}</p>
                   </div>
                 </div>
               </div>
@@ -76,14 +73,11 @@ export default function ContactInfo() {
                   <h3 className="font-cinzel font-semibold text-foreground mb-2">
                     Email Us
                   </h3>
-                  <div className="text-muted-foreground font-chivo">
-                    <p className="mb-1">
-                      reservations@Li&apos;s Chinese Restaurant.com
-                    </p>
-                    <p className="mb-1">
-                      events@Li&apos;s Chinese Restaurant.com
-                    </p>
-                    <p>info@Li&apos;s Chinese Restaurant.com</p>
+                  <div className="text-muted-foreground font-chivo space-y-1 break-all">
+                    <p>{site.emails.reservations}</p>
+                    <p>{site.emails.orders}</p>
+                    <p>{site.emails.careers}</p>
+                    <p>{site.emails.inquiries}</p>
                   </div>
                 </div>
               </div>

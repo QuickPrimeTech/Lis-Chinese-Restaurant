@@ -6,50 +6,16 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-export const FAQSection = () => {
-  const faqs = [
-    {
-      question: "Do I need a reservation?",
-      answer:
-        "Not at all! Walk-ins are always welcome if we have space. But if you want to make sure you get a table at your preferred time, you can book a reservation quickly through our website.",
-    },
-    {
-      question: "Can I order food online?",
-      answer:
-        "Yes! You can order pickup directly from our website. Just place your order online, and we’ll have your favorite Chinese dishes ready for you when you arrive.",
-    },
-    {
-      question: "Do you accommodate dietary restrictions?",
-      answer:
-        "Of course. We have vegetarian, vegan, and gluten-free options available. If you have specific dietary needs, just let us know when you order or book, and we’ll do our best to take care of you.",
-    },
-    {
-      question: "Is there parking available?",
-      answer:
-        "Yes, we’ve got plenty of parking near the restaurant. You’ll find it easy and convenient to stop by, whether you’re dining in or picking up an order.",
-    },
-    {
-      question: "Can I host a private event?",
-      answer:
-        "Definitely! We’d love to host your special occasion or gathering. You can book private events directly through our website, and we’ll work with you to create a menu and setup that fits your celebration.",
-    },
-    {
-      question: "Do you serve alcohol?",
-      answer:
-        "Yes, we have a great selection of drinks to go along with your meal, including beer, wine, and cocktails that pair perfectly with Chinese cuisine.",
-    },
-    {
-      question: "What payment methods do you accept?",
-      answer:
-        "We accept cash, all major credit cards, and popular digital payments. Pay however you like — we keep it simple.",
-    },
-    {
-      question: "Is the restaurant family-friendly?",
-      answer:
-        "Absolutely! We welcome families and kids of all ages. We’ve got options on the menu for everyone, and high chairs are available if you need them.",
-    },
-  ];
 
+type FAQ = {
+  faqs: {
+    id: string;
+    question: string;
+    answer: string;
+  }[];
+};
+
+export const FAQSection = ({ faqs }: FAQ) => {
   return (
     <section className="py-20 bg-card">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
