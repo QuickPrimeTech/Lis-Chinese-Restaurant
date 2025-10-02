@@ -23,4 +23,10 @@ export const site = {
       "https://www.linkedin.com/in/li-s-chinese-restaurant-nairobi-316672379",
     pintrest: "https://www.pinterest.com/lischineserestaurant/",
   },
+  emails: {
+    reservations: "reservations@lischineserestaurantnairobi.co.ke",
+    orders: "orders@lischineserestaurantnairobi.co.ke",
+    careers: "careers@lischineserestaurantnairobi.co.ke",
+    inquiries: "info@lischineserestaurantnairobi.co.ke",
+  },
 };
