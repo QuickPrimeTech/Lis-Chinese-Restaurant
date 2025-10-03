@@ -1,3 +1,4 @@
+import { site } from "@/config/site-config";
 // @/app/api/notification/contact/route.ts
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
@@ -25,8 +26,8 @@ export async function POST(req: Request) {
 
     // 1. Send email to owner
     const { error: ownerError } = await resend.emails.send({
-      from: "QuickPrimeTech <system@quickprimetech.com>", // ✅ verified sender
-      to: ["quickprimetech@gmail.com"], // owner inbox
+      from: `${site.restaurant.name} <system@lischineserestaurantnairobi.co.ke>`, // ✅ verified sender
+      to: [site.emails.reservations], // owner inbox
       subject: "New Reservation Booked 🎉",
       react: OwnerConfirmationEmail({
         firstName: firstName,
@@ -43,14 +44,15 @@ export async function POST(req: Request) {
     });
 
     if (ownerError) {
+      console.log(ownerError);
       return NextResponse.json({ error: ownerError }, { status: 500 });
     }
 
     // 2. Send confirmation to customer
     const { error: customerError } = await resend.emails.send({
-      from: "QuickPrimeTech <reservations@quickprimetech.com>",
+      from: `${site.restaurant.name} <${site.emails.reservations}>`,
       to: [email],
-      subject: `We received your Reservation 🎉`,
+      subject: `We've received your Reservation ${firstName} ${lastName} 🎉`,
       react: CustomerConfirmationEmail({
         firstName: firstName,
         lastName: lastName,

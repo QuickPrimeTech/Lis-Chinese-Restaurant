@@ -85,7 +85,6 @@ export const ReservationFormSection = ({
   const handlePrevStep = () => setStep((prev) => prev - 1);
 
   const onSubmit = async (values: ReservationFormValues) => {
-    // sending the request to the server to book the reservations
     try {
       setIsSubmitting(true);
       const res = await fetch("/api/notifications/reservations", {
@@ -96,17 +95,41 @@ export const ReservationFormSection = ({
         body: JSON.stringify(values),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        throw new Error("Failed to send message");
+        // 🔎 Handle Zod validation errors from backend
+        if (res.status === 400 && data?.details) {
+          const { fieldErrors, formErrors } = data.details;
+
+          // Show form-wide errors
+          if (formErrors?.length) {
+            formErrors.forEach((msg: string) => toast.error(msg));
+          }
+
+          // Show field-specific errors
+          if (fieldErrors) {
+            Object.entries(fieldErrors).forEach(([field, errors]) => {
+              if (Array.isArray(errors)) {
+                errors.forEach((msg) => toast.error(`${field}: ${msg}`));
+              }
+            });
+          }
+        } else {
+          toast.error(data?.error || "Failed to send reservation request.");
+        }
+        return;
       }
 
+      // ✅ Success
       toast.success("Your reservation request has been sent successfully!");
+      setIsSubmitted(true);
+      form.reset();
+    } catch (err) {
+      toast.error("Problem occurred. Please check your internet connection!");
+    } finally {
       setIsSubmitting(false);
-    } catch {
-      setIsSubmitting(false);
-      toast.error("Problem occured. Please check your internet connection!");
     }
-    form.reset();
   };
 
   const handleNewReservation = () => {
