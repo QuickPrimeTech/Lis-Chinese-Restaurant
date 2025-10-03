@@ -6,9 +6,9 @@ import { ArrowRight } from "lucide-react";
 export const AboutSection = () => {
   const aboutItems = [
     {
-      title: "Reserve a Table",
+      title: "Book Your Spot",
       description:
-        "Enjoy an exquisite dining experience in our elegant setting. Book a table and savor the flavors of our carefully curated menu.",
+        "Craving your favorite Chinese dish? Save your seat before it’s gone and enjoy a cozy meal with friends, family, or even just some well-deserved me-time.",
       image:
         "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758995159/reservations.jpg",
       ctaText: "Reserve Now",
@@ -16,14 +16,24 @@ export const AboutSection = () => {
       reverse: false,
     },
     {
-      title: "Host a Private Event",
+      title: "Celebrate With Us",
       description:
-        "Celebrate your special occasions in style. Our private event spaces and tailored services ensure an unforgettable experience.",
+        "Got a birthday, anniversary, or office party coming up? Let us do the cooking while you enjoy the moment. We’ll make it special with good food and a warm atmosphere.",
       image:
         "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758995385/private-events.jpg",
-      ctaText: "Book Event",
+      ctaText: "Plan Your Event",
       ctaLink: "/private-events",
       reverse: true,
+    },
+    {
+      title: "Work With Us",
+      description:
+        "Dreaming of a career in food? At Li’s Chinese Restaurant, you’ll cook real Chinese recipes, learn from passionate chefs, and grow your skills in a fun, supportive team. If you love good food and great people, this is the place for you.",
+      image:
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1759476105/careers.jpg",
+      ctaText: "Apply Today",
+      ctaLink: "/careers",
+      reverse: false,
     },
   ];
 
