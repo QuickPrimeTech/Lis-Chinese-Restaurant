@@ -6,6 +6,8 @@ import { OwnerConfirmationEmail } from "@/email-templates/reservations/owner";
 import { CustomerConfirmationEmail } from "@/email-templates/reservations/customer";
 import { ReservationFormValues } from "@/schemas/reservations";
 
+import { supabase } from "@/lib/supabase/server"; // ✅ adjust import if needed
+
 export async function POST(req: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -24,22 +26,44 @@ export async function POST(req: Request) {
       requests,
     } = body;
 
+    // ✅ Insert reservation into Supabase
+    const { error: dbError } = await supabase.from("reservations").insert([
+      {
+        name: `${firstName} ${lastName}`,
+        email,
+        phone,
+        date: new Date(date).toISOString().split("T")[0], // keep only YYYY-MM-DD
+        time, // ⚠️ must be in "HH:MM:SS" format for Postgres TIME
+        guests: parseInt(guests, 10),
+        status: "pending",
+        dining_preference: diningPreference,
+        occasion,
+        requests,
+        user_id: process.env.USER_ID, // or however you link the restaurant
+      },
+    ]);
+
+    if (dbError) {
+      console.error("DB Error:", dbError.message);
+      return NextResponse.json({ error: dbError.message }, { status: 500 });
+    }
+
     // 1. Send email to owner
     const { error: ownerError } = await resend.emails.send({
-      from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
-      to: [site.emails.reservations], // owner inbox
+      from: `${site.restaurant.name} <${site.emails.system}>`,
+      to: [site.emails.reservations],
       subject: "New Reservation Booked 🎉",
       react: OwnerConfirmationEmail({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        date: date,
-        time: time,
-        guests: guests,
-        diningPreference: diningPreference,
-        occasion: occasion,
-        requests: requests,
+        firstName,
+        lastName,
+        email,
+        phone,
+        date,
+        time,
+        guests,
+        diningPreference,
+        occasion,
+        requests,
       }),
     });
 
@@ -54,16 +78,16 @@ export async function POST(req: Request) {
       to: [email],
       subject: `We've received your Reservation ${firstName} ${lastName} 🎉`,
       react: CustomerConfirmationEmail({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        date: date,
-        time: time,
-        guests: guests,
-        diningPreference: diningPreference,
-        occasion: occasion,
-        requests: requests,
+        firstName,
+        lastName,
+        email,
+        phone,
+        date,
+        time,
+        guests,
+        diningPreference,
+        occasion,
+        requests,
       }),
     });
 
