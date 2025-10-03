@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
     // 1. Send email to owner
     const { error: ownerError } = await resend.emails.send({
-      from: `${site.restaurant.name} <system@lischineserestaurantnairobi.co.ke>`, // ✅ verified sender
+      from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
       to: [site.emails.reservations], // owner inbox
       subject: "New Reservation Booked 🎉",
       react: OwnerConfirmationEmail({

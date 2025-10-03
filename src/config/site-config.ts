@@ -18,6 +18,7 @@ export const site = {
     orders: "orders@lischineserestaurantnairobi.co.ke",
     careers: "careers@lischineserestaurantnairobi.co.ke",
     inquiries: "info@lischineserestaurantnairobi.co.ke",
+    system: "system@lischineserestaurantnairobi.co.ke",
   },
   socials: {
     tripAdvisor:
