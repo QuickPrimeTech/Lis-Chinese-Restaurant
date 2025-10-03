@@ -18,7 +18,8 @@ export const metadata = {
 };
 
 // ✅ enable ISR (regenerates every 60s)
-export const revalidate = 60;
+export const dynamic = "force-static";
+export const revalidate = false;
 
 export default async function Home() {
   const USER_ID = process.env.USER_ID;
