@@ -220,7 +220,7 @@ const Footer = () => {
               <FooterCurrentYear />
               Proudly made by{" "}
               <Link
-                href="https://quickprimetech.com" // 🔗 Replace with your real domain
+                href="https://quickprimetech.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline font-medium"
