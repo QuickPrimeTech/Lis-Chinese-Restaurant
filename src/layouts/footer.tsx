@@ -215,9 +215,18 @@ const Footer = () => {
               ))}
             </div>
 
-            {/* Copyright */}
-            <div className="text-center text-muted-foreground font-chivo">
+            {/* Copyright + Credits */}
+            <div className="text-center text-muted-foreground font-chivo text-sm">
               <FooterCurrentYear />
+              Proudly made by{" "}
+              <Link
+                href="https://quickprimetech.com" // 🔗 Replace with your real domain
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline font-medium"
+              >
+                QuickPrimeTech
+              </Link>
             </div>
 
             {/* Legal Links */}
