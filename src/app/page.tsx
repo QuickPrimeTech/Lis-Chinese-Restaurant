@@ -27,9 +27,10 @@ export default async function Home() {
   // Fetch FAQs
   const { data: faqs, error } = await supabase
     .from("faqs")
-    .select("id, question, answer, is_published")
+    .select("id, question, answer, is_published, order_index")
     .eq("user_id", USER_ID)
-    .eq("is_published", true);
+    .eq("is_published", true)
+    .order("order_index", { ascending: true }); // ✅ sort by order_index
 
   if (error) {
     console.error("Error fetching FAQs:", error.message);
