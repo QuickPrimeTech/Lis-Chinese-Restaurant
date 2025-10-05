@@ -45,15 +45,20 @@ export function ContactForm() {
 
   const onSubmit = async (values: ContactFormValues) => {
     try {
-      const res = await fetch("/api/notifications/contact", {
+      // const res = await fetch("/api/notifications/contact", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(values),
+      // });
+      const whatsappRes = await fetch("/api/send-whatsapp", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
 
-      if (!res.ok) {
+      if (!whatsappRes.ok) {
         throw new Error("Failed to send message");
       }
 
