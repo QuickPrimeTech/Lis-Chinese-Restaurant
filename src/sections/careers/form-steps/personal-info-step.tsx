@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { PersonalInfoData, personalInfoSchema } from "@/lib/form-schema";
+import { PersonalInfoData, personalInfoSchema } from "@/schemas/career-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getDefaultValues } from "@/lib/get-default-values";
 import { NavigationButtons } from "./navigation-buttons";

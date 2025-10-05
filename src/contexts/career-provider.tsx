@@ -1,6 +1,8 @@
 "use client";
 
-import { ApplicationData } from "@/lib/form-schema";
+import { supabase } from "@/lib/supabase/client";
+import { v4 as uuidv4 } from "uuid";
+import { ApplicationData } from "@/schemas/career-schema";
 import {
   createContext,
   ReactNode,
@@ -10,6 +12,8 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
+import { toast } from "sonner";
+import { CheckCircle2, XCircle, Upload, Loader } from "lucide-react";
 
 type CareerContextType = {
   data: Partial<ApplicationData>;
@@ -24,14 +28,9 @@ type CareerContextType = {
 
 const CareerContext = createContext<CareerContextType | undefined>(undefined);
 
-type CareerProviderProps = {
-  children: ReactNode;
-};
-
 const STORAGE_KEY = "career-application";
 
-export function CareerProvider({ children }: CareerProviderProps) {
-  // Load saved state from localStorage
+export function CareerProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<Partial<ApplicationData>>(() => {
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem(STORAGE_KEY);
@@ -61,33 +60,110 @@ export function CareerProvider({ children }: CareerProviderProps) {
     }
     return 0;
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Persist both data and currentStep
+  // 🧠 Persist state
   useEffect(() => {
-    const stored = { data, currentStep };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ data, currentStep }));
   }, [data, currentStep]);
 
-  // Update form data
   const updateData = (newData: Partial<ApplicationData>) => {
     setData((prev) => ({ ...prev, ...newData }));
   };
 
-  // Navigation
   const prevStep = () => setCurrentStep((prev) => Math.max(0, prev - 1));
   const nextStep = () => setCurrentStep((prev) => prev + 1);
 
-  // Submit form
+  // 📂 Upload CV to Supabase
+  const uploadCV = async (file: File): Promise<string | null> => {
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${uuidv4()}.${fileExt}`;
+
+    const toastId = toast.loading("Uploading CV...", {
+      icon: <Upload className="w-4 h-4" />,
+    });
+
+    try {
+      const { error } = await supabase.storage
+        .from("cvs")
+        .upload(fileName, file);
+      if (error) throw error;
+
+      const { data: signed } = await supabase.storage
+        .from("cvs")
+        .createSignedUrl(fileName, 60 * 60 * 24 * 7);
+
+      toast.dismiss(toastId);
+      toast.success("CV uploaded successfully!", {
+        icon: <CheckCircle2 className="w-4 h-4 text-green-500" />,
+      });
+
+      return signed?.signedUrl || null;
+    } catch (error) {
+      console.error("Upload failed:", error);
+      toast.dismiss(toastId);
+      toast.error("Failed to upload CV. Please try again.", {
+        icon: <XCircle className="w-4 h-4 text-red-500" />,
+      });
+      return null;
+    }
+  };
+
+  // 🚀 Submit Application
   const submitApplication = async () => {
-    console.log("Form is being submitted...", data);
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    setIsSubmitting(false);
-    // Clear storage after submit
-    localStorage.removeItem(STORAGE_KEY);
-    setData({});
-    nextStep();
+
+    const toastId = toast.loading("Submitting your application...", {
+      icon: <Loader className="w-4 h-4 animate-spin" />,
+    });
+
+    try {
+      let cvUrl = data.cvUrl ?? "";
+      if (data.resume instanceof File) {
+        const uploadedUrl = await uploadCV(data.resume);
+        if (uploadedUrl) cvUrl = uploadedUrl;
+      }
+
+      const payload = { ...data, cvUrl };
+      const res = await fetch("/api/notifications/careers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const responseData = await res.json();
+      toast.dismiss(toastId);
+
+      if (!res.ok) {
+        toast.error("Submission failed", {
+          description:
+            responseData.error || "An error occurred during submission.",
+          icon: <XCircle className="w-4 h-4 text-red-500" />,
+        });
+        throw new Error(responseData.error || "Submission failed");
+      }
+
+      toast.success("Application sent successfully!", {
+        description:
+          "We’ve received your application and will contact you soon.",
+        icon: <CheckCircle2 className="w-4 h-4 text-green-500" />,
+      });
+
+      localStorage.removeItem(STORAGE_KEY);
+      setData({});
+      nextStep();
+    } catch (err: unknown) {
+      const error = err as Error;
+      console.error(error);
+      toast.dismiss(toastId);
+      toast.error("Something went wrong.", {
+        description: error.message || "Please try again later.",
+        icon: <XCircle className="w-4 h-4 text-red-500" />,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -111,7 +187,7 @@ export function CareerProvider({ children }: CareerProviderProps) {
 export const useCareer = () => {
   const context = useContext(CareerContext);
   if (!context) {
-    throw new Error("useCareer must be used inside the CareerProvider");
+    throw new Error("useCareer must be used within CareerProvider");
   }
   return context;
 };

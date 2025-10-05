@@ -24,7 +24,7 @@ import {
 import { Upload } from "lucide-react";
 import { FaRegFilePdf } from "react-icons/fa";
 
-import { DocumentsData, documentsSchema } from "@/lib/form-schema";
+import { DocumentsData, documentsSchema } from "@/schemas/career-schema";
 
 import { getDefaultValues } from "@/lib/get-default-values";
 import { NavigationButtons } from "./navigation-buttons";

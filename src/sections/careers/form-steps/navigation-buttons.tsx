@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useCareer } from "@/contexts/career-provider";
 import { steps } from "../career-form";
-import { ApplicationData } from "@/lib/form-schema";
+import { ApplicationData } from "@/schemas/career-schema";
 import { UseFormReturn, FieldValues } from "react-hook-form";
 import { Separator } from "@/components/ui/separator";
 import { ChevronLeft, ChevronRight, Loader } from "lucide-react";

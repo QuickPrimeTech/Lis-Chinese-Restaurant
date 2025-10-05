@@ -5,13 +5,11 @@ import { EmailSocials } from "../components/socials";
 
 type CareerConfirmationEmailProps = {
   firstName: string;
-  lastName: string;
   position: string;
 };
 
-export const CareerConfirmationEmail = ({
+export const CustomerConfirmationEmail = ({
   firstName,
-  lastName,
   position,
 }: CareerConfirmationEmailProps) => {
   const { restaurant } = site;

@@ -94,7 +94,7 @@ export default function StickyCategoryNav({
     });
 
     return () => observer.disconnect();
-  }, [categories.length]);
+  }, [categories.length, categories]);
 
   // Suggestions update
   useEffect(() => {

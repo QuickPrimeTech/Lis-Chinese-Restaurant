@@ -1,92 +1,92 @@
-import { site } from "@/config/site-config";
-import { Resend } from "resend";
+// @/app/api/careers/route.ts
+
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
+import { serverApplicationSchema } from "@/schemas/career-schema";
 import { supabase } from "@/lib/supabase/server";
-import { CareerConfirmationEmail } from "@/email-templates/careers/customer";
+import { CustomerConfirmationEmail } from "@/email-templates/careers/customer";
+import { OwnerConfirmationEmail } from "@/email-templates/careers/owner";
+import { site } from "@/config/site-config";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
   try {
     const body = await req.json();
-    const {
-      firstName,
-      lastName,
-      email,
-      phone,
-      address,
-      dateOfBirth,
-      position,
-      experience,
-      previousEmployment,
-      skills,
-      languages,
-      startDate,
-      hoursPerWeek,
-      resumeUrl, // already uploaded to supabase storage
-      coverLetter,
-      references,
-    } = body;
+    const parsed = serverApplicationSchema.parse(body);
 
-    // ✅ Insert into Supabase
-    const { error: dbError } = await supabase.from("careers").insert([
-      {
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        phone,
-        address,
-        date_of_birth: dateOfBirth,
-        position,
-        experience,
-        previous_employment: previousEmployment,
-        skills,
-        languages,
-        start_date: startDate,
-        hours_per_week: hoursPerWeek,
-        resume_url: resumeUrl,
-        cover_letter: coverLetter,
-        references,
-      },
-    ]);
+    // ✅ Prepare data for insertion (map reserved keywords safely)
+    const insertData = {
+      first_name: parsed.firstName,
+      last_name: parsed.lastName,
+      email: parsed.email,
+      phone: parsed.phone,
+      address: parsed.address,
+      date_of_birth: parsed.dateOfBirth,
+      position: parsed.position,
+      experience: parsed.experience,
+      previous_employment: parsed.previousEmployment,
+      skills: parsed.skills ?? [],
+      languages: parsed.languages ?? [],
+      start_date: parsed.startDate,
+      hours_per_week: parsed.hoursPerWeek,
+      cover_letter: parsed.coverLetter,
+      references: parsed.references || null, // reserved keyword but valid when quoted
+      cv_url: parsed.cvUrl ?? null,
+    };
 
-    if (dbError) {
-      console.error("DB Error:", dbError.message);
-      return NextResponse.json({ error: dbError.message }, { status: 500 });
-    }
+    // ✅ Insert into correct table
+    const { error } = await supabase
+      .from("careers-applications")
+      .insert([insertData])
+      .select();
 
-    // ✅ Send confirmation email to applicant
-    const { error: customerError } = await resend.emails.send({
-      from: `${site.restaurant.name} <${site.emails.careers}>`,
-      to: [email],
-      subject: `Application Received - ${position} 🎉`,
-      react: CareerConfirmationEmail({
-        firstName,
-        lastName,
-        position,
+    if (error) throw error;
+
+    // inside POST handler
+    await resend.emails.send({
+      from: `${site.restaurant.name} <${site.emails.system}>`,
+      to: `${site.emails.careers}`,
+      subject: `New Job Application: ${parsed.firstName} ${parsed.lastName}`,
+      react: OwnerConfirmationEmail({
+        firstName: parsed.firstName,
+        lastName: parsed.lastName,
+        email: parsed.email,
+        phone: parsed.phone,
+        address: parsed.address,
+        dateOfBirth: parsed.dateOfBirth,
+        position: parsed.position,
+        experience: parsed.experience,
+        previousEmployment: parsed.previousEmployment,
+        skills: parsed.skills,
+        languages: parsed.languages,
+        startDate: parsed.startDate,
+        hoursPerWeek: parsed.hoursPerWeek,
+        coverLetter: parsed.coverLetter,
+        references: parsed.references,
+        cvUrl: parsed.cvUrl ?? "",
       }),
     });
 
-    if (customerError) {
-      console.error(customerError);
-      return NextResponse.json({ error: customerError }, { status: 500 });
-    }
-
-    // ✅ Send notification to HR/Owner
-    const { error: ownerError } = await resend.emails.send({
-      from: `${site.restaurant.name} <${site.emails.system}>`,
-      to: [site.emails.careers],
-      subject: `New Career Application - ${firstName} ${lastName}`,
-      text: `A new application was submitted for ${position}. Applicant: ${firstName} ${lastName}, Email: ${email}, Phone: ${phone}.`,
+    // ✅ Send confirmation to applicant
+    await resend.emails.send({
+      from: `${site.restaurant.name} <${site.emails.careers}>`,
+      to: parsed.email,
+      subject: "We’ve received your application!",
+      react: CustomerConfirmationEmail({
+        firstName: parsed.firstName,
+        position: parsed.position,
+      }),
     });
 
-    if (ownerError) {
-      console.error(ownerError);
-      return NextResponse.json({ error: ownerError }, { status: 500 });
-    }
+    return NextResponse.json({ success: true });
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error("Application submission failed:", err);
 
-    return NextResponse.json({ success: true }, { status: 200 });
-  } catch (error) {
-    return NextResponse.json({ error: String(error) }, { status: 500 });
+    return NextResponse.json(
+      { error: err.message || "Failed to submit application" },
+      { status: 400 }
+    );
   }
 }
