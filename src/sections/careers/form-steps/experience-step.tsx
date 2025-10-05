@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/form";
 
 import { getDefaultValues } from "@/lib/get-default-values";
-import { ExperienceData, experienceSchema } from "@/lib/form-schema";
+import { ExperienceData, experienceSchema } from "@/schemas/career-schema";
 import { NavigationButtons } from "./navigation-buttons";
 import { useCareer } from "@/contexts/career-provider";
 

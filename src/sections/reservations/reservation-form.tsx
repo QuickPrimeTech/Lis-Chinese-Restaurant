@@ -125,7 +125,7 @@ export const ReservationFormSection = ({
       toast.success("Your reservation request has been sent successfully!");
       setIsSubmitted(true);
       form.reset();
-    } catch (err) {
+    } catch {
       toast.error("Problem occurred. Please check your internet connection!");
     } finally {
       setIsSubmitting(false);

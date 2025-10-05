@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { AvailabilityData, availabilitySchema } from "@/lib/form-schema";
+import { AvailabilityData, availabilitySchema } from "@/schemas/career-schema";
 import { getDefaultValues } from "@/lib/get-default-values";
 import { NavigationButtons } from "./navigation-buttons";
 import { useCareer } from "@/contexts/career-provider";

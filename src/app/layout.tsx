@@ -10,6 +10,7 @@ import { ContactButton } from "@/layouts/contact-button";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/layouts/site-header";
 import { Toaster } from "@/components/ui/sonner";
+import { CheckCircle2, Loader, XCircleIcon } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -95,7 +96,20 @@ export default function RootLayout({
               <CartProvider>
                 <CartButton />
                 {children}
-                <Toaster richColors position="top-right" />
+                <Toaster
+                  richColors
+                  position="top-right"
+                  expand={true}
+                  icons={{
+                    loading: (
+                      <Loader className="w-4 h-4 animate-spin text-blue-500" />
+                    ),
+                    success: (
+                      <CheckCircle2 className="w-4 h-4 text-green-500" />
+                    ),
+                    error: <XCircleIcon className="w-4 h-4 text-red-500" />,
+                  }}
+                />
                 <ContactButton />
                 <Footer />
               </CartProvider>

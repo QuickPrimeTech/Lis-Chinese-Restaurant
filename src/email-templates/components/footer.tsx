@@ -22,7 +22,7 @@ export function EmailFooter() {
             >
               This is an automated confirmation email.
               <br />
-              Please do not share this reservation email with others.
+              Please do not share it with others.
             </p>
           </td>
         </tr>

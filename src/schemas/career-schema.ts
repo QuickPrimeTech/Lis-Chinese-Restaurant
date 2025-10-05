@@ -49,7 +49,13 @@ export type DocumentsData = z.infer<typeof documentsSchema>;
 export const applicationSchema = personalInfoSchema
   .merge(experienceSchema)
   .merge(availabilitySchema)
-  .merge(documentsSchema);
+  .merge(documentsSchema)
+  .extend({
+    // ✅ Add this field
+    cvUrl: z.string().url("Invalid CV URL").optional().or(z.literal("")), // allows empty string if not uploaded yet
+  });
 
 // 👇 Single Type
 export type ApplicationData = z.infer<typeof applicationSchema>;
+// Used only in the API (since resume is uploaded separately)
+export const serverApplicationSchema = applicationSchema.omit({ resume: true });
