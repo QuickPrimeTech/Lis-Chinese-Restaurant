@@ -48,7 +48,7 @@ export async function sendStk(amount: number, phone: string, publicId: string) {
     PartyB: shortCode,
     PhoneNumber: phone,
     CallBackURL: callbackUrlWithQuery,
-    AccountReference: "Li's Chinese Restaurant",
+    AccountReference: "Li's Chinese Restaurant Nairobi",
     TransactionDesc: "Payment test",
   };
 
