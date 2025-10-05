@@ -1,17 +1,75 @@
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Instagram, Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Mail, Phone, MapPin, Loader } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { BsPinterest, BsTwitterX } from "react-icons/bs";
 import { FaLinkedinIn, FaTiktok, FaTripadvisor } from "react-icons/fa";
 import { FooterCurrentYear } from "@/components/footer-current-year";
 import { site } from "@/config/site-config";
-
+import { toast } from "sonner";
+// import { Form } from "react-hook-form";
 // import qrCode from "/qr-menu.jpg";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [subscribing, setSubscribing] = useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubscribing(true);
+    try {
+      const res = await fetch("/api/news-letter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setSubscribing(false);
+        setEmail("");
+        toast.success(data.message || "Subscribed successfully!");
+        return;
+      }
+      setSubscribing(false);
+      // Handle known error types from backend
+      switch (data.errorType) {
+        case "INVALID_EMAIL_FORMAT":
+          toast.error("Please enter a valid email address.");
+          break;
+
+        case "DUPLICATE_EMAIL":
+          toast.error("This email is already subscribed to our newsletter.");
+          break;
+
+        case "INSERTION_ERROR":
+          toast.error(
+            "Something went wrong while saving your email. Try again later."
+          );
+          break;
+
+        case "NETWORK_ISSUE":
+          toast.error(
+            "Network error. Please check your internet connection and retry."
+          );
+          break;
+
+        default:
+          toast.error(data.message || "Subscription failed. Please try again.");
+          break;
+      }
+    } catch (error) {
+      setSubscribing(false);
+      console.error("Newsletter subscription error:", error);
+      toast.error("Network connection failed. Please try again later.");
+    }
+  };
+
   const footerLinks = {
     restaurant: [
       { name: "About Us", path: "/about" },
@@ -182,17 +240,35 @@ const Footer = () => {
               Be the first to know about exclusive events, seasonal menus, and
               special offers
             </p>
-            <div className="flex flex-col items-center sm:flex-row gap-4 max-w-md mx-auto">
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col items-center sm:flex-row gap-4 max-w-md mx-auto"
+            >
               <Input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="h-auto flex-1 px-4 py-3 rounded-lg bg-background border border-border text-foreground font-chivo"
               />
-              <Button className="w-full md:w-fit bg-gradient-primary hover:shadow-glow transition-all duration-300 px-8">
-                <Mail />
-                Subscribe
+              <Button
+                type="submit"
+                disabled={subscribing}
+                className="w-full md:w-fit bg-gradient-primary hover:shadow-glow transition-all duration-300 px-8"
+              >
+                {subscribing ? (
+                  <>
+                    <Loader className="animate-spin" />
+                    subscribing...
+                  </>
+                ) : (
+                  <>
+                    <Mail />
+                    subscribe
+                  </>
+                )}
               </Button>
-            </div>
+            </form>
           </div>
         </div>
 
