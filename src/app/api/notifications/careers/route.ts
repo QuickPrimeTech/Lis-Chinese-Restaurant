@@ -1,5 +1,3 @@
-// @/app/api/careers/route.ts
-
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { serverApplicationSchema } from "@/schemas/career-schema";
@@ -10,12 +8,15 @@ import { site } from "@/config/site-config";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// ✅ Read user ID from environment
+const USER_ID = process.env.USER_ID as string;
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const parsed = serverApplicationSchema.parse(body);
 
-    // ✅ Prepare data for insertion (map reserved keywords safely)
+    // ✅ Prepare data for insertion
     const insertData = {
       first_name: parsed.firstName,
       last_name: parsed.lastName,
@@ -31,11 +32,12 @@ export async function POST(req: Request) {
       start_date: parsed.startDate,
       hours_per_week: parsed.hoursPerWeek,
       cover_letter: parsed.coverLetter,
-      references: parsed.references || null, // reserved keyword but valid when quoted
+      references: parsed.references || null, // reserved keyword but quoted in DB
       cv_url: parsed.cvUrl ?? null,
+      user_id: USER_ID, // ✅ Include required user_id
     };
 
-    // ✅ Insert into correct table
+    // ✅ Insert into Supabase table
     const { error } = await supabase
       .from("careers-applications")
       .insert([insertData])
@@ -43,10 +45,10 @@ export async function POST(req: Request) {
 
     if (error) throw error;
 
-    // inside POST handler
+    // ✅ Notify the restaurant owner
     await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`,
-      to: `${site.emails.careers}`,
+      to: site.emails.careers,
       subject: `New Job Application: ${parsed.firstName} ${parsed.lastName}`,
       react: OwnerConfirmationEmail({
         firstName: parsed.firstName,
