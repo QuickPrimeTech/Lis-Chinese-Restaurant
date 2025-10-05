@@ -29,7 +29,6 @@ export const experienceSchema = z.object({
 
 export const availabilitySchema = z.object({
   startDate: z.string().min(1, "Start date is required"),
-  availability: z.array(z.string()).min(1, "Please select at least one day"),
   hoursPerWeek: z.string().min(1, "Please select your preferred hours"),
 });
 

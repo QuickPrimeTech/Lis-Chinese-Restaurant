@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormField,
@@ -31,23 +30,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
-
-const availabilityOptions = [
-  "Monday Morning",
-  "Monday Evening",
-  "Tuesday Morning",
-  "Tuesday Evening",
-  "Wednesday Morning",
-  "Wednesday Evening",
-  "Thursday Morning",
-  "Thursday Evening",
-  "Friday Morning",
-  "Friday Evening",
-  "Saturday Morning",
-  "Saturday Evening",
-  "Sunday Morning",
-  "Sunday Evening",
-];
 
 export const AvailabilityStep = () => {
   const { data } = useCareer();
@@ -134,41 +116,6 @@ export const AvailabilityStep = () => {
           />
         </div>
         {/* Weekly Availability */}
-        <FormField
-          control={form.control}
-          name="availability"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Weekly Availability *</FormLabel>
-              <p className="text-sm text-muted-foreground">
-                Select all time slots when you are available to work
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {availabilityOptions.map((slot) => (
-                  <div key={slot} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={slot}
-                      checked={field.value?.includes(slot)}
-                      onCheckedChange={(checked) => {
-                        const newAvailability = checked
-                          ? [...field.value, slot]
-                          : field.value.filter((s) => s !== slot);
-                        field.onChange(newAvailability);
-                      }}
-                    />
-                    <label
-                      htmlFor={slot}
-                      className="text-sm font-normal cursor-pointer"
-                    >
-                      {slot}
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <NavigationButtons form={form} />
       </form>
     </Form>

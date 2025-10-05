@@ -132,21 +132,6 @@ export function ReviewStep() {
               <p className="font-medium">{data.hoursPerWeek}</p>
             </div>
           </div>
-
-          {data.availability?.length && (
-            <div>
-              <span className="text-sm text-muted-foreground">
-                Available Times:
-              </span>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {data.availability.map((slot) => (
-                  <Badge key={slot} variant="secondary" className="text-xs">
-                    {slot}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
         </CardContent>
       </Card>
 

@@ -77,32 +77,24 @@ export default function StickyCategoryNav({
   useEffect(() => {
     if (categories.length === 0) return;
 
-    const handleScroll = () => {
-      const scrollY = window.scrollY + 200;
-      const offsets = categories
-        .map((c) => {
-          const el = document.getElementById(c.id);
-          return el ? { id: c.id, top: el.offsetTop } : null;
-        })
-        .filter(Boolean) as { id: string; top: number }[];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
-      if (offsets.length === 0) return;
+        if (visible.length > 0) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-50% 0px -50% 0px" } // middle of viewport
+    );
 
-      const current = offsets.reduce((prev, curr) =>
-        Math.abs(curr.top - scrollY) < Math.abs(prev.top - scrollY)
-          ? curr
-          : prev
-      );
+    categories.forEach((c) => {
+      const el = document.getElementById(c.id);
+      if (el) observer.observe(el);
+    });
 
-      if (current?.id && current.id !== active) {
-        setActive(current.id);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [categories, active]);
+    return () => observer.disconnect();
+  }, [categories.length]);
 
   // Suggestions update
   useEffect(() => {
@@ -136,7 +128,7 @@ export default function StickyCategoryNav({
   const scrollToElement = useCallback((id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      window.scrollTo({ top: el.offsetTop - 120, behavior: "smooth" });
+      window.scrollTo({ top: el.offsetTop - 200, behavior: "smooth" });
     }
   }, []);
 

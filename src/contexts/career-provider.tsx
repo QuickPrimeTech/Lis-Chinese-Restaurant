@@ -7,6 +7,8 @@ import {
   useContext,
   useState,
   useEffect,
+  Dispatch,
+  SetStateAction,
 } from "react";
 
 type CareerContextType = {
@@ -16,6 +18,8 @@ type CareerContextType = {
   nextStep: () => void;
   prevStep: () => void;
   submitApplication: () => void;
+  isSubmitting: boolean;
+  setCurrentStep: Dispatch<SetStateAction<number>>;
 };
 
 const CareerContext = createContext<CareerContextType | undefined>(undefined);
@@ -57,6 +61,7 @@ export function CareerProvider({ children }: CareerProviderProps) {
     }
     return 0;
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Persist both data and currentStep
   useEffect(() => {
@@ -67,7 +72,6 @@ export function CareerProvider({ children }: CareerProviderProps) {
   // Update form data
   const updateData = (newData: Partial<ApplicationData>) => {
     setData((prev) => ({ ...prev, ...newData }));
-    console.log("Updated data --->", newData);
   };
 
   // Navigation
@@ -75,13 +79,15 @@ export function CareerProvider({ children }: CareerProviderProps) {
   const nextStep = () => setCurrentStep((prev) => prev + 1);
 
   // Submit form
-  const submitApplication = () => {
+  const submitApplication = async () => {
     console.log("Form is being submitted...", data);
-
+    setIsSubmitting(true);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    setIsSubmitting(false);
     // Clear storage after submit
     localStorage.removeItem(STORAGE_KEY);
     setData({});
-    setCurrentStep(0);
+    nextStep();
   };
 
   return (
@@ -93,6 +99,8 @@ export function CareerProvider({ children }: CareerProviderProps) {
         nextStep,
         prevStep,
         submitApplication,
+        isSubmitting,
+        setCurrentStep,
       }}
     >
       {children}

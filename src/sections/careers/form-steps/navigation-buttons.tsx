@@ -4,7 +4,7 @@ import { steps } from "../career-form";
 import { ApplicationData } from "@/lib/form-schema";
 import { UseFormReturn, FieldValues } from "react-hook-form";
 import { Separator } from "@/components/ui/separator";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
 
 type NavigationButtonsProps<T extends FieldValues> = {
   form?: UseFormReturn<T>; // optional now
@@ -13,9 +13,15 @@ type NavigationButtonsProps<T extends FieldValues> = {
 export function NavigationButtons<T extends FieldValues>({
   form,
 }: NavigationButtonsProps<T>) {
-  const { currentStep, nextStep, prevStep, submitApplication, updateData } =
-    useCareer();
-  const isLastStep = currentStep === steps.length - 1;
+  const {
+    currentStep,
+    nextStep,
+    prevStep,
+    isSubmitting,
+    submitApplication,
+    updateData,
+  } = useCareer();
+  const isLastStep = currentStep === steps.length - 2;
   //This function saves the data before going back
   const handlePrev = () => {
     prevStep();
@@ -57,7 +63,14 @@ export function NavigationButtons<T extends FieldValues>({
         {/* Conditional logic */}
         {isLastStep ? (
           <Button type="button" onClick={handleSubmit}>
-            Submit
+            {isSubmitting ? (
+              <>
+                <Loader className="animate-spin" />
+                Submitting...
+              </>
+            ) : (
+              "Submit"
+            )}
           </Button>
         ) : (
           <Button type="button" onClick={handleNextStep}>

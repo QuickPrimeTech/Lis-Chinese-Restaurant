@@ -7,6 +7,7 @@ import { AvailabilityStep } from "./form-steps/availability-step";
 import { DocumentsStep } from "./form-steps/documents-step";
 import { ReviewStep } from "./form-steps/review-step";
 import { stepIcons, StepIndicator } from "./step-indicator";
+import { CareerSuccessStep } from "./form-steps/success-step";
 
 export const steps = [
   PersonalInfoStep,
@@ -14,6 +15,7 @@ export const steps = [
   AvailabilityStep,
   DocumentsStep,
   ReviewStep,
+  CareerSuccessStep,
 ];
 
 export function CareerApplicationForm() {
@@ -21,15 +23,19 @@ export function CareerApplicationForm() {
   const CurrentStepForm = steps[currentStep];
   return (
     <Card className="max-w-2xl mx-auto mb-16">
-      <CardHeader>
-        <StepIndicator />
-        <CardTitle className="flex justify-between mb-4">
-          <h2 className="text-lg font-bold">{stepIcons[currentStep].label}</h2>
-          <p className="text-sm text-muted-foreground">
-            Step {currentStep + 1} of {steps.length}
-          </p>
-        </CardTitle>
-      </CardHeader>
+      {stepIcons[currentStep]?.label && (
+        <CardHeader>
+          <StepIndicator />
+          <CardTitle className="flex justify-between mb-4">
+            <h2 className="text-lg font-bold">
+              {stepIcons[currentStep].label}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Step {currentStep + 1} of {steps.length}
+            </p>
+          </CardTitle>
+        </CardHeader>
+      )}
       <CardContent>
         <CurrentStepForm />
       </CardContent>
