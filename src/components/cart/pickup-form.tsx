@@ -66,7 +66,7 @@ export function PickupForm({ onContinue }: PickupFormProps) {
       form.reset({
         ...form.getValues(), // keep current defaults
         fullName: data.fullName || "",
-        email: data.email || "",
+        email: data.email,
         phone: data.phone || "",
         instructions: data.instructions || "",
       });
@@ -303,7 +303,7 @@ export function PickupForm({ onContinue }: PickupFormProps) {
           </div>
           {/* Email (Optional) */}
           <div className="space-y-2">
-            <Label>Email (Optional)</Label>
+            <Label>Email *</Label>
             <Input
               type="email"
               placeholder="you@example.com"

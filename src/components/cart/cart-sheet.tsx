@@ -39,6 +39,9 @@ import { OrderSummary } from "./order-summary";
 import { PriceBreakdown } from "./price-breakdown";
 import { MpesaPaymentStep } from "./mpesa-payment-step";
 import { useOrder } from "@/contexts/order-context";
+import axios from "axios";
+import { formatDate, formatTime } from "@/utils/format-date";
+import { toast } from "sonner";
 
 interface CartSheetProps {
   open: boolean;
@@ -74,14 +77,45 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const handleProceedToDetails = () => setCurrentStep("details");
   const handleProceedToPayment = () => setCurrentStep("payment");
 
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = async () => {
     const snapshot = {
       items: items.map((i) => ({ ...i })),
       total: finalTotal,
     };
-    console.log(items, pickupInfo);
+
     setCurrentStep("success");
     setLastOrder(snapshot);
+
+    toast.loading("Sending email confirmation...");
+
+    try {
+      const res = await axios.post("/api/notifications/orders", {
+        items,
+        total: finalTotal,
+        customerName: pickupInfo?.fullName,
+        email: pickupInfo?.email,
+        phone: pickupInfo?.phone,
+        paymentMethod: "M-Pesa",
+        pickupDate: pickupInfo?.pickupDate
+          ? formatDate(pickupInfo.pickupDate)
+          : undefined,
+        pickupTime: pickupInfo?.pickupTime
+          ? formatTime(pickupInfo.pickupTime)
+          : undefined,
+        specialInstructions: pickupInfo?.instructions,
+      });
+
+      if (res.status === 200) {
+        toast.success("Email confirmation sent successfully! 🎉");
+      } else {
+        toast.error("Failed to send confirmation email.");
+      }
+    } catch (error) {
+      console.error("Email sending error:", error);
+      toast.error("⚠️ Something went wrong while sending the email.");
+    } finally {
+      toast.dismiss();
+    }
     clearCart();
   };
 

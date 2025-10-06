@@ -80,9 +80,7 @@ export function CareerProvider({ children }: { children: ReactNode }) {
     const fileExt = file.name.split(".").pop();
     const fileName = `${uuidv4()}.${fileExt}`;
 
-    const toastId = toast.loading("Uploading CV...", {
-      icon: <Upload className="w-4 h-4" />,
-    });
+    const toastId = toast.loading("Uploading CV...");
 
     try {
       const { error } = await supabase.storage
@@ -95,9 +93,7 @@ export function CareerProvider({ children }: { children: ReactNode }) {
         .createSignedUrl(fileName, 60 * 60 * 24 * 7);
 
       toast.dismiss(toastId);
-      toast.success("CV uploaded successfully!", {
-        icon: <CheckCircle2 className="w-4 h-4 text-green-500" />,
-      });
+      toast.success("CV uploaded successfully!");
 
       return signed?.signedUrl || null;
     } catch (error) {
@@ -114,9 +110,7 @@ export function CareerProvider({ children }: { children: ReactNode }) {
   const submitApplication = async () => {
     setIsSubmitting(true);
 
-    const toastId = toast.loading("Submitting your application...", {
-      icon: <Loader className="w-4 h-4 animate-spin" />,
-    });
+    const toastId = toast.loading("Submitting your application...");
 
     try {
       let cvUrl = data.cvUrl ?? "";
@@ -147,7 +141,6 @@ export function CareerProvider({ children }: { children: ReactNode }) {
       toast.success("Application sent successfully!", {
         description:
           "We’ve received your application and will contact you soon.",
-        icon: <CheckCircle2 className="w-4 h-4 text-green-500" />,
       });
 
       localStorage.removeItem(STORAGE_KEY);

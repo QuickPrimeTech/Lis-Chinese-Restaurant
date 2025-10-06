@@ -8,7 +8,7 @@ export interface PickupInfo {
   pickupDate: Date;
   pickupTime: Date;
   phone: string;
-  email?: string;
+  email: string;
   instructions?: string;
 }
 

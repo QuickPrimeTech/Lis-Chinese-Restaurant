@@ -3,7 +3,7 @@ import z from "zod";
 export const pickupSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
 
-  email: z.string().email("Enter a valid email").optional().or(z.literal("")), // allow empty string if skipped
+  email: z.string().email("Enter a valid email"), // ✅ mandatory
 
   date: z.date().refine(
     (date) => {

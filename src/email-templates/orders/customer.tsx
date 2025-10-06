@@ -23,7 +23,7 @@ interface CustomerOrderEmailProps {
   specialInstructions?: string;
 }
 
-export const CustomerOrderEmail = ({
+export const CustomerConfirmationEmail = ({
   items,
   total,
   phone,

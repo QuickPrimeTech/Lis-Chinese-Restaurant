@@ -31,7 +31,7 @@ interface OwnerOrderEmailProps {
   specialInstructions?: string;
 }
 
-export const OwnerOrderEmail = ({
+export const OwnerConfirmationEmail = ({
   items,
   total,
   phone,

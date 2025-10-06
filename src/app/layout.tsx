@@ -10,7 +10,7 @@ import { ContactButton } from "@/layouts/contact-button";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/layouts/site-header";
 import { Toaster } from "@/components/ui/sonner";
-import { CheckCircle2, Loader, XCircleIcon } from "lucide-react";
+import { CheckCircle2, CircleAlert, Loader, XCircleIcon } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -102,12 +102,12 @@ export default function RootLayout({
                   expand={true}
                   icons={{
                     loading: (
-                      <Loader className="w-4 h-4 animate-spin text-blue-500" />
+                      <Loader className="w-4 h-4 animate-spin text-foreground" />
                     ),
                     success: (
                       <CheckCircle2 className="w-4 h-4 text-green-500" />
                     ),
-                    error: <XCircleIcon className="w-4 h-4 text-red-500" />,
+                    error: <CircleAlert className="w-4 h-4 text-red-500" />,
                   }}
                 />
                 <ContactButton />

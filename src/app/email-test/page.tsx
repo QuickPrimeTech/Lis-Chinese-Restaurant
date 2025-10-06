@@ -1,5 +1,5 @@
-import { OwnerOrderEmail } from "@/email-templates/orders/owner";
-import { CustomerOrderEmail } from "@/email-templates/orders/customer";
+import { OwnerConfirmationEmail } from "@/email-templates/orders/owner";
+import { CustomerConfirmationEmail } from "@/email-templates/orders/customer";
 
 export default function EmailTestPage() {
   const mockItems = [
@@ -47,7 +47,7 @@ export default function EmailTestPage() {
           Owner Confirmation Email
         </h2>
         <div className="border rounded-md p-4 overflow-auto bg-gray-50">
-          <OwnerOrderEmail
+          <OwnerConfirmationEmail
             items={mockItems}
             total={total}
             customerName="Derick Kibiwott"
@@ -68,7 +68,7 @@ export default function EmailTestPage() {
           Customer Confirmation Email
         </h2>
         <div className="border rounded-md p-4 overflow-auto bg-gray-50">
-          <CustomerOrderEmail
+          <CustomerConfirmationEmail
             items={mockItems}
             total={total}
             customerName="Derick Kibiwott"
