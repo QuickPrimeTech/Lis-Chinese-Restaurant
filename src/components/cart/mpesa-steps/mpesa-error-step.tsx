@@ -4,6 +4,7 @@ import { useCart } from "@/contexts/cart-provider";
 import { formatDisplayPhone } from "@/utils/payments";
 import { Smartphone, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { formatCurrency } from "@/utils/format-currency";
 
 type MpesaErrorStepProps = {
   formattedPhone: string;
@@ -56,7 +57,7 @@ export function MpesaErrorStep({
         <div>
           <p className="text-sm text-gray-600 dark:text-gray-400">Amount</p>
           <p className="text-2xl font-bold text-red-700 dark:text-red-300">
-            Ksh {finalTotal.toFixed(2)}
+            Ksh {formatCurrency(finalTotal)}
           </p>
         </div>
       </div>

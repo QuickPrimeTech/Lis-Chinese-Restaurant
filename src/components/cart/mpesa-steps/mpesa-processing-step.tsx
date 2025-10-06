@@ -1,6 +1,7 @@
 // @/components/cart/mpesa-steps/mpesa-processing-step.tsx
 
 import { useCart } from "@/contexts/cart-provider";
+import { formatCurrency } from "@/utils/format-currency";
 import { formatDisplayPhone } from "@/utils/payments";
 import { Smartphone, CheckCircle, Loader } from "lucide-react";
 
@@ -50,7 +51,7 @@ export function MpesaProcessingStep({
         <div>
           <p className="text-sm text-gray-600 dark:text-gray-300">Amount</p>
           <p className="text-2xl font-bold text-green-700 dark:text-green-200">
-            Ksh {finalTotal.toFixed(2)}
+            Ksh {formatCurrency(finalTotal)}
           </p>
         </div>
       </div>

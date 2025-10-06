@@ -16,15 +16,25 @@ import { CircleAlert } from "lucide-react";
 interface MpesaPaymentStepProps {
   onSuccess: () => void;
   onBack: () => void;
+  onProcessingChange?: (processing: boolean) => void; // 🧠 new prop
 }
 
-export function MpesaPaymentStep({ onSuccess, onBack }: MpesaPaymentStepProps) {
+export function MpesaPaymentStep({
+  onSuccess,
+  onProcessingChange,
+  onBack,
+}: MpesaPaymentStepProps) {
   // Taking values from the isContext
-  const { finalTotal, items } = useCart();
+  const { items } = useCart();
 
   const [step, setStep] = useState<"phone" | "processing" | "error">("phone");
   const [formattedPhone, setFormattedPhone] = useState("");
   const [publicId, setPublicId] = useState<string | null>(null);
+
+  // Notify parent whenever processing state changes
+  useEffect(() => {
+    onProcessingChange?.(step === "processing");
+  }, [step, onProcessingChange]);
 
   // 🔔 Subscribe to payment status
   // ✅ Check initial payment status before subscribing
@@ -32,7 +42,6 @@ export function MpesaPaymentStep({ onSuccess, onBack }: MpesaPaymentStepProps) {
     if (!publicId) return;
 
     let channel: ReturnType<typeof supabase.channel> | null = null;
-    console.log("Started evaluating the transacton");
     async function checkStatusAndSubscribe() {
       try {
         // 🔍 Check current payment status first
@@ -42,12 +51,9 @@ export function MpesaPaymentStep({ onSuccess, onBack }: MpesaPaymentStepProps) {
           .eq("public_id", publicId)
           .maybeSingle();
 
-        console.log("Data from the database ---->", data);
         if (error) throw error;
 
         const status = data?.status as "pending" | "success" | "failed" | null;
-        console.log("status ---->", status);
-
         if (status === "success") {
           toast.success("Payment successful 🎉");
           setPublicId(null);

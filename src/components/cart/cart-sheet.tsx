@@ -65,6 +65,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("card");
   const [lastOrder, setLastOrder] = useState<LastOrder | null>(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [isMpesaProcessing, setIsMpesaProcessing] = useState(false);
 
   const handleBackToCart = () => setCurrentStep("cart");
   const handleBackToDetails = () => setCurrentStep("details");
@@ -229,10 +230,11 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                           variant={
                             paymentMethod === "card" ? "default" : "outline"
                           }
+                          disabled={isMpesaProcessing}
                           onClick={() => setPaymentMethod("card")}
                           className="flex items-center gap-2"
                         >
-                          <CreditCard className="h-4 w-4" />
+                          <CreditCard />
                           Card
                         </Button>
                         <Button
@@ -242,7 +244,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                           onClick={() => setPaymentMethod("mpesa")}
                           className="flex items-center gap-2"
                         >
-                          <Smartphone className="h-4 w-4" />
+                          <Smartphone />
                           M-Pesa
                         </Button>
                       </div>
@@ -256,6 +258,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                           />
                         ) : (
                           <MpesaPaymentStep
+                            onProcessingChange={setIsMpesaProcessing}
                             onSuccess={handlePaymentSuccess}
                             onBack={handleBackToDetails}
                           />
