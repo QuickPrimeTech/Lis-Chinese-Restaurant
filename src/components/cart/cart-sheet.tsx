@@ -92,7 +92,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
     toast.loading("Sending email confirmation...");
 
     try {
-      const res = await axios.post("/api/notifications/orders", {
+      const res = await axios.post("/api/orders", {
         items,
         total: finalTotal,
         customerName: pickupInfo?.fullName,

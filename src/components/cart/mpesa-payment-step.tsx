@@ -82,7 +82,6 @@ export function MpesaPaymentStep({
           toast.error("Payment failed", {
             description:
               "This could be due to wrong pin or cancellation of the transaction or insufficient balance",
-            icon: <CircleAlert />,
           });
           setPublicId(null);
           setStep("error");
