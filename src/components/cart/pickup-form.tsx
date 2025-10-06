@@ -33,45 +33,7 @@ import {
   SelectValue,
   SelectItem,
 } from "@/components/ui/select";
-
-/**
- * Schema & Types
- *
- * - We preprocess unknown -> Date (accept Date or string) with a typed `val: any`.
- * - Use z.instanceof(Date, { message }) rather than passing `required_error` to z.date()
- *   to avoid Zod TS mismatches across versions.
- * - Then refine the date to ensure it's within [today, today+7days].
- */
-/**
- * Schema & Types
- */
-const pickupSchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
-
-  email: z.string().email("Enter a valid email").optional().or(z.literal("")), // allow empty string if skipped
-
-  date: z.date().refine(
-    (date) => {
-      if (Number.isNaN(date.getTime())) return false;
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const maxDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-      return date >= today && date <= maxDate;
-    },
-    { message: "Pickup must be within the next 7 days" }
-  ),
-
-  time: z.string().min(1, "Pickup time is required"),
-
-  phone: z
-    .string()
-    .min(1, "Phone number is required")
-    .regex(/^(\+254|254|0)[17]\d{8}$/, "Enter a valid Kenyan phone number"),
-
-  instructions: z.string().optional(),
-});
-
-type PickupFormValues = z.infer<typeof pickupSchema>;
+import { PickupFormValues, pickupSchema } from "@/schemas/cart/pickup-form";
 
 interface PickupFormProps {
   onContinue: () => void;
@@ -165,13 +127,18 @@ export function PickupForm({ onContinue }: PickupFormProps) {
     );
 
     // values.date is a Date (per schema), but to be defensive copy it
-    const scheduledTime = new Date(values.date.getTime());
+    const pickupDate = new Date(values.date.getTime());
     const [hours, minutes] = values.time.split(":").map(Number);
-    scheduledTime.setHours(hours, minutes, 0, 0);
+    const pickupTime = new Date(pickupDate);
+    pickupTime.setHours(hours, minutes, 0, 0);
 
+    // ✅ Store all pickup details in context
     setPickupInfo({
-      scheduledTime,
+      fullName: values.fullName,
+      pickupDate,
+      pickupTime,
       phone: values.phone,
+      email: values.email,
       instructions: values.instructions,
     });
 

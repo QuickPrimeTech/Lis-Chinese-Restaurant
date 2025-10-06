@@ -30,7 +30,7 @@ export function CartSuccess({ items, total, onClose }: CartSuccessProps) {
           Order Confirmed 🎉
         </h2>
         <p className="text-muted-foreground">
-          You&apos;ll receive a WhatsApp notification with your order details.
+          You&apos;ll receive a Email notification with your order details.
         </p>
       </div>
 

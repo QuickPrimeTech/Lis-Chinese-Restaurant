@@ -38,6 +38,7 @@ import { CartSuccess } from "./cart-success";
 import { OrderSummary } from "./order-summary";
 import { PriceBreakdown } from "./price-breakdown";
 import { MpesaPaymentStep } from "./mpesa-payment-step";
+import { useOrder } from "@/contexts/order-context";
 
 interface CartSheetProps {
   open: boolean;
@@ -61,6 +62,7 @@ type CheckoutStep = "cart" | "details" | "payment" | "success";
 
 export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const { items, finalTotal, itemCount, clearCart } = useCart();
+  const { pickupInfo } = useOrder();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("cart");
   const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("card");
   const [lastOrder, setLastOrder] = useState<LastOrder | null>(null);
@@ -77,7 +79,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
       items: items.map((i) => ({ ...i })),
       total: finalTotal,
     };
-
+    console.log(items, pickupInfo);
     setCurrentStep("success");
     setLastOrder(snapshot);
     clearCart();

@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     }
 
     // Convert string IDs to numbers for matching
-    const ids = items.map((item: any) => Number(item.id));
+    const ids = items.map((item) => Number(item.id));
 
     // 1️⃣ Fetch prices in one efficient DB query
     const { data: menuItems, error: fetchError } = await supabase
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     for (const m of menuItems) priceMap.set(m.id, m.price);
 
     // 2️⃣ Compute total efficiently
-    const totalAmount = items.reduce((sum: number, item: any) => {
+    const totalAmount = items.reduce((sum: number, item) => {
       const price = priceMap.get(Number(item.id));
       return price ? sum + price * item.quantity : sum;
     }, 0);

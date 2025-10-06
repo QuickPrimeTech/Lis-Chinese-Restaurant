@@ -4,8 +4,11 @@ import type React from "react";
 import { createContext, useContext, useState } from "react";
 
 export interface PickupInfo {
-  scheduledTime: Date;
+  fullName: string;
+  pickupDate: Date;
+  pickupTime: Date;
   phone: string;
+  email?: string;
   instructions?: string;
 }
 
