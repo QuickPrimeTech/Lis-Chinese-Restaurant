@@ -36,12 +36,12 @@ export async function POST(req: Request) {
     for (const m of menuItems) priceMap.set(m.id, m.price);
 
     // 2️⃣ Compute total efficiently
-    const totalAmount = items.reduce((sum: number, item) => {
-      const price = priceMap.get(Number(item.id));
-      return price ? sum + price * item.quantity : sum;
-    }, 0);
-
-    console.log("Total Amount --->", totalAmount);
+    const totalAmount =
+      1.18 *
+      items.reduce((sum: number, item) => {
+        const price = priceMap.get(Number(item.id));
+        return price ? sum + price * item.quantity : sum;
+      }, 0);
 
     if (totalAmount <= 0) {
       return NextResponse.json(
