@@ -38,6 +38,10 @@ import { CartSuccess } from "./cart-success";
 import { OrderSummary } from "./order-summary";
 import { PriceBreakdown } from "./price-breakdown";
 import { MpesaPaymentStep } from "./mpesa-payment-step";
+import { useOrder } from "@/contexts/order-context";
+import axios from "axios";
+import { formatDate, formatTime } from "@/utils/format-date";
+import { toast } from "sonner";
 
 interface CartSheetProps {
   open: boolean;
@@ -61,17 +65,19 @@ type CheckoutStep = "cart" | "details" | "payment" | "success";
 
 export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const { items, finalTotal, itemCount, clearCart } = useCart();
+  const { pickupInfo } = useOrder();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("cart");
   const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("card");
   const [lastOrder, setLastOrder] = useState<LastOrder | null>(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [isMpesaProcessing, setIsMpesaProcessing] = useState(false);
 
   const handleBackToCart = () => setCurrentStep("cart");
   const handleBackToDetails = () => setCurrentStep("details");
   const handleProceedToDetails = () => setCurrentStep("details");
   const handleProceedToPayment = () => setCurrentStep("payment");
 
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = async () => {
     const snapshot = {
       items: items.map((i) => ({ ...i })),
       total: finalTotal,
@@ -79,6 +85,37 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
 
     setCurrentStep("success");
     setLastOrder(snapshot);
+
+    toast.loading("Sending email confirmation...");
+
+    try {
+      const res = await axios.post("/api/notifications/orders", {
+        items,
+        total: finalTotal,
+        customerName: pickupInfo?.fullName,
+        email: pickupInfo?.email,
+        phone: pickupInfo?.phone,
+        paymentMethod: "M-Pesa",
+        pickupDate: pickupInfo?.pickupDate
+          ? formatDate(pickupInfo.pickupDate)
+          : undefined,
+        pickupTime: pickupInfo?.pickupTime
+          ? formatTime(pickupInfo.pickupTime)
+          : undefined,
+        specialInstructions: pickupInfo?.instructions,
+      });
+
+      if (res.status === 200) {
+        toast.success("Email confirmation sent successfully! 🎉");
+      } else {
+        toast.error("Failed to send confirmation email.");
+      }
+    } catch (error) {
+      console.error("Email sending error:", error);
+      toast.error("⚠️ Something went wrong while sending the email.");
+    } finally {
+      toast.dismiss();
+    }
     clearCart();
   };
 
@@ -229,10 +266,11 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                           variant={
                             paymentMethod === "card" ? "default" : "outline"
                           }
+                          disabled={isMpesaProcessing}
                           onClick={() => setPaymentMethod("card")}
                           className="flex items-center gap-2"
                         >
-                          <CreditCard className="h-4 w-4" />
+                          <CreditCard />
                           Card
                         </Button>
                         <Button
@@ -242,7 +280,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                           onClick={() => setPaymentMethod("mpesa")}
                           className="flex items-center gap-2"
                         >
-                          <Smartphone className="h-4 w-4" />
+                          <Smartphone />
                           M-Pesa
                         </Button>
                       </div>
@@ -256,6 +294,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                           />
                         ) : (
                           <MpesaPaymentStep
+                            onProcessingChange={setIsMpesaProcessing}
                             onSuccess={handlePaymentSuccess}
                             onBack={handleBackToDetails}
                           />

@@ -11,58 +11,113 @@ import { MpesaPaymentForm } from "./mpesa-steps/mpesa-payment-form";
 import { MpesaProcessingStep } from "./mpesa-steps/mpesa-processing-step";
 import { MpesaErrorStep } from "./mpesa-steps/mpesa-error-step";
 import { useCart } from "@/contexts/cart-provider";
+import { CircleAlert } from "lucide-react";
 
 interface MpesaPaymentStepProps {
   onSuccess: () => void;
   onBack: () => void;
+  onProcessingChange?: (processing: boolean) => void; // 🧠 new prop
 }
 
-export function MpesaPaymentStep({ onSuccess, onBack }: MpesaPaymentStepProps) {
+export function MpesaPaymentStep({
+  onSuccess,
+  onProcessingChange,
+  onBack,
+}: MpesaPaymentStepProps) {
   // Taking values from the isContext
-  const { finalTotal } = useCart();
+  const { items } = useCart();
 
   const [step, setStep] = useState<"phone" | "processing" | "error">("phone");
   const [formattedPhone, setFormattedPhone] = useState("");
   const [publicId, setPublicId] = useState<string | null>(null);
 
+  // Notify parent whenever processing state changes
+  useEffect(() => {
+    onProcessingChange?.(step === "processing");
+  }, [step, onProcessingChange]);
+
   // 🔔 Subscribe to payment status
+  // ✅ Check initial payment status before subscribing
   useEffect(() => {
     if (!publicId) return;
 
-    const channel = supabase
-      .channel(`payments-changes-${publicId}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "UPDATE",
-          schema: "public",
-          table: "payments",
-          filter: `public_id=eq.${publicId}`,
-        },
-        (payload) => {
-          const newStatus = payload.new.status as
-            | "pending"
-            | "success"
-            | "failed";
+    let channel: ReturnType<typeof supabase.channel> | null = null;
+    async function checkStatusAndSubscribe() {
+      try {
+        // 🔍 Check current payment status first
+        const { data, error } = await supabase
+          .from("payments")
+          .select("status")
+          .eq("public_id", publicId)
+          .maybeSingle();
 
-          if (newStatus === "success") {
-            toast.success("Payment successful 🎉");
-            setPublicId(null);
-            setStep("phone");
-            onSuccess();
-          }
+        if (error) throw error;
 
-          if (newStatus === "failed") {
-            toast.error("Payment failed ❌");
-            setPublicId(null);
-            setStep("error");
-          }
+        const status = data?.status as "pending" | "success" | "failed" | null;
+        if (status === "success") {
+          toast.success("Payment successful 🎉");
+          setPublicId(null);
+          setStep("phone");
+          onSuccess();
+          return; // ✅ No need to subscribe
         }
-      )
-      .subscribe();
+
+        if (status === "failed") {
+          toast.error("Payment failed", {
+            description:
+              "This could be due to wrong pin or cancellation of the transaction or insufficient balance",
+            icon: <CircleAlert />,
+          });
+          setPublicId(null);
+          setStep("error");
+          return; // ✅ No need to subscribe
+        }
+
+        // 🧩 If still pending → subscribe for changes
+        channel = supabase
+          .channel(`payments-changes-${publicId}`)
+          .on(
+            "postgres_changes",
+            {
+              event: "UPDATE",
+              schema: "public",
+              table: "payments",
+              filter: `public_id=eq.${publicId}`,
+            },
+            (payload) => {
+              const newStatus = payload.new.status as
+                | "pending"
+                | "success"
+                | "failed";
+
+              if (newStatus === "success") {
+                toast.success("Payment successful 🎉");
+                setPublicId(null);
+                setStep("phone");
+                onSuccess();
+              }
+
+              if (newStatus === "failed") {
+                toast.error("Payment failed", {
+                  description:
+                    "This could be due to wrong pin or cancellation of the transaction or insufficient balance",
+                  icon: <CircleAlert />,
+                });
+                setPublicId(null);
+                setStep("error");
+              }
+            }
+          )
+          .subscribe();
+      } catch (err) {
+        console.error("Error checking initial payment status:", err);
+      }
+    }
+
+    checkStatusAndSubscribe();
 
     return () => {
-      supabase.removeChannel(channel);
+      if (channel) supabase.removeChannel(channel);
     };
   }, [publicId, onSuccess]);
 
@@ -72,9 +127,16 @@ export function MpesaPaymentStep({ onSuccess, onBack }: MpesaPaymentStepProps) {
       setStep("processing");
       setFormattedPhone(phoneNumber);
 
+      // Extract only what’s needed
+      const orderItems = items.map((item) => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+      }));
+
       const response = await axios.post("/api/payments/mpesa", {
         phoneNumber,
-        amount: finalTotal, // ⚡ still from useCart, can be passed down if needed
+        items: orderItems, // send this instead of amount
       });
 
       if (response.status === 200 && response.data?.public_id) {
@@ -89,7 +151,10 @@ export function MpesaPaymentStep({ onSuccess, onBack }: MpesaPaymentStepProps) {
       if (axios.isAxiosError(error)) {
         // ✅ Safe handling with proper typing
         toast.error(
-          error.response?.data?.message || "Payment failed. Try again."
+          error.response?.data?.message || "Payment failed. Try again.",
+          {
+            description: "Please check your internet connection.",
+          }
         );
       } else {
         toast.error("Unexpected error. Please try again.");
