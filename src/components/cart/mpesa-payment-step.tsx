@@ -20,7 +20,7 @@ interface MpesaPaymentStepProps {
 
 export function MpesaPaymentStep({ onSuccess, onBack }: MpesaPaymentStepProps) {
   // Taking values from the isContext
-  const { finalTotal } = useCart();
+  const { finalTotal, items } = useCart();
 
   const [step, setStep] = useState<"phone" | "processing" | "error">("phone");
   const [formattedPhone, setFormattedPhone] = useState("");
@@ -121,9 +121,16 @@ export function MpesaPaymentStep({ onSuccess, onBack }: MpesaPaymentStepProps) {
       setStep("processing");
       setFormattedPhone(phoneNumber);
 
+      // Extract only what’s needed
+      const orderItems = items.map((item) => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+      }));
+
       const response = await axios.post("/api/payments/mpesa", {
         phoneNumber,
-        amount: finalTotal, // ⚡ still from useCart, can be passed down if needed
+        items: orderItems, // send this instead of amount
       });
 
       if (response.status === 200 && response.data?.public_id) {

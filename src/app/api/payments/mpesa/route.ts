@@ -5,11 +5,49 @@ import { supabase } from "@/lib/supabase/server";
 
 export async function POST(req: Request) {
   try {
-    const { amount, phoneNumber } = await req.json();
+    const { phoneNumber, items } = await req.json();
 
-    if (!phoneNumber || !amount) {
+    if (!phoneNumber || !items || !Array.isArray(items)) {
       return NextResponse.json(
-        { error: "Missing phoneNumber or amount" },
+        { error: "Missing phoneNumber or items" },
+        { status: 400 }
+      );
+    }
+
+    // Convert string IDs to numbers for matching
+    const ids = items.map((item: any) => Number(item.id));
+
+    // 1️⃣ Fetch prices in one efficient DB query
+    const { data: menuItems, error: fetchError } = await supabase
+      .from("menu_items")
+      .select("id, price")
+      .in("id", ids);
+
+    if (fetchError || !menuItems) {
+      console.error("Error fetching menu prices:", fetchError);
+      return NextResponse.json(
+        { error: "Failed to fetch menu item prices" },
+        { status: 500 }
+      );
+    }
+
+    // ⚡ Create a price lookup map for O(1) access (much faster than find())
+    const priceMap = new Map<number, number>();
+    for (const m of menuItems) priceMap.set(m.id, m.price);
+
+    // 2️⃣ Compute total efficiently
+    const totalAmount =
+      1.18 *
+      items.reduce((sum: number, item: any) => {
+        const price = priceMap.get(Number(item.id));
+        return price ? sum + price * item.quantity : sum;
+      }, 0);
+
+    console.log("Total Amount --->", totalAmount);
+
+    if (totalAmount <= 0) {
+      return NextResponse.json(
+        { error: "Invalid total amount" },
         { status: 400 }
       );
     }
@@ -17,12 +55,10 @@ export async function POST(req: Request) {
     const publicId = randomUUID();
     const userId = process.env.USER_ID;
 
-    if (!userId) {
-      throw new Error("USER_ID is not set in environment variables");
-    }
+    if (!userId) throw new Error("USER_ID is not set in environment variables");
 
-    // Send STK push
-    const stkData = await sendStk(amount, phoneNumber, publicId);
+    // 3️⃣ Send STK push
+    const stkData = await sendStk(totalAmount, phoneNumber, publicId);
     const checkoutRequestId = stkData.CheckoutRequestID;
 
     if (!checkoutRequestId) {
@@ -31,20 +67,20 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: errorMsg }, { status: 400 });
     }
 
-    // Insert the payment into Supabase
-    const { error } = await supabase.from("payments").insert([
+    // 4️⃣ Record payment in Supabase
+    const { error: insertError } = await supabase.from("payments").insert([
       {
         checkout_request_id: checkoutRequestId,
         phone: phoneNumber,
-        amount,
+        amount: totalAmount, // ✅ use consistent column name
         public_id: publicId,
         user_id: userId,
         status: "pending",
       },
     ]);
 
-    if (error) {
-      console.error("DB insert error:", error);
+    if (insertError) {
+      console.error("DB insert error:", insertError);
       return NextResponse.json(
         { error: "Failed to save payment" },
         { status: 500 }
