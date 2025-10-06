@@ -1,4 +1,5 @@
-// @/app/api/notification/orders/route.ts
+// @/app/api/order/route.ts
+
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { OwnerConfirmationEmail } from "@/email-templates/orders/owner";
@@ -22,6 +23,8 @@ export async function POST(req: Request) {
       pickupTime,
       specialInstructions,
     } = body;
+
+    console.log(body);
 
     // 1. Send email to owner
     const { error: ownerError } = await resend.emails.send({

@@ -67,7 +67,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const { items, finalTotal, itemCount, clearCart } = useCart();
   const { pickupInfo } = useOrder();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("cart");
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("card");
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("mpesa");
   const [lastOrder, setLastOrder] = useState<LastOrder | null>(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
   const [isMpesaProcessing, setIsMpesaProcessing] = useState(false);
@@ -77,7 +77,10 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const handleProceedToDetails = () => setCurrentStep("details");
   const handleProceedToPayment = () => setCurrentStep("payment");
 
-  const handlePaymentSuccess = async () => {
+  const handlePaymentSuccess = async (
+    orderId: string,
+    paymentMethod: string
+  ) => {
     const snapshot = {
       items: items.map((i) => ({ ...i })),
       total: finalTotal,
@@ -95,13 +98,14 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
         customerName: pickupInfo?.fullName,
         email: pickupInfo?.email,
         phone: pickupInfo?.phone,
-        paymentMethod: "M-Pesa",
         pickupDate: pickupInfo?.pickupDate
           ? formatDate(pickupInfo.pickupDate)
           : undefined,
         pickupTime: pickupInfo?.pickupTime
           ? formatTime(pickupInfo.pickupTime)
           : undefined,
+        orderId,
+        paymentMethod,
         specialInstructions: pickupInfo?.instructions,
       });
 
@@ -264,6 +268,16 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                       <div className="grid grid-cols-2 gap-2">
                         <Button
                           variant={
+                            paymentMethod === "mpesa" ? "default" : "outline"
+                          }
+                          onClick={() => setPaymentMethod("mpesa")}
+                          className="flex items-center gap-2"
+                        >
+                          <Smartphone />
+                          M-Pesa
+                        </Button>
+                        <Button
+                          variant={
                             paymentMethod === "card" ? "default" : "outline"
                           }
                           disabled={isMpesaProcessing}
@@ -273,22 +287,11 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                           <CreditCard />
                           Card
                         </Button>
-                        <Button
-                          variant={
-                            paymentMethod === "mpesa" ? "default" : "outline"
-                          }
-                          onClick={() => setPaymentMethod("mpesa")}
-                          className="flex items-center gap-2"
-                        >
-                          <Smartphone />
-                          M-Pesa
-                        </Button>
                       </div>
 
                       <div className="mt-4">
                         {paymentMethod === "card" ? (
                           <CardPaymentForm
-                            total={finalTotal}
                             onSuccess={handlePaymentSuccess}
                             onBack={handleBackToDetails}
                           />

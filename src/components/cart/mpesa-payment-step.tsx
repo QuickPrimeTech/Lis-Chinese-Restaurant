@@ -14,7 +14,7 @@ import { useCart } from "@/contexts/cart-provider";
 import { CircleAlert } from "lucide-react";
 
 interface MpesaPaymentStepProps {
-  onSuccess: () => void;
+  onSuccess: (orderId: string, paymentMethod: string) => void;
   onBack: () => void;
   onProcessingChange?: (processing: boolean) => void; // 🧠 new prop
 }
@@ -44,12 +44,28 @@ export function MpesaPaymentStep({
     let channel: ReturnType<typeof supabase.channel> | null = null;
     async function checkStatusAndSubscribe() {
       try {
+        // Authenticate anonymously with public_id metadata
+        const { error: authError } = await supabase.auth.signInAnonymously({
+          options: {
+            data: {
+              public_id: publicId, // use the one from state
+            },
+          },
+        });
+
+        if (authError) {
+          console.error("Supabase auth error:", authError);
+          toast.error("Failed to authenticate session.");
+          return;
+        }
         // 🔍 Check current payment status first
         const { data, error } = await supabase
           .from("payments")
           .select("status")
           .eq("public_id", publicId)
           .maybeSingle();
+        console.log("data -->", data);
+        console.log("error --->", error);
 
         if (error) throw error;
 
@@ -58,7 +74,7 @@ export function MpesaPaymentStep({
           toast.success("Payment successful 🎉");
           setPublicId(null);
           setStep("phone");
-          onSuccess();
+          onSuccess(publicId ?? "", "M-Pesa");
           return; // ✅ No need to subscribe
         }
 
@@ -94,7 +110,7 @@ export function MpesaPaymentStep({
                 toast.success("Payment successful 🎉");
                 setPublicId(null);
                 setStep("phone");
-                onSuccess();
+                onSuccess(publicId ?? "", "M-Pesa");
               }
 
               if (newStatus === "failed") {
