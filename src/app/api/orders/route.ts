@@ -41,7 +41,7 @@ export async function POST(req: Request) {
 
     // ✅ Then trigger notification API
     await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/notifications/orders`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notifications/orders`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
