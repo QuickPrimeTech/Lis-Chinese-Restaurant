@@ -1,7 +1,14 @@
+import { Metadata } from "next";
 import { MenuCardGrid } from "@/components/pdf-menu/menu-card-grid";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Utensils } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "View PDF Menus",
+  description:
+    "Don't like online menus? We've got you. You can go through our PDF menus and not have to worry about navigating our online menus.",
+};
 
 export default function PDFMenus() {
   return (

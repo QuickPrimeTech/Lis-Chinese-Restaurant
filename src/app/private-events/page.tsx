@@ -3,10 +3,9 @@ import Hero from "@/sections/private-events/hero";
 import { EventsContent } from "@/sections/private-events/events-content";
 
 export const metadata: Metadata = {
-  title:
-    "Private Events at Li's Chinese Restaurant Nairobi | Parties, Weddings & Celebrations",
+  title: "Private Events",
   description:
-    "Host your private events at Li's Chinese Restaurant in Nairobi. Perfect for birthdays, weddings, office parties, and special celebrations. Enjoy fine Chinese dining, custom packages, and a welcoming space for you and your guests.",
+    "Our place is perfect for birthdays, weddings, office parties, and special celebrations with our affordable packages.",
 };
 
 const PrivateEventsPage = () => {
