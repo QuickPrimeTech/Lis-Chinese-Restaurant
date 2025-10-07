@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import {
   Sheet,
@@ -39,8 +38,6 @@ import { OrderSummary } from "./order-summary";
 import { PriceBreakdown } from "./price-breakdown";
 import { MpesaPaymentStep } from "./mpesa-payment-step";
 import { useOrder } from "@/contexts/order-context";
-import axios from "axios";
-import { formatDate, formatTime } from "@/utils/format-date";
 import { toast } from "sonner";
 
 interface CartSheetProps {
@@ -65,7 +62,6 @@ type CheckoutStep = "cart" | "details" | "payment" | "success";
 
 export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const { items, finalTotal, itemCount, clearCart } = useCart();
-  const { pickupInfo } = useOrder();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("cart");
   const [paymentMethod, setPaymentMethod] = useState<"card" | "mpesa">("mpesa");
   const [lastOrder, setLastOrder] = useState<LastOrder | null>(null);
@@ -77,10 +73,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
   const handleProceedToDetails = () => setCurrentStep("details");
   const handleProceedToPayment = () => setCurrentStep("payment");
 
-  const handlePaymentSuccess = async (
-    orderId: string,
-    paymentMethod: string
-  ) => {
+  const handlePaymentSuccess = () => {
     const snapshot = {
       items: items.map((i) => ({ ...i })),
       total: finalTotal,
@@ -89,37 +82,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
     setCurrentStep("success");
     setLastOrder(snapshot);
 
-    toast.loading("Sending email confirmation...");
-
-    try {
-      const res = await axios.post("/api/orders", {
-        items,
-        total: finalTotal,
-        customerName: pickupInfo?.fullName,
-        email: pickupInfo?.email,
-        phone: pickupInfo?.phone,
-        pickupDate: pickupInfo?.pickupDate
-          ? formatDate(pickupInfo.pickupDate)
-          : undefined,
-        pickupTime: pickupInfo?.pickupTime
-          ? formatTime(pickupInfo.pickupTime)
-          : undefined,
-        orderId,
-        paymentMethod,
-        specialInstructions: pickupInfo?.instructions,
-      });
-
-      if (res.status === 200) {
-        toast.success("Email confirmation sent successfully! 🎉");
-      } else {
-        toast.error("Failed to send confirmation email.");
-      }
-    } catch (error) {
-      console.error("Email sending error:", error);
-      toast.error("⚠️ Something went wrong while sending the email.");
-    } finally {
-      toast.dismiss();
-    }
+    toast.success("You will receive an email shortly with your order details");
     clearCart();
   };
 

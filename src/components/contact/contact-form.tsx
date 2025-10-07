@@ -45,25 +45,14 @@ export function ContactForm() {
 
   const onSubmit = async (values: ContactFormValues) => {
     try {
-      // const res = await fetch("/api/notifications/contact", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(values),
-      // });
-      const whatsappRes = await fetch("/api/send-whatsapp", {
+      await fetch("/api/notifications/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(values),
       });
-
-      if (!whatsappRes.ok) {
-        throw new Error("Failed to send message");
-      }
-
       toast.success("Your inquiry has been sent successfully!");
-
       form.reset();
     } catch {
       toast.error("Problem occured. Please check your internet connection!");

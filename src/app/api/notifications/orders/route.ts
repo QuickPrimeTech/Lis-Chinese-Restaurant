@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     const { error: ownerError } = await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
       to: [site.emails.orders], // owner inbox
-      subject: "📩 New Customer Inquiry Received",
+      subject: "You've received a new order 🎉",
       react: OwnerConfirmationEmail({
         customerName,
         email,
