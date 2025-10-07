@@ -64,8 +64,6 @@ export function MpesaPaymentStep({
           .select("status")
           .eq("public_id", publicId)
           .maybeSingle();
-        console.log("data -->", data);
-        console.log("error --->", error);
 
         if (error) throw error;
 
