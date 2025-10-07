@@ -5,9 +5,9 @@ import { Metadata } from "next";
 import { supabase } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
-  title: "Gallery | Li's Chinese Restaurant Nairobi",
+  title: "Our Gallery",
   description:
-    "Take a look inside Li's Chinese Restaurant. Browse our photo gallery showcasing the cosy atmosphere, authentic Chinese meals, and memorable dining experiences in Nairobi.",
+    "Take a look inside Li's Chinese Restaurant. Browse our photo gallery showcasing the cosy atmosphere, authentic Chinese meals, and memorable dining experiences in Gigiri, Nairobi.",
 };
 
 // ✅ force static, no auto revalidation (only on-demand ISR)

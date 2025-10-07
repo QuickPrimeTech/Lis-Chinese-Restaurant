@@ -5,9 +5,9 @@ import { supabase } from "@/lib/supabase/server";
 import { Item } from "@/types/menu";
 
 export const metadata: Metadata = {
-  title: "Menu | Li's Chinese Restaurant Nairobi",
+  title: "Our Menu",
   description:
-    "Discover our full menu with authentic Chinese dishes. From mouth-watering starters to flavourful mains and sweet desserts, enjoy the best Chinese dining in Nairobi.",
+    "Discover our full menu with authentic Chinese dishes. From mouth-watering starters to flavourful mains and sweet desserts, enjoy the best Chinese dining in Gigiri Nairobi.",
 };
 
 export const dynamic = "force-static";

@@ -14,7 +14,7 @@ export const metadata = {
   title:
     "Li's Chinese Restaurant Nairobi | Fine Chinese Dining & Authentic Meals",
   description:
-    "Welcome to Li's Chinese Restaurant in Nairobi. Enjoy fresh, authentic Chinese food in a warm and inviting space. Perfect for family meals, friends, or a special night out.",
+    "Welcome to Li's Chinese Restaurant in Gigiri, Nairobi. Enjoy fresh, authentic Chinese food in a warm and inviting space. Perfect for family meals, friends, or a special night out.",
 };
 
 // ✅ enable ISR (regenerates every 60s)

@@ -6,9 +6,9 @@ import dynamic from "next/dynamic";
 
 // ✅ Metadata (server component requirement)
 export const metadata: Metadata = {
-  title: "Contact Li's Chinese Restaurant Nairobi | Bookings & Inquiries",
+  title: "Contact Us",
   description:
-    "Get in touch with Li's Chinese Restaurant in Nairobi. Call, message, or use our contact form for reservations, event bookings, or general inquiries. We're here to serve you authentic Chinese dining with warm hospitality.",
+    "Have a question or want to plan something special? Get in touch with us for inquiries, private event bookings, or reservations — we’re always happy to help and serve you authentic Chinese cuisine with warm hospitality.",
 };
 
 // ✅ Dynamic imports still allowed inside server components

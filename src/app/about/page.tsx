@@ -6,9 +6,9 @@ import AboutAwards from "@/sections/about/awards";
 import AboutCTA from "@/sections/about/CTA";
 
 export const metadata = {
-  title: "About Li's Chinese Restaurant Nairobi | Our Story, Team & Values",
+  title: "About Us",
   description:
-    "Learn about Li's Chinese Restaurant in Nairobi — our story, values, and the passionate team bringing you authentic Chinese dining. Discover our journey, awards, and commitment to serving delicious meals in a warm, welcoming space.",
+    "Discover the story behind Li’s Chinese Restaurant in Nairobi — our values, our passionate team, and our love for authentic Chinese cuisine. Learn how we’ve grown, the milestones we’ve achieved, and our ongoing commitment to serving delicious meals in a warm, welcoming space.",
 };
 
 export default function AboutPage() {
