@@ -265,16 +265,16 @@ export function PickupForm({ onContinue }: PickupFormProps) {
                 <SelectValue placeholder="Select time" />
               </SelectTrigger>
               <SelectContent>
-                {timeSlots.length === 0 ? (
-                  <SelectItem value="" disabled>
-                    No times available
-                  </SelectItem>
-                ) : (
+                {timeSlots.length > 0 ? (
                   timeSlots.map((slot) => (
                     <SelectItem key={slot.value} value={slot.value}>
                       {slot.label}
                     </SelectItem>
                   ))
+                ) : (
+                  <div className="text-muted-foreground text-sm p-2">
+                    No times available today. Please choose another day.
+                  </div>
                 )}
               </SelectContent>
             </Select>

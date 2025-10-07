@@ -68,7 +68,6 @@ export async function POST(req: Request) {
     });
 
     if (ownerError) {
-      console.log(ownerError);
       return NextResponse.json({ error: ownerError }, { status: 500 });
     }
 

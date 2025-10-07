@@ -40,7 +40,7 @@ const CardSchema = z.object({
 type CardSchemaType = z.infer<typeof CardSchema>;
 
 interface CardPaymentFormProps {
-  onSuccess: (orderId: string, paymentMethod: string) => void;
+  onSuccess: () => void;
   onBack: () => void;
 }
 
@@ -82,7 +82,7 @@ export function CardPaymentForm({ onSuccess, onBack }: CardPaymentFormProps) {
     setIsProcessing(true);
     await new Promise((resolve) => setTimeout(resolve, 3000));
     setIsProcessing(false);
-    onSuccess("1234", "Card");
+    onSuccess();
   };
 
   return (
