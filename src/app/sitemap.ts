@@ -8,25 +8,34 @@ const excludeDirs = ["api", "fonts"];
 
 export const revalidate = 86400; // once per day
 
+const priorityMap: Record<string, number> = {
+  "/": 1.0,
+  "/menu": 0.9,
+  "/menu/pdf-menus": 0.6,
+  "/reservations": 0.9,
+  "/private-events": 0.8,
+  "/gallery": 0.7,
+  "/about": 0.6,
+  "/contact": 0.7,
+  "/careers": 0.5,
+};
+
 function getRoutes(dir: string, basePath = ""): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   let routes: string[] = [];
 
   for (const entry of entries) {
-    // skip excluded directories
     if (entry.isDirectory() && excludeDirs.includes(entry.name)) continue;
 
     const routePath = path.join(basePath, entry.name);
 
     if (entry.isDirectory()) {
-      // only include directories that contain a page.tsx or page.jsx
       const hasPage =
         fs.existsSync(path.join(dir, entry.name, "page.tsx")) ||
         fs.existsSync(path.join(dir, entry.name, "page.jsx"));
 
       if (hasPage) routes.push(`/${routePath}`);
 
-      // recurse to find nested routes
       routes = routes.concat(getRoutes(path.join(dir, entry.name), routePath));
     }
   }
@@ -42,6 +51,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
-    priority: 1.0,
+    priority: priorityMap[route] ?? 0.5, // default fallback priority
   }));
 }
