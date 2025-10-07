@@ -7,7 +7,9 @@ export default function CareersPage() {
     <main className="min-h-screen bg-background">
       <CareersHero />
       <CareerProvider>
-        <CareerApplicationForm />
+        <div className="px-4">
+          <CareerApplicationForm />
+        </div>
       </CareerProvider>
     </main>
   );

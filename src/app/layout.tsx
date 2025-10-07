@@ -10,7 +10,7 @@ import { ContactButton } from "@/layouts/contact-button";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/layouts/site-header";
 import { Toaster } from "@/components/ui/sonner";
-import { CheckCircle2, CircleAlert, Loader, XCircleIcon } from "lucide-react";
+import { CheckCircle2, CircleAlert, Loader } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

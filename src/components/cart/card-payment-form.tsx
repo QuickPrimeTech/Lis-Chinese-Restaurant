@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/cart-provider";
 
 const CardSchema = z.object({
   cardNumber: z
@@ -39,18 +40,13 @@ const CardSchema = z.object({
 type CardSchemaType = z.infer<typeof CardSchema>;
 
 interface CardPaymentFormProps {
-  total: number;
-  onSuccess: () => void;
+  onSuccess: (orderId: string, paymentMethod: string) => void;
   onBack: () => void;
 }
 
-export function CardPaymentForm({
-  total,
-  onSuccess,
-  onBack,
-}: CardPaymentFormProps) {
+export function CardPaymentForm({ onSuccess, onBack }: CardPaymentFormProps) {
   const [isProcessing, setIsProcessing] = useState(false);
-
+  const { finalTotal: total } = useCart();
   const form = useForm<CardSchemaType>({
     resolver: zodResolver(CardSchema),
     defaultValues: {
@@ -86,7 +82,7 @@ export function CardPaymentForm({
     setIsProcessing(true);
     await new Promise((resolve) => setTimeout(resolve, 3000));
     setIsProcessing(false);
-    onSuccess();
+    onSuccess("1234", "Card");
   };
 
   return (

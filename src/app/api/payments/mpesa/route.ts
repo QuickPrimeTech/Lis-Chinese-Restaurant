@@ -37,7 +37,7 @@ export async function POST(req: Request) {
 
     // 2️⃣ Compute total efficiently
     const totalAmount =
-      1.18 *
+      // 1.18 *
       items.reduce((sum: number, item) => {
         const price = priceMap.get(Number(item.id));
         return price ? sum + price * item.quantity : sum;

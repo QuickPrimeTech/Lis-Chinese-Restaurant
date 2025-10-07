@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/webmail/:path*",
+      "destination": "https://host55.safaricombusiness.co.ke:2096/:path*",
+      "permanent": true
+    }
+  ]
+}

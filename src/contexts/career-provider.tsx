@@ -13,7 +13,7 @@ import {
   SetStateAction,
 } from "react";
 import { toast } from "sonner";
-import { CheckCircle2, XCircle, Upload, Loader } from "lucide-react";
+import { XCircle } from "lucide-react";
 
 type CareerContextType = {
   data: Partial<ApplicationData>;
