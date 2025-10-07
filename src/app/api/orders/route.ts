@@ -1,14 +1,7 @@
-// @/app/api/order/route.ts
-
-import { Resend } from "resend";
 import { NextResponse } from "next/server";
-import { OwnerConfirmationEmail } from "@/email-templates/orders/owner";
-import { CustomerConfirmationEmail } from "@/email-templates/orders/customer";
-import { site } from "@/config/site-config";
+import { supabase } from "@/lib/supabase/server";
 
 export async function POST(req: Request) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
   try {
     const body = await req.json();
     const {
@@ -24,56 +17,41 @@ export async function POST(req: Request) {
       specialInstructions,
     } = body;
 
-    console.log(body);
+    // ✅ Insert into Supabase
+    const { data, error } = await supabase
+      .from("orders")
+      .insert([
+        {
+          order_id: orderId,
+          name: customerName,
+          email,
+          phone,
+          items,
+          total,
+          payment_method: paymentMethod,
+          pickup_date: pickupDate,
+          pickup_time: pickupTime,
+          special_instructions: specialInstructions,
+          user_id: process.env.USER_ID,
+        },
+      ])
+      .select();
 
-    // 1. Send email to owner
-    const { error: ownerError } = await resend.emails.send({
-      from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
-      to: [site.emails.orders], // owner inbox
-      subject: "📩 New Customer Inquiry Received",
-      react: OwnerConfirmationEmail({
-        customerName,
-        email,
-        phone,
-        total,
-        orderId,
-        paymentMethod,
-        pickupDate,
-        pickupTime,
-        specialInstructions,
-        items,
-      }),
-    });
+    if (error) throw error;
 
-    if (ownerError) {
-      return NextResponse.json({ error: ownerError }, { status: 500 });
-    }
+    // ✅ Then trigger notification API
+    await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/notifications/orders`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    );
 
-    // 2. Send confirmation to customer
-    const { error: customerError } = await resend.emails.send({
-      from: `${site.restaurant.name} <${site.emails.orders}>`,
-      to: [email],
-      subject: `We received your Order 🎉`,
-      react: CustomerConfirmationEmail({
-        customerName,
-        email,
-        phone,
-        total,
-        orderId,
-        paymentMethod,
-        pickupDate,
-        pickupTime,
-        specialInstructions,
-        items,
-      }),
-    });
-
-    if (customerError) {
-      return NextResponse.json({ error: customerError }, { status: 500 });
-    }
-
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true, data });
   } catch (error) {
+    console.error("Order Error:", error);
     return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
