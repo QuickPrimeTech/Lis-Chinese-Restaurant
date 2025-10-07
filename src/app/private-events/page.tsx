@@ -10,8 +10,6 @@ export const metadata: Metadata = {
 };
 
 const PrivateEventsPage = () => {
-  // const [selectedPackage, setSelectedPackage] = useState("");
-
   return (
     <div className="min-h-screen bg-background">
       <Hero />

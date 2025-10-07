@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -12,7 +11,6 @@ const eventPackages = [
     id: "intimate",
     name: "Intimate Gathering",
     capacity: "8-12 guests",
-    price: "5,500",
     features: [
       "Private dining room",
       "4-course tasting menu",
@@ -26,7 +24,6 @@ const eventPackages = [
     id: "celebration",
     name: "Celebration Package",
     capacity: "13-30 guests",
-    price: " 40,500",
     features: [
       "Semi-private dining area",
       "Customizable menu options",
@@ -41,7 +38,6 @@ const eventPackages = [
     id: "corporate",
     name: "Corporate Experience",
     capacity: "20-50 guests",
-    price: " 22,000",
     features: [
       "Exclusive restaurant buyout",
       "Multi-course dining experience",
@@ -92,14 +88,9 @@ const EventPackages = ({
                 </div>
               </div>
               <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="font-cinzel font-bold text-xl text-foreground">
-                    {pkg.name}
-                  </h3>
-                  <span className="font-cinzel font-bold text-lg text-primary">
-                    Ksh {pkg.price}
-                  </span>
-                </div>
+                <h3 className="font-cinzel font-bold text-xl text-foreground mb-4">
+                  {pkg.name}
+                </h3>
                 <ul className="space-y-2 mb-6">
                   {pkg.features.map((feature, idx) => (
                     <li
