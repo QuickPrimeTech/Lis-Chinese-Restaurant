@@ -44,13 +44,13 @@ export function CartItem({ item }: CartItemProps) {
         <div className="flex items-center gap-4">
           {item.image && (
             <div className="relative w-16 h-16 bg-muted rounded-md overflow-hidden flex-shrink-0">
-            <Image
-              src={item.image || "/placeholder.svg"}
-              alt={item.name}
-              fill
-              className="w-full h-full object-cover"
-            />
-          </div>
+              <Image
+                src={item.image || "/placeholder.svg"}
+                alt={item.name}
+                fill
+                className="w-full h-full object-cover"
+              />
+            </div>
           )}
 
           {/* Product Details */}
@@ -76,7 +76,7 @@ export function CartItem({ item }: CartItemProps) {
                 className="h-10 w-10 p-0 hover:bg-accent rounded-l-lg rounded-r-none"
                 title="Decrease quantity"
               >
-                <Minus className="h-4 w-4 text-foreground" />
+                <Minus className="text-foreground" />
               </Button>
 
               <div className="h-10 w-12 flex items-center justify-center bg-card border-x border-border">
