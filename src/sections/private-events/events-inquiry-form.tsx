@@ -56,7 +56,7 @@ export default function EventInquiryForm() {
         );
         // setIsSubmitted(true);
       }
-    } catch (err: any) {
+    } catch (err) {
       // 🔥 Handle validation or server errors
       if (axios.isAxiosError(err)) {
         const resData = err.response?.data;

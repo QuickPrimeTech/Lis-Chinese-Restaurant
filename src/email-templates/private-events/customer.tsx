@@ -29,14 +29,6 @@ export const CustomerConfirmationEmail = ({
   details,
 }: PrivateEventConfirmationEmailProps) => {
   const { restaurant } = site;
-  const submissionDate = new Date().toLocaleString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
   const formattedDate = date
     ? date.toLocaleDateString("en-US", {
         weekday: "long",

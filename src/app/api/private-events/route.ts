@@ -86,14 +86,14 @@ export async function POST(req: Request) {
       },
       { status: 200 }
     );
-  } catch (err: any) {
+  } catch (err) {
     console.error("Server Error:", err);
 
     return NextResponse.json(
       {
         success: false,
         message: "An unexpected error occurred",
-        details: err?.message || "Unknown error",
+        details: err || "Unknown error",
       },
       { status: 500 }
     );
