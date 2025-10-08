@@ -1,16 +1,16 @@
-// @/sections/private-events/inquiry-form/additional-details.tsx
+"use client";
+
+import { useFormContext } from "react-hook-form";
+import { PrivateEventFormValues } from "@/schemas/private-event";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-interface AdditionalDetailsStepProps {
-  details: string;
-  onChange: (value: string) => void;
-}
+export const AdditionalDetailsStep = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<PrivateEventFormValues>();
 
-export const AdditionalDetailsStep: React.FC<AdditionalDetailsStepProps> = ({
-  details,
-  onChange,
-}) => {
   return (
     <div className="space-y-6 animate-slide-in">
       <div className="text-center mb-8">
@@ -27,11 +27,13 @@ export const AdditionalDetailsStep: React.FC<AdditionalDetailsStepProps> = ({
         <Textarea
           id="details"
           rows={8}
-          value={details}
-          onChange={(e) => onChange(e.target.value)}
           placeholder="Tell us about your vision, dietary requirements, entertainment needs, decoration preferences, accessibility needs, or any other special requests..."
+          {...register("details")}
           className="resize-none"
         />
+        {errors.details && (
+          <p className="text-sm text-destructive">{errors.details.message}</p>
+        )}
         <p className="text-sm text-muted-foreground">
           The more details you provide, the better we can tailor our proposal to
           your needs.

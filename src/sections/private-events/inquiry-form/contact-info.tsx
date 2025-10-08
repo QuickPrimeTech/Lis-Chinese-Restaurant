@@ -1,28 +1,29 @@
-// @/sections/private-events/inquiry-form/contact-info.tsx
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { UseFormReturn } from "react-hook-form";
+import { PrivateEventFormValues } from "@/schemas/private-event";
 
-interface ContactData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  company: string;
+interface Props {
+  form: UseFormReturn<PrivateEventFormValues>;
 }
 
-interface ContactInfoStepProps {
-  data: ContactData;
-  onChange: (field: keyof ContactData, value: string) => void;
-  errors?: Partial<Record<keyof ContactData, string>>;
-}
+const contactFields = [
+  { name: "firstName", label: "First Name", required: true },
+  { name: "lastName", label: "Last Name", required: true },
+  { name: "email", label: "Email", required: true },
+  { name: "phone", label: "Phone", required: true },
+] as const;
 
-export const ContactInfoStep: React.FC<ContactInfoStepProps> = ({
-  data,
-  onChange,
-  errors = {},
-}) => {
+export const ContactInfoStep = ({ form }: Props) => {
   return (
     <div className="space-y-6 animate-slide-in">
+      {/* Header */}
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold text-foreground mb-2">
           Contact Information
@@ -32,82 +33,48 @@ export const ContactInfoStep: React.FC<ContactInfoStepProps> = ({
         </p>
       </div>
 
+      {/* Contact Fields */}
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <Label htmlFor="firstName">
-            First Name <span className="text-destructive">*</span>
-          </Label>
-          <Input
-            id="firstName"
-            value={data.firstName}
-            onChange={(e) => onChange("firstName", e.target.value)}
-            className={errors.firstName ? "border-destructive" : ""}
-            placeholder="Enter your first name"
+        {contactFields.map(({ name, label, required }) => (
+          <FormField
+            key={name}
+            control={form.control}
+            name={name}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  {label}{" "}
+                  {required && <span className="text-destructive">*</span>}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder={`Enter your ${label.toLowerCase()}`}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-          {errors.firstName && (
-            <p className="text-sm text-destructive">{errors.firstName}</p>
-          )}
-        </div>
+        ))}
 
-        <div className="space-y-2">
-          <Label htmlFor="lastName">
-            Last Name <span className="text-destructive">*</span>
-          </Label>
-          <Input
-            id="lastName"
-            value={data.lastName}
-            onChange={(e) => onChange("lastName", e.target.value)}
-            className={errors.lastName ? "border-destructive" : ""}
-            placeholder="Enter your last name"
-          />
-          {errors.lastName && (
-            <p className="text-sm text-destructive">{errors.lastName}</p>
+        {/* Optional company field */}
+        <FormField
+          control={form.control}
+          name="company"
+          render={({ field }) => (
+            <FormItem className="md:col-span-2">
+              <FormLabel>Company/Organization</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Your company or organization (optional)"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="email">
-            Email Address <span className="text-destructive">*</span>
-          </Label>
-          <Input
-            id="email"
-            type="email"
-            value={data.email}
-            onChange={(e) => onChange("email", e.target.value)}
-            className={errors.email ? "border-destructive" : ""}
-            placeholder="your.email@example.com"
-          />
-          {errors.email && (
-            <p className="text-sm text-destructive">{errors.email}</p>
-          )}
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="phone">
-            Phone Number <span className="text-destructive">*</span>
-          </Label>
-          <Input
-            id="phone"
-            type="tel"
-            value={data.phone}
-            onChange={(e) => onChange("phone", e.target.value)}
-            className={errors.phone ? "border-destructive" : ""}
-            placeholder="+254746815106"
-          />
-          {errors.phone && (
-            <p className="text-sm text-destructive">{errors.phone}</p>
-          )}
-        </div>
-
-        <div className="space-y-2 md:col-span-2">
-          <Label htmlFor="company">Company/Organization</Label>
-          <Input
-            id="company"
-            value={data.company}
-            onChange={(e) => onChange("company", e.target.value)}
-            placeholder="Your company or organization (optional)"
-          />
-        </div>
+        />
       </div>
     </div>
   );
