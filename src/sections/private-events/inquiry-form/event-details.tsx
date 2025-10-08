@@ -1,5 +1,7 @@
-// @/sections/private-events/inquiry-form/event-details.tsx
+"use client";
 
+import { useFormContext, Controller } from "react-hook-form";
+import { PrivateEventFormValues } from "@/schemas/private-event";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,20 +21,6 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface EventData {
-  eventType: string;
-  guests: string;
-  budget: string;
-}
-
-interface EventDetailsStepProps {
-  data: EventData;
-  date: Date | undefined;
-  onChange: (field: keyof EventData, value: string) => void;
-  onDateChange: (date: Date | undefined) => void;
-  errors?: Partial<Record<keyof EventData, string>>;
-}
-
 const eventTypes = [
   "Corporate Meeting",
   "Business Dinner",
@@ -48,7 +36,6 @@ const eventTypes = [
 ];
 
 const guestCounts = ["8-12", "13-20", "21-30", "31-50", "51+"];
-
 const budgetRanges = [
   "KSh 50,000 – KSh 150,000",
   "KSh 150,000 – KSh 300,000",
@@ -56,13 +43,12 @@ const budgetRanges = [
   "KSh 600,000+",
 ];
 
-export const EventDetailsStep: React.FC<EventDetailsStepProps> = ({
-  data,
-  date,
-  onChange,
-  onDateChange,
-  errors = {},
-}) => {
+export const EventDetailsStep = () => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<PrivateEventFormValues>();
+
   return (
     <div className="space-y-6 animate-slide-in">
       <div className="text-center mb-8">
@@ -73,105 +59,131 @@ export const EventDetailsStep: React.FC<EventDetailsStepProps> = ({
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
+        {/* Event Type */}
         <div className="space-y-2">
           <Label>
             Event Type <span className="text-destructive">*</span>
           </Label>
-          <Select
-            value={data.eventType}
-            onValueChange={(value) => onChange("eventType", value)}
-          >
-            <SelectTrigger
-              className={`${
-                errors.eventType ? "border-destructive" : ""
-              } w-full`}
-            >
-              <SelectValue placeholder="Select event type" />
-            </SelectTrigger>
-            <SelectContent>
-              {eventTypes.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {type}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Controller
+            name="eventType"
+            control={control}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  className={cn(
+                    "w-full",
+                    errors.eventType && "border-destructive"
+                  )}
+                >
+                  <SelectValue placeholder="Select event type" />
+                </SelectTrigger>
+                <SelectContent>
+                  {eventTypes.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {type}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
           {errors.eventType && (
-            <p className="text-sm text-destructive">{errors.eventType}</p>
+            <p className="text-sm text-destructive">
+              {errors.eventType.message}
+            </p>
           )}
         </div>
 
+        {/* Date */}
         <div className="space-y-2">
           <Label>Preferred Date</Label>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className={cn(
-                  "w-full justify-start text-left font-normal",
-                  !date && "text-muted-foreground"
-                )}
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? format(date, "PPP") : <span>Select date</span>}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={onDateChange}
-                disabled={(day) => day < new Date()}
-                initialFocus
-                className="rounded-md border"
-              />
-            </PopoverContent>
-          </Popover>
+          <Controller
+            name="date"
+            control={control}
+            render={({ field }) => (
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !field.value && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {field.value ? format(field.value, "PPP") : "Select date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    disabled={(day) => day < new Date()}
+                    initialFocus
+                    className="rounded-md border"
+                  />
+                </PopoverContent>
+              </Popover>
+            )}
+          />
         </div>
 
+        {/* Guests */}
         <div className="space-y-2">
           <Label>
             Number of Guests <span className="text-destructive">*</span>
           </Label>
-          <Select
-            value={data.guests}
-            onValueChange={(value) => onChange("guests", value)}
-          >
-            <SelectTrigger
-              className={`${errors.guests ? "border-destructive" : ""} w-full`}
-            >
-              <SelectValue placeholder="Select guest count" />
-            </SelectTrigger>
-            <SelectContent>
-              {guestCounts.map((count) => (
-                <SelectItem key={count} value={count}>
-                  {count} guests
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Controller
+            name="guests"
+            control={control}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger
+                  className={cn(
+                    "w-full",
+                    errors.guests && "border-destructive"
+                  )}
+                >
+                  <SelectValue placeholder="Select guest count" />
+                </SelectTrigger>
+                <SelectContent>
+                  {guestCounts.map((count) => (
+                    <SelectItem key={count} value={count}>
+                      {count} guests
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
           {errors.guests && (
-            <p className="text-sm text-destructive">{errors.guests}</p>
+            <p className="text-sm text-destructive">{errors.guests.message}</p>
           )}
         </div>
 
+        {/* Budget */}
         <div className="space-y-2">
           <Label>Estimated Budget</Label>
-          <Select
-            value={data.budget}
-            onValueChange={(value) => onChange("budget", value)}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select budget range" />
-            </SelectTrigger>
-            <SelectContent>
-              {budgetRanges.map((range) => (
-                <SelectItem key={range} value={range}>
-                  {range}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Controller
+            name="budget"
+            control={control}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} value={field.value}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select budget range" />
+                </SelectTrigger>
+                <SelectContent>
+                  {budgetRanges.map((range) => (
+                    <SelectItem key={range} value={range}>
+                      {range}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
         </div>
       </div>
     </div>
