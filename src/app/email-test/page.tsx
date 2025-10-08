@@ -1,4 +1,5 @@
-import { PrivateEventConfirmationEmail } from "@/email-templates/private-events/customer"; // Adjust path as needed
+import { CustomerConfirmationEmail } from "@/email-templates/private-events/customer"; // Adjust path as needed
+import { OwnerConfirmationEmail } from "@/email-templates/private-events/owner"; // Adjust path as needed
 
 const sampleProps = {
   firstName: "Jane",
@@ -28,7 +29,8 @@ export default function TestEmailPage() {
       }}
     >
       <div style={{ maxWidth: "600px", width: "100%" }}>
-        <PrivateEventConfirmationEmail {...sampleProps} />
+        <OwnerConfirmationEmail {...sampleProps} />
+        <CustomerConfirmationEmail {...sampleProps} />
       </div>
     </div>
   );

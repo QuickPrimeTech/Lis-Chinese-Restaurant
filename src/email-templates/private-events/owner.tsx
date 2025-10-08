@@ -3,7 +3,7 @@ import { EmailHeader } from "../components/header";
 import { EmailFooter } from "../components/footer";
 import { EmailSocials } from "../components/socials";
 
-type PrivateEventConfirmationEmailProps = {
+type OwnerConfirmationEmailProps = {
   firstName: string;
   lastName: string;
   email: string;
@@ -16,7 +16,7 @@ type PrivateEventConfirmationEmailProps = {
   details?: string;
 };
 
-export const CustomerConfirmationEmail = ({
+export const OwnerConfirmationEmail = ({
   firstName,
   lastName,
   email,
@@ -27,7 +27,7 @@ export const CustomerConfirmationEmail = ({
   budget,
   date,
   details,
-}: PrivateEventConfirmationEmailProps) => {
+}: OwnerConfirmationEmailProps) => {
   const { restaurant } = site;
   const submissionDate = new Date().toLocaleString("en-US", {
     weekday: "long",
@@ -57,7 +57,7 @@ export const CustomerConfirmationEmail = ({
     >
       {/* Preheader */}
       <div style={{ display: "none", maxHeight: 0, overflow: "hidden" }}>
-        Thank you {firstName}, we’ve received your private event inquiry.
+        New private event inquiry from {firstName} {lastName}.
       </div>
 
       <EmailHeader />
@@ -71,15 +71,14 @@ export const CustomerConfirmationEmail = ({
         <tr>
           <td style={{ padding: "32px" }}>
             <h2 style={{ color: "hsl(220, 13%, 18%)", fontSize: "20px" }}>
-              Thank you for your inquiry, {firstName}!
+              New Private Event Inquiry
             </h2>
 
             <p style={{ color: "hsl(220, 13%, 40%)", fontSize: "14px" }}>
-              We’ve received your request for a <strong>{eventType}</strong> on{" "}
-              <strong>{formattedDate}</strong> for approximately{" "}
-              <strong>{guests}</strong> guests. Our event specialist will review
-              your details and contact you within 24 hours to create a
-              personalized proposal.
+              A new inquiry has been submitted for a{" "}
+              <strong>{eventType}</strong> on <strong>{formattedDate}</strong>{" "}
+              for approximately <strong>{guests}</strong> guests. This was
+              received on <strong>{submissionDate}</strong>.
             </p>
 
             <p
@@ -89,7 +88,8 @@ export const CustomerConfirmationEmail = ({
                 marginBottom: "24px",
               }}
             >
-              For your reference, here are the details you provided:
+              Please review the details below and contact the customer within 24
+              hours to discuss their vision.
             </p>
 
             <table
@@ -277,7 +277,7 @@ export const CustomerConfirmationEmail = ({
             </table>
 
             <p style={{ color: "hsl(220, 13%, 30%)", fontSize: "14px" }}>
-              We look forward to creating an unforgettable experience for you.
+              Review this inquiry and respond promptly to secure the booking.
               <br />— The {restaurant.name} Team
             </p>
           </td>

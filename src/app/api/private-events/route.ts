@@ -2,6 +2,7 @@ import { supabase } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 import { serverPrivateEventsFormValues } from "@/schemas/private-event";
 import { ZodError } from "zod";
+import axios from "axios";
 
 export async function POST(req: Request) {
   try {
@@ -63,7 +64,20 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
-
+    //Sending email notification to the user
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notifications/private-events`,
+      result.data
+    );
+    if (res.status !== 200) {
+      return NextResponse.json(
+        {
+          success: true,
+          message: "There was an error sending the email notification!",
+        },
+        { status: 403 }
+      );
+    }
     // ✅ Success
     return NextResponse.json(
       {
