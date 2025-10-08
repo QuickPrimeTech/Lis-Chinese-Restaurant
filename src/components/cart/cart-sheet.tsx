@@ -37,7 +37,6 @@ import { CartSuccess } from "./cart-success";
 import { OrderSummary } from "./order-summary";
 import { PriceBreakdown } from "./price-breakdown";
 import { MpesaPaymentStep } from "./mpesa-payment-step";
-import { useOrder } from "@/contexts/order-context";
 import { toast } from "sonner";
 
 interface CartSheetProps {

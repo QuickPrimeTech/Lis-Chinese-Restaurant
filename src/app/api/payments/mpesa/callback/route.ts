@@ -39,7 +39,6 @@ export async function POST(req: Request) {
 
     const checkoutRequestId = callback?.CheckoutRequestID;
     const resultCode = callback?.ResultCode;
-    const resultDesc = callback?.ResultDesc;
 
     if (!checkoutRequestId) {
       return NextResponse.json(
@@ -130,7 +129,7 @@ export async function POST(req: Request) {
         pickupTime,
         specialInstructions,
       };
-      const notifyRes = await fetch(
+      await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/notifications/orders`,
         {
           method: "POST",
@@ -138,10 +137,6 @@ export async function POST(req: Request) {
           body: JSON.stringify(payload),
         }
       );
-
-      if (!notifyRes.ok) {
-        const msg = await notifyRes.text();
-      }
     } catch (notifyErr) {
       console.error("💥 Error calling notifications endpoint:", notifyErr);
     }
