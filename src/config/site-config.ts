@@ -9,7 +9,7 @@ export const site = {
     name: "Li's Chinese Restaurant Nairobi",
     tagline: "Authentic Chinese Cuisine • Nairobi",
     phone: "+254 746 815 106",
-    email: "info@lischineserestaurant.co.ke",
+    email: "info@lischineserestaurantnairobi.co.ke",
     website: "www.lischineserestaurantnairobi.co.ke/",
     address: "QR74+JR2, PETROCITY-Gigiri, Limuru Rd, Nairobi",
   },
