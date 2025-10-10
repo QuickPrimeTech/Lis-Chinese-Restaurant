@@ -5,24 +5,24 @@ import Link from "next/link";
 export const MenuPreview = () => {
   const menuCategories = [
     {
-      icon: <Wine className="h-8 w-8" />,
+      icon: Wine,
       title: "Drinks Menu",
       description:
         "Curated selection of fine wines, craft cocktails, and premium spirits",
       link: "/menu#drinks",
     },
     {
-      icon: <UtensilsCrossed className="h-8 w-8" />,
+      icon: UtensilsCrossed,
       title: "Food Menu",
       description:
         "Exquisite dishes crafted with the finest ingredients and techniques",
       link: "/menu#food",
     },
     {
-      icon: <Cookie className="h-8 w-8" />,
+      icon: Cookie,
       title: "Dessert Menu",
       description: "Artisanal desserts that provide the perfect sweet finale",
-      link: "/menu#desserts",
+      link: "/menu#Dessert",
     },
   ];
 
@@ -60,7 +60,7 @@ export const MenuPreview = () => {
               className="group bg-background/10 backdrop-blur-md border border-white/20 rounded-xl p-8 text-center hover:bg-background/20 transition-all duration-500 hover:scale-105"
             >
               <div className="text-primary mb-6 flex justify-center group-hover:animate-glow">
-                {category.icon}
+                <category.icon className="size-8" />
               </div>
               <h3 className="text-2xl font-cinzel font-semibold text-white mb-4">
                 {category.title}

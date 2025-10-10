@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { Search, X, ArrowDown } from "lucide-react";
+import { X, ArrowDown, Search, SearchX } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSiteHeader } from "@/layouts/site-header";
 import { Item } from "@/types/menu";
@@ -11,6 +11,8 @@ import { Item } from "@/types/menu";
 // Types
 type StickyCategoryNavProps = {
   menuItems: Record<string, Item[]>;
+  setSearchTerm: (term: string) => void;
+  searchTerm: string;
 };
 type Category = { id: string; label: string };
 type Suggestion = { id: string; name: string; category: string };
@@ -25,6 +27,8 @@ function getCategories(menuItems: Record<string, Item[]>): Category[] {
 
 export default function StickyCategoryNav({
   menuItems,
+  setSearchTerm,
+  searchTerm,
 }: StickyCategoryNavProps) {
   const { announcementOpen } = useSiteHeader();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,10 +39,9 @@ export default function StickyCategoryNav({
   const categories = getCategories(menuItems);
 
   const [active, setActive] = useState(categories[0]?.id ?? "");
-  const [search, setSearch] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [isMobilesearchTermOpen, setIsMobilesearchTermOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
   // Desktop check
@@ -55,14 +58,16 @@ export default function StickyCategoryNav({
       if (!containerRef.current?.contains(e.target as Node)) {
         setSuggestions([]);
         setHighlightedIndex(-1);
-        if (isMobileSearchOpen && !search) setIsMobileSearchOpen(false);
+        if (isMobilesearchTermOpen && !searchTerm)
+          setIsMobilesearchTermOpen(false);
       }
     };
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setSuggestions([]);
         setHighlightedIndex(-1);
-        if (isMobileSearchOpen && !search) setIsMobileSearchOpen(false);
+        if (isMobilesearchTermOpen && !searchTerm)
+          setIsMobilesearchTermOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -71,7 +76,7 @@ export default function StickyCategoryNav({
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [isMobileSearchOpen, search]);
+  }, [isMobilesearchTermOpen, searchTerm]);
 
   // Active category tracking
   useEffect(() => {
@@ -98,7 +103,7 @@ export default function StickyCategoryNav({
 
   // Suggestions update
   useEffect(() => {
-    if (!search.trim()) {
+    if (!searchTerm.trim()) {
       setSuggestions([]);
       setHighlightedIndex(-1);
       return;
@@ -108,8 +113,8 @@ export default function StickyCategoryNav({
     Object.values(menuItems).forEach((items) =>
       items.forEach((item) => {
         if (
-          item.name.toLowerCase().includes(search.toLowerCase()) ||
-          item.description?.toLowerCase().includes(search.toLowerCase())
+          item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.description?.toLowerCase().includes(searchTerm.toLowerCase())
         ) {
           results.push({
             id: `food-${item.id}`,
@@ -122,7 +127,7 @@ export default function StickyCategoryNav({
 
     setSuggestions(results.slice(0, 8));
     setHighlightedIndex(-1);
-  }, [search, menuItems]);
+  }, [searchTerm, menuItems]);
 
   // --- Handlers ---
   const scrollToElement = useCallback((id: string) => {
@@ -133,7 +138,7 @@ export default function StickyCategoryNav({
   }, []);
 
   const handleSuggestionClick = (s: Suggestion) => {
-    setSearch(s.name);
+    setSearchTerm(s.name);
     scrollToElement(s.id);
     setSuggestions([]);
     setHighlightedIndex(-1);
@@ -162,12 +167,12 @@ export default function StickyCategoryNav({
     }
   };
 
-  const handleMobileSearchToggle = () => {
-    setIsMobileSearchOpen(!isMobileSearchOpen);
-    if (!isMobileSearchOpen) {
+  const handleMobilesearchTermToggle = () => {
+    setIsMobilesearchTermOpen(!isMobilesearchTermOpen);
+    if (!isMobilesearchTermOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
-    } else if (!search) {
-      setIsMobileSearchOpen(false);
+    } else if (!searchTerm) {
+      setIsMobilesearchTermOpen(false);
     }
   };
   return (
@@ -178,26 +183,26 @@ export default function StickyCategoryNav({
       )}
     >
       <div className="flex items-center p-3 gap-3 max-w-7xl mx-auto">
-        {/* Search */}
+        {/* searchTerm */}
         <div
           ref={containerRef}
           className={cn(
             "relative md:flex-1 transition-all duration-300 ease-in-out",
             "md:min-w-[300px] max-w-md",
-            !isDesktop && isMobileSearchOpen ? "flex-1" : "w-auto"
+            !isDesktop && isMobilesearchTermOpen ? "flex-1" : "w-auto"
           )}
         >
-          {!isDesktop && !isMobileSearchOpen && (
+          {!isDesktop && !isMobilesearchTermOpen && (
             <Button
               variant="outline"
               size="icon"
-              onClick={handleMobileSearchToggle}
+              onClick={handleMobilesearchTermToggle}
             >
               <Search className="h-5 w-5" />
             </Button>
           )}
 
-          {(isDesktop || isMobileSearchOpen) && (
+          {(isDesktop || isMobilesearchTermOpen) && (
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               {!isDesktop && (
@@ -206,8 +211,8 @@ export default function StickyCategoryNav({
                   size="icon"
                   className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
                   onClick={() => {
-                    setIsMobileSearchOpen(false);
-                    setSearch("");
+                    setIsMobilesearchTermOpen(false);
+                    setSearchTerm("");
                     setSuggestions([]);
                   }}
                 >
@@ -216,9 +221,12 @@ export default function StickyCategoryNav({
               )}
               <Input
                 ref={inputRef}
-                placeholder="Search delicious food..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                placeholder="search delicious food..."
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setSearchTerm(e.target.value);
+                }}
                 onKeyDown={handleKeyDown}
                 className="pl-10 text-sm bg-card/50 border-border/50 focus:border-primary focus:ring-primary/20"
               />
@@ -261,25 +269,37 @@ export default function StickyCategoryNav({
         </div>
 
         {/* Categories */}
-        {!isMobileSearchOpen && (
+        {!isMobilesearchTermOpen && (
           <ScrollArea className="flex-1 w-full min-w-0 rounded-full px-2 py-0.5 bg-foreground/10">
-            <div className="flex space-x-2 py-1 px-1">
-              {categories.map((c) => (
-                <Button
-                  key={c.id}
-                  size="sm"
-                  variant={active === c.id ? "secondary" : "outline"}
-                  onClick={() => scrollToElement(c.id)}
-                  className={cn(
-                    "whitespace-nowrap font-medium rounded-full px-4 py-2 text-xs sm:text-sm",
-                    active === c.id &&
-                      "bg-foreground/80 hover:bg-foreground/90 text-background"
-                  )}
-                >
-                  {c.label}
-                </Button>
-              ))}
-            </div>
+            {categories.length > 0 ? (
+              <div className="flex space-x-2 py-1 px-1">
+                {categories.map((c) => (
+                  <Button
+                    key={c.id}
+                    size="sm"
+                    variant={active === c.id ? "secondary" : "outline"}
+                    onClick={() => scrollToElement(c.id)}
+                    className={cn(
+                      "whitespace-nowrap font-medium rounded-full px-4 py-2 text-xs sm:text-sm transition-all duration-300",
+                      active === c.id &&
+                        "bg-foreground/80 hover:bg-foreground/90 text-background"
+                    )}
+                  >
+                    {c.label}
+                  </Button>
+                ))}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center gap-2 py-1 text-center">
+                <div className="flex items-center justify-center p-2 rounded-full bg-primary/20">
+                  <SearchX className="size-5 text-primary" />
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  No menu categories available yet.
+                </p>
+              </div>
+            )}
+
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
         )}

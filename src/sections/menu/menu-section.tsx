@@ -10,11 +10,19 @@ interface MenuSectionProps {
 }
 
 const MenuSection = ({ title, items }: MenuSectionProps) => (
-  <div className="space-y-8">
+  <section
+    className="space-y-8"
+    aria-labelledby={`section-${title}`}
+    id={title}
+    role="region"
+  >
     <div className="space-y-2 mb-8">
       <Separator className="bg-primary" />
       <div className="text-center">
-        <h2 className="text-3xl font-cinzel font-bold text-red-400 text mb-4">
+        <h2
+          className="text-3xl font-cinzel font-bold text-red-400 text mb-4"
+          id={`section-${title}`}
+        >
           {title}
         </h2>
       </div>
@@ -25,7 +33,7 @@ const MenuSection = ({ title, items }: MenuSectionProps) => (
         <MenuItemCard key={item.id} item={item} />
       ))}
     </div>
-  </div>
+  </section>
 );
 
 export default MenuSection;
