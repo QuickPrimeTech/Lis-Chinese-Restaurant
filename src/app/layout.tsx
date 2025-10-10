@@ -94,7 +94,7 @@ export default function RootLayout({
           <SiteHeader>
             <OrderProvider>
               <CartProvider>
-                <CartButton />
+                {/* <CartButton /> */}
                 {children}
                 <Toaster
                   richColors
@@ -102,12 +102,10 @@ export default function RootLayout({
                   expand={true}
                   icons={{
                     loading: (
-                      <Loader className="w-4 h-4 animate-spin text-foreground" />
+                      <Loader className="animate-spin text-foreground" />
                     ),
-                    success: (
-                      <CheckCircle2 className="w-4 h-4 text-green-500" />
-                    ),
-                    error: <CircleAlert className="w-4 h-4 text-red-500" />,
+                    success: <CheckCircle2 className="text-green-500" />,
+                    error: <CircleAlert className="text-red-500" />,
                   }}
                 />
                 <ContactButton />

@@ -1,11 +1,8 @@
 "use client";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 import { useCart } from "@/contexts/cart-provider";
 import type { Item } from "@/types/menu";
-import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { RemoveItemDialog } from "./remove-item-dialog";
 
@@ -15,15 +12,15 @@ const MenuItemCard = ({ item }: { item: Item }) => {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleMinusClick = () => {
-    if (!cartItem) return;
+  // const handleMinusClick = () => {
+  //   if (!cartItem) return;
 
-    if (cartItem.quantity === 1) {
-      setIsDialogOpen(true); // show dialog instead of immediately removing
-    } else {
-      updateQuantity(item.id, cartItem.quantity - 1);
-    }
-  };
+  //   if (cartItem.quantity === 1) {
+  //     setIsDialogOpen(true); // show dialog instead of immediately removing
+  //   } else {
+  //     updateQuantity(item.id, cartItem.quantity - 1);
+  //   }
+  // };
 
   const confirmRemove = () => {
     if (cartItem) removeFromCart(cartItem.id);
@@ -73,9 +70,9 @@ const MenuItemCard = ({ item }: { item: Item }) => {
             </div>
 
             {/* Quantity Controls */}
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               {/* Minus button */}
-              {cartItem?.quantity && cartItem.quantity > 0 && (
+            {/* {cartItem?.quantity && cartItem.quantity > 0 && (
                 <Button
                   size="sm"
                   variant="outline"
@@ -84,20 +81,20 @@ const MenuItemCard = ({ item }: { item: Item }) => {
                 >
                   −
                 </Button>
-              )}
+              )} */}
 
-              {/* Add button */}
-              <Button
+            {/* Add button */}
+            {/* <Button
                 onClick={() => addToCart(item)}
                 size="sm"
                 className="bg-gradient-to-r from-primary/80 to-primary hover:shadow-xl transition-all duration-300 flex items-center"
               >
                 <Plus className="mr-1" />
                 Add to Order
-              </Button>
+              </Button> */}
 
-              {/* Quantity Badge */}
-              {cartItem?.quantity && cartItem.quantity > 0 && (
+            {/* Quantity Badge */}
+            {/* {cartItem?.quantity && cartItem.quantity > 0 && (
                 <span
                   className={cn(
                     "bg-primary text-primary-foreground rounded-full px-2 aspect-square flex items-center  text-xs font-bold",
@@ -106,8 +103,8 @@ const MenuItemCard = ({ item }: { item: Item }) => {
                 >
                   {cartItem.quantity}
                 </span>
-              )}
-            </div>
+              )} */}
+            {/* </div> */}
           </div>
         </CardContent>
       </Card>
