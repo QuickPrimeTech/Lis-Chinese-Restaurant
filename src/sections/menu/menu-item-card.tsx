@@ -62,7 +62,7 @@ const MenuItemCard = ({ item }: { item: Item }) => {
                 <h3 className="font-cinzel font-bold text-md md:text-lg lg:text-xl text-foreground tracking-wide">
                   {item.name}
                 </h3>
-                <span className="font-chivo font-semibold text-lg text-foreground">
+                <span className="font-chivo font-semibold text-lg text-foreground whitespace-nowrap">
                   Ksh {item.price}
                 </span>
               </div>
