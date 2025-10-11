@@ -49,7 +49,7 @@ export default function EventInquiryForm() {
       setIsSubmitting(true);
       const res = await axios.post("/api/private-events", data);
 
-      // ✅ Backend success
+      //  Backend success
       if (res.data.success) {
         toast.success(
           res.data.message || "Event inquiry submitted successfully!"
@@ -57,11 +57,11 @@ export default function EventInquiryForm() {
         // setIsSubmitted(true);
       }
     } catch (err) {
-      // 🔥 Handle validation or server errors
+      // Handle validation or server errors
       if (axios.isAxiosError(err)) {
         const resData = err.response?.data;
 
-        // 🧩 Case 1: Validation errors array
+        // Case 1: Validation errors array
         if (resData?.errors && Array.isArray(resData.errors)) {
           resData.errors.forEach(
             (error: { field: string; message: string }) => {
@@ -69,7 +69,7 @@ export default function EventInquiryForm() {
             }
           );
         }
-        // 🧩 Case 2: Generic backend error
+        //  Case 2: Generic backend error
         else if (resData?.message) {
           toast.error(resData.message);
         } else {
