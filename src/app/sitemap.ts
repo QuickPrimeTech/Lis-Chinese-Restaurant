@@ -6,8 +6,6 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 const baseDir = "src/app";
 const excludeDirs = ["api", "fonts"];
 
-export const revalidate = 86400; // once per day
-
 const priorityMap: Record<string, number> = {
   "/": 1.0,
   "/menu": 0.9,
