@@ -22,15 +22,15 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 export default async function Home() {
-  const USER_ID = process.env.USER_ID;
+  const branch_id = process.env.BRANCH_ID;
 
   // Fetch FAQs
   const { data: faqs, error } = await supabase
     .from("faqs")
     .select("id, question, answer, is_published, order_index")
-    .eq("user_id", USER_ID)
     .eq("is_published", true)
-    .order("order_index", { ascending: true }); // ✅ sort by order_index
+    .eq("branch_id", branch_id)
+    .order("order_index", { ascending: true }); //  sort by order_index
 
   if (error) {
     console.error("Error fetching FAQs:", error.message);
