@@ -154,7 +154,7 @@ export const ReservationFormSection = ({
       <div className="max-w-3xl mx-auto">
         <Card className="bg-card border-border shadow-lg transform transition-all duration-500 hover:shadow-xl">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl md:text-4xl font-bold text-foreground mb-4 break-words px-2 sm:px-0">
+            <CardTitle className="text-3xl md:text-4xl font-bold text-foreground mb-4 wrap-break-word px-2 sm:px-0">
               {!isSubmitted && "Book Your Experience"}
             </CardTitle>
 
@@ -167,7 +167,7 @@ export const ReservationFormSection = ({
                     <div
                       key={index}
                       className={cn(
-                        "flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium transition-all duration-300 transform flex-shrink-0",
+                        "flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium transition-all duration-300 transform shrink-0",
                         current === step
                           ? "bg-primary text-primary-foreground shadow-md scale-105"
                           : current < step
