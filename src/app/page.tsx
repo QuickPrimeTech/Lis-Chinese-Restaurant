@@ -45,7 +45,7 @@ export default async function Home() {
       <AboutSection />
       <CTASection />
       <ContactSection />
-      <FAQSection faqs={faqs ?? []} /> {/* ✅ pass fetched faqs */}
+      <FAQSection faqs={faqs ?? []} /> {/* pass fetched faqs */}
       <FollowUs />
     </>
   );

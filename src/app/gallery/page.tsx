@@ -1,8 +1,8 @@
 // @/app/gallery/page.tsx
+import { supabase } from "@/lib/supabase/server";
+import { Metadata } from "next";
 import GalleryContent from "@/sections/gallery/content";
 import GalleryCTA from "@/sections/gallery/CTA";
-import { Metadata } from "next";
-import { supabase } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "Our Gallery",
@@ -11,17 +11,17 @@ export const metadata: Metadata = {
 };
 
 // ✅ force static, no auto revalidation (only on-demand ISR)
-export const dynamic = "force-static";
-export const revalidate = false;
+// export const dynamic = "force-static";
+// export const revalidate = false;
 
 export default async function GalleryPage() {
-  const USER_ID = process.env.USER_ID;
+  const branchId = process.env.BRANCH_ID!;
 
   const { data, error } = await supabase
     .from("gallery")
     .select("id, title, description, is_published, image_url, category")
-    .eq("user_id", USER_ID)
     .eq("is_published", true)
+    .eq("branch_id", branchId)
     .order("created_at", { ascending: false });
 
   if (error) {

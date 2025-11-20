@@ -14,7 +14,7 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 export default async function MenuPage() {
-  const branch_id = process.env.BRANCH_ID; // ✅ load from env
+  const branch_id = process.env.BRANCH_ID; // load from env
 
   const { data, error } = await supabase
     .from("menu_items")
