@@ -1,9 +1,6 @@
 "use client";
-
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,33 +21,37 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Loader, Send } from "lucide-react";
-import { contactFormSchema } from "@/schemas/contact-form";
+import {
+  contactFormSchema,
+  ContactFormValues,
+  labels,
+} from "@/schemas/contact-form";
 import { toast } from "sonner";
 
-// Infer form type from schema
-type ContactFormValues = z.infer<typeof contactFormSchema>;
-
 export function ContactForm() {
+  const defaultValues: ContactFormValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    inquiryType: "general",
+    message: "",
+  };
+
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      inquiryType: undefined, // start empty
-      message: "",
-    },
+    defaultValues,
   });
 
   const onSubmit = async (values: ContactFormValues) => {
+    const payload = { ...values, inquiryType: labels[values.inquiryType] };
     try {
       await fetch("/api/notifications/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
       toast.success("Your inquiry has been sent successfully!");
       form.reset();
@@ -137,10 +138,7 @@ export function ContactForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Inquiry Type</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
+                  <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select an inquiry type" />
