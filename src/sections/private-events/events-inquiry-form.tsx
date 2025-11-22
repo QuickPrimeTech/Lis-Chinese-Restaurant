@@ -162,7 +162,7 @@ export default function EventInquiryForm() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <section className="max-w-4xl mx-auto" id="events-inquiry-form">
       <Card className="shadow-elegant bg-gradient-subtle">
         <CardHeader className="text-center pb-6">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
@@ -242,6 +242,6 @@ export default function EventInquiryForm() {
           </Form>
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 }
