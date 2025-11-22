@@ -16,6 +16,8 @@ import Link from "next/link";
 import { BsGoogle } from "react-icons/bs";
 import { TestimonialDialog } from "@/components/testimonials/testimonial-dialog"; // 👈 import dialog
 import { Testimonial } from "@/types/testimonial";
+import { FaTripadvisor } from "react-icons/fa";
+import { site } from "@/config/site-config";
 
 export const TestimonialCarousel = () => {
   const [selectedTestimonial, setSelectedTestimonial] =
@@ -154,7 +156,7 @@ export const TestimonialCarousel = () => {
           <CarouselNext className="text-primary border-primary hover:bg-primary hover:text-primary-foreground" />
         </Carousel>
 
-        <div className="flex justify-center mt-6">
+        <div className="flex flex-col md:flex-row justify-center mt-6 gap-2">
           <Button asChild size={"lg"}>
             <Link
               href="https://www.google.com/maps/place/Li's+Chinese+Restaurant"
@@ -163,6 +165,17 @@ export const TestimonialCarousel = () => {
             >
               <BsGoogle />
               Review us on Google <ExternalLink />
+            </Link>
+          </Button>
+          <Button asChild size={"lg"} variant={"secondary"}>
+            <Link
+              href={site.socials.tripAdvisor}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTripadvisor />
+              Review us on TripAdvisor
+              <ExternalLink />
             </Link>
           </Button>
         </div>
