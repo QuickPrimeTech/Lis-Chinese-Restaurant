@@ -14,15 +14,13 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 export default async function MenuPage() {
-  const USER_ID = process.env.USER_ID; // ✅ load from env
+  const branch_id = process.env.BRANCH_ID; // load from env
 
   const { data, error } = await supabase
     .from("menu_items")
-    .select(
-      "id, name, description, price, category, image_url, user_id, is_available"
-    )
-    .eq("user_id", USER_ID) // ✅ filter by user
-    .eq("is_available", true); // ✅ only available items
+    .select("id, name, description, price, category, image_url,is_available")
+    .eq("branch_id", branch_id) // filter by user
+    .eq("is_available", true); // only available items
 
   if (error) {
     console.error("Error fetching menu items:", error.message);

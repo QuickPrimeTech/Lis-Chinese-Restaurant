@@ -93,7 +93,7 @@ export const ReservationDetailsStep = ({
 
                       return day < today || day > maxDate;
                     }}
-                    initialFocus
+                    autoFocus
                     className={cn("p-3 pointer-events-auto")}
                   />
                 </PopoverContent>

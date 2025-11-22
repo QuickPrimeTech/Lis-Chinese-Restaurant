@@ -27,35 +27,20 @@ export const awards = [
 
 export const team = [
   {
-    name: "Alexandre Dubois",
+    name: "Hari Khasu",
     role: "Executive Chef",
-    experience: "15+ years",
-    image: "/team1.jpg",
+    image:
+      "https://res.cloudinary.com/quick-prime-tech/image/upload/v1763838284/nbsnj8kp0fgkbkt4exar_1_ezamhe.jpg",
     description:
       "Trained in Paris and Tokyo, brings international expertise to Li's Chinese Restaurant",
   },
   {
-    name: "Maria Santos",
-    role: "Pastry Chef",
-    experience: "12+ years",
-    image: "/team3.jpg",
+    name: "Morris Mativo",
+    role: " Head of Strategy, Operations &  Compliance",
+    image:
+      "https://res.cloudinary.com/quick-prime-tech/image/upload/v1763838006/rdeyxjzcdjp2s2eiidgd_1_ewdj02.jpg",
     description:
       "Award-winning pastry chef specializing in modern European desserts",
-  },
-  {
-    name: "James Wellington",
-    role: "Sommelier",
-    experience: "10+ years",
-    image: "/team4.jpg",
-    description:
-      "Master sommelier with expertise in rare wines and perfect pairings",
-  },
-  {
-    name: "Sofia Rodriguez",
-    role: "Restaurant Manager",
-    experience: "8+ years",
-    image: "/team2.jpg",
-    description: "Ensures impeccable service and memorable dining experiences",
   },
 ];
 

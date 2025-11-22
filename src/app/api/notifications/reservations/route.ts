@@ -1,15 +1,23 @@
-import { site } from "@/config/site-config";
 // @/app/api/notification/contact/route.ts
+
+import { site } from "@/config/site-config";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
-import { OwnerConfirmationEmail } from "@/email-templates/reservations/owner";
 import { CustomerConfirmationEmail } from "@/email-templates/reservations/customer";
 import { ReservationFormValues } from "@/schemas/reservations";
-
-import { supabase } from "@/lib/supabase/server"; // ✅ adjust import if needed
+import { supabase } from "@/lib/supabase/server"; // adjust import if needed
+import { OwnerConfirmationEmail } from "@/email-templates/reservations/owner";
 
 export async function POST(req: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
+  const branchId = process.env.BRANCH_ID!;
+
+  if (!branchId) {
+    return NextResponse.json(
+      { error: "Branch ID is not configured." },
+      { status: 403 }
+    );
+  }
 
   try {
     const body: ReservationFormValues = await req.json();
@@ -26,20 +34,20 @@ export async function POST(req: Request) {
       requests,
     } = body;
 
-    // ✅ Insert reservation into Supabase
+    // Insert reservation into Supabase
     const { error: dbError } = await supabase.from("reservations").insert([
       {
         name: `${firstName} ${lastName}`,
         email,
         phone,
         date: new Date(date).toISOString().split("T")[0], // keep only YYYY-MM-DD
-        time, // ⚠️ must be in "HH:MM:SS" format for Postgres TIME
+        time, // must be in "HH:MM:SS" format for Postgres TIME
         guests: parseInt(guests, 10),
         status: "pending",
         dining_preference: diningPreference,
         occasion,
         requests,
-        user_id: process.env.USER_ID, // or however you link the restaurant
+        branch_id: branchId, // or however you link the restaurant
       },
     ]);
 

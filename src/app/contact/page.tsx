@@ -1,8 +1,10 @@
 // @/app/contact/page.tsx
 
 import { ContactForm } from "@/components/contact/contact-form";
+import ContactHero from "@/sections/contact/hero";
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
+import ContactQuickActions from "@/sections/contact/quick-actions";
+import ContactInfo from "@/sections/contact/info";
 
 // ✅ Metadata (server component requirement)
 export const metadata: Metadata = {
@@ -10,19 +12,6 @@ export const metadata: Metadata = {
   description:
     "Have a question or want to plan something special? Get in touch with us for inquiries, private event bookings, or reservations — we’re always happy to help and serve you authentic Chinese cuisine with warm hospitality.",
 };
-
-// ✅ Dynamic imports still allowed inside server components
-const ContactInfo = dynamic(() => import("@/sections/contact/info"), {
-  ssr: !!false,
-});
-
-const ContactQuickActions = dynamic(
-  () => import("@/sections/contact/quick-actions"),
-  { ssr: !!false }
-);
-const ContactHero = dynamic(() => import("@/sections/contact/hero"), {
-  ssr: !!false,
-});
 
 export default function ContactPage() {
   return (
