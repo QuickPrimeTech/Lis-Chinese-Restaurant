@@ -3,9 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { newsletterSchema } from "@/schemas/newsletterSchema";
 import { supabase } from "@/lib/supabase/server";
 
-const user_id = process.env.USER_ID!; // fixed user ID for all newsletter signups
-
 export async function POST(req: NextRequest) {
+  const branchId = process.env.BRANCH_ID;
+
   try {
     // Parse incoming request body
     const body = await req.json();
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     // ✅ Step 3: Insert email into Supabase
     const { error: insertError } = await supabase
       .from("newsletter")
-      .insert([{ email, user_id }]);
+      .insert([{ email, branch_id: branchId }]);
 
     if (insertError) {
       console.error(
