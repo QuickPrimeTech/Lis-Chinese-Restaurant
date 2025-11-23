@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
+import Link from "next/link";
 
 const privateEventsHero =
   "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758109094/private-event.jpg";
@@ -50,11 +51,7 @@ const eventPackages = [
   },
 ];
 
-const EventPackages = ({
-  onSelectPackage,
-}: {
-  onSelectPackage: (id: string) => void;
-}) => {
+const EventPackages = () => {
   return (
     <div>
       <div className="text-center mb-12">
@@ -97,16 +94,18 @@ const EventPackages = ({
                       key={idx}
                       className="flex items-center text-muted-foreground font-chivo"
                     >
-                      <CheckCircle className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
+                      <CheckCircle className="h-4 w-4 text-primary mr-2 shrink-0" />
                       {feature}
                     </li>
                   ))}
                 </ul>
                 <Button
-                  onClick={() => onSelectPackage(pkg.id)}
                   className="w-full bg-gradient-primary hover:shadow-glow transition-all duration-300"
+                  asChild
                 >
-                  Inquire About This Package
+                  <Link href={"#events-inquiry-form"}>
+                    Inquire About This Package
+                  </Link>
                 </Button>
               </div>
             </CardContent>
