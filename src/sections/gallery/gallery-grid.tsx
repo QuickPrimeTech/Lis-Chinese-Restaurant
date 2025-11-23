@@ -47,6 +47,8 @@ export function GalleryGrid({ images }: GalleryGridProps) {
                     src={image.image}
                     alt={image.title ?? "Gallery image"}
                     width={800}
+                    placeholder={image.lqip ? "blur" : "empty"}
+                    blurDataURL={image.lqip ?? undefined}
                     height={600}
                     className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
                   />

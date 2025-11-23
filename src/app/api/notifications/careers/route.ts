@@ -3,13 +3,11 @@ import { Resend } from "resend";
 import { serverApplicationSchema } from "@/schemas/career-schema";
 import { supabase } from "@/lib/supabase/server";
 import { CustomerConfirmationEmail } from "@/email-templates/careers/customer";
-import { OwnerConfirmationEmail } from "@/email-templates/careers/owner";
 import { site } from "@/config/site-config";
+import { OwnerConfirmationEmail } from "@/email-templates/careers/owner";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// ✅ Read user ID from environment
-const USER_ID = process.env.USER_ID as string;
+const branchId = process.env.BRANCH_ID;
 
 export async function POST(req: Request) {
   try {
@@ -34,7 +32,7 @@ export async function POST(req: Request) {
       cover_letter: parsed.coverLetter,
       references: parsed.references || null, // reserved keyword but quoted in DB
       cv_url: parsed.cvUrl ?? null,
-      user_id: USER_ID, // ✅ Include required user_id
+      branch_id: branchId, // ✅ Include required user_id
     };
 
     // ✅ Insert into Supabase table

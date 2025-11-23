@@ -6,4 +6,5 @@ export interface GalleryImage {
   description: string;
   category: string;
   image: string;
+  lqip: string | null;
 }

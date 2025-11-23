@@ -19,11 +19,12 @@ export default async function GalleryPage() {
 
   const { data, error } = await supabase
     .from("gallery")
-    .select("id, title, description, is_published, image_url, category")
+    .select("id, title, description, is_published, image_url, lqip, category")
     .eq("is_published", true)
     .eq("branch_id", branchId)
     .order("created_at", { ascending: false });
 
+  console.log(data);
   if (error) {
     console.error("Error fetching gallery:", error.message);
     return <div>Failed to load gallery.</div>;
@@ -36,6 +37,7 @@ export default async function GalleryPage() {
       description: item.description,
       category: item.category,
       image: item.image_url,
+      lqip: item.lqip,
     })) ?? [];
 
   return (
