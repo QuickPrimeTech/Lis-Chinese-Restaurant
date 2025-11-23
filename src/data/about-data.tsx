@@ -31,16 +31,12 @@ export const team = [
     role: "Executive Chef",
     image:
       "https://res.cloudinary.com/quick-prime-tech/image/upload/v1763838284/nbsnj8kp0fgkbkt4exar_1_ezamhe.jpg",
-    description:
-      "Oversees kitchen operations and menu creation, ensuring every dish meets the restaurant’s culinary standards.",
   },
   {
     name: "Morris Mativo",
     role: "Head of Strategy, Operations & Compliance",
     image:
       "https://res.cloudinary.com/quick-prime-tech/image/upload/v1763838006/rdeyxjzcdjp2s2eiidgd_1_ewdj02.jpg",
-    description:
-      "Leads strategic planning and daily operations while ensuring the restaurant runs efficiently and meets industry compliance requirements.",
   },
 ];
 

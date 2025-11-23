@@ -40,10 +40,9 @@ export default function AboutTeam() {
                 <p className="text-primary font-chivo font-medium mb-2">
                   {member.role}
                 </p>
-
-                <p className="text-muted-foreground font-chivo text-sm leading-relaxed">
+                {/* <p className="text-muted-foreground font-chivo text-sm leading-relaxed">
                   {member.description}
-                </p>
+                </p> */}
               </CardContent>
             </Card>
           ))}
