@@ -15,14 +15,24 @@ export async function POST(req: Request) {
     // 1. Send email to owner
     const { error: ownerError } = await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
-      to: [site.emails.events], // owner inbox
+      to: site.emails.events, // owner inbox
       subject: "You've received a private event inquiry🎉",
       react: OwnerConfirmationEmail({
         ...body,
       }),
     });
 
-    if (ownerError) {
+    // Send email to backup address
+    const { error: backupError } = await resend.emails.send({
+      from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
+      to: site.emails.backup, // owner inbox
+      subject: "You've received a private event inquiry🎉",
+      react: OwnerConfirmationEmail({
+        ...body,
+      }),
+    });
+
+    if (ownerError || backupError) {
       return NextResponse.json({ error: ownerError }, { status: 500 });
     }
 

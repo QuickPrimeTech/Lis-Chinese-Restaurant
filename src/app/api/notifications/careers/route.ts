@@ -43,29 +43,38 @@ export async function POST(req: Request) {
 
     if (error) throw error;
 
+    const ownerPayload = {
+      firstName: parsed.firstName,
+      lastName: parsed.lastName,
+      email: parsed.email,
+      phone: parsed.phone,
+      address: parsed.address,
+      dateOfBirth: parsed.dateOfBirth,
+      position: parsed.position,
+      experience: parsed.experience,
+      previousEmployment: parsed.previousEmployment,
+      skills: parsed.skills,
+      languages: parsed.languages,
+      startDate: parsed.startDate,
+      hoursPerWeek: parsed.hoursPerWeek,
+      coverLetter: parsed.coverLetter,
+      references: parsed.references,
+      cvUrl: parsed.cvUrl ?? "",
+    };
     // ✅ Notify the restaurant owner
     await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`,
       to: site.emails.careers,
       subject: `New Job Application: ${parsed.firstName} ${parsed.lastName}`,
-      react: OwnerConfirmationEmail({
-        firstName: parsed.firstName,
-        lastName: parsed.lastName,
-        email: parsed.email,
-        phone: parsed.phone,
-        address: parsed.address,
-        dateOfBirth: parsed.dateOfBirth,
-        position: parsed.position,
-        experience: parsed.experience,
-        previousEmployment: parsed.previousEmployment,
-        skills: parsed.skills,
-        languages: parsed.languages,
-        startDate: parsed.startDate,
-        hoursPerWeek: parsed.hoursPerWeek,
-        coverLetter: parsed.coverLetter,
-        references: parsed.references,
-        cvUrl: parsed.cvUrl ?? "",
-      }),
+      react: OwnerConfirmationEmail(ownerPayload),
+    });
+
+    // ✅ Notify the backup email address
+    await resend.emails.send({
+      from: `${site.restaurant.name} <${site.emails.system}>`,
+      to: site.emails.backup,
+      subject: `New Job Application: ${parsed.firstName} ${parsed.lastName}`,
+      react: OwnerConfirmationEmail(ownerPayload),
     });
 
     // ✅ Send confirmation to applicant
@@ -86,7 +95,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       { error: err.message || "Failed to submit application" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

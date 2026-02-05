@@ -12,21 +12,29 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { firstName, lastName, email, phone, inquiryType, message } = body;
 
+    const ownerPayload = {
+      customerName: `${firstName} ${lastName}`,
+      customerEmail: email,
+      phoneNumber: phone,
+      inquiryType,
+      message,
+    };
     // 1. Send email to owner
     const { error: ownerError } = await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
-      to: [site.emails.inquiries], // owner inbox
+      to: site.emails.inquiries, // owner inbox
       subject: "📩 New Customer Inquiry Received",
-      react: OwnerConfirmationEmail({
-        customerName: `${firstName} ${lastName}`,
-        customerEmail: email,
-        phoneNumber: phone,
-        inquiryType,
-        message,
-      }),
+      react: OwnerConfirmationEmail(ownerPayload),
     });
 
-    if (ownerError) {
+    const { error: backupError } = await resend.emails.send({
+      from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
+      to: site.emails.backup, // owner inbox
+      subject: "📩 New Customer Inquiry Received",
+      react: OwnerConfirmationEmail(ownerPayload),
+    });
+
+    if (ownerError || backupError) {
       return NextResponse.json({ error: ownerError }, { status: 500 });
     }
 

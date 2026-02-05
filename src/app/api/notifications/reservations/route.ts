@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   if (!branchId) {
     return NextResponse.json(
       { error: "Branch ID is not configured." },
-      { status: 403 }
+      { status: 403 },
     );
   }
 
@@ -56,26 +56,36 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: dbError.message }, { status: 500 });
     }
 
+    const ownerPayload = {
+      firstName,
+      lastName,
+      email,
+      phone,
+      date,
+      time,
+      guests,
+      diningPreference,
+      occasion,
+      requests,
+    };
+
     // 1. Send email to owner
     const { error: ownerError } = await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`,
-      to: [site.emails.reservations],
+      to: [site.emails.reservations, site.emails.backup],
       subject: "New Reservation Booked 🎉",
-      react: OwnerConfirmationEmail({
-        firstName,
-        lastName,
-        email,
-        phone,
-        date,
-        time,
-        guests,
-        diningPreference,
-        occasion,
-        requests,
-      }),
+      react: OwnerConfirmationEmail(ownerPayload),
     });
 
-    if (ownerError) {
+    //Send email to the backup email
+    const { error: backupError } = await resend.emails.send({
+      from: `${site.restaurant.name} <${site.emails.system}>`,
+      to: site.emails.backup,
+      subject: "New Reservation Booked 🎉",
+      react: OwnerConfirmationEmail(ownerPayload),
+    });
+
+    if (ownerError || backupError) {
       return NextResponse.json({ error: ownerError }, { status: 500 });
     }
 
