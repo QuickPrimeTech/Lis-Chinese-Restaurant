@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase/server";
 import { CustomerConfirmationEmail } from "@/email-templates/careers/customer";
 import { site } from "@/config/site-config";
 import { OwnerConfirmationEmail } from "@/email-templates/careers/owner";
+import { delay } from "@/lib/api";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const branchId = process.env.BRANCH_ID;
@@ -65,10 +66,21 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`,
       to: site.emails.careers,
-      bcc: [site.emails.backup],
       subject: `New Job Application: ${parsed.firstName} ${parsed.lastName}`,
       react: OwnerConfirmationEmail(ownerPayload),
     });
+
+    await delay(600);
+
+    // ✅ Notify the backup email
+    await resend.emails.send({
+      from: `${site.restaurant.name} <${site.emails.system}>`,
+      to: site.emails.backup,
+      subject: `New Job Application: ${parsed.firstName} ${parsed.lastName}`,
+      react: OwnerConfirmationEmail(ownerPayload),
+    });
+
+    await delay(600);
 
     // ✅ Send confirmation to applicant
     await resend.emails.send({

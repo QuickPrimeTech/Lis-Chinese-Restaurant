@@ -7,9 +7,7 @@ import { CustomerConfirmationEmail } from "@/email-templates/reservations/custom
 import { ReservationFormValues } from "@/schemas/reservations";
 import { supabase } from "@/lib/supabase/server"; // adjust import if needed
 import { OwnerConfirmationEmail } from "@/email-templates/reservations/owner";
-
-export const delay = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+import { delay } from "@/lib/api";
 
 export async function POST(req: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -76,15 +74,28 @@ export async function POST(req: Request) {
     const { error: ownerError } = await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`,
       to: site.emails.reservations,
-      bcc: [site.emails.backup],
       subject: "New Reservation Booked 🎉",
       react: OwnerConfirmationEmail(ownerPayload),
     });
 
-    if (ownerError) {
-      return NextResponse.json({ error: ownerError.message }, { status: 500 });
+    await delay(600);
+
+    // Send email to backup email
+    const { error: backupError } = await resend.emails.send({
+      from: `${site.restaurant.name} <${site.emails.system}>`,
+      to: site.emails.backup,
+      subject: "New Reservation Booked 🎉",
+      react: OwnerConfirmationEmail(ownerPayload),
+    });
+
+    if (ownerError || backupError) {
+      return NextResponse.json(
+        { error: ownerError?.message || backupError?.message },
+        { status: 500 },
+      );
     }
 
+    await delay(600);
     // 2. Send confirmation to customer
     const { error: customerError } = await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.reservations}>`,
