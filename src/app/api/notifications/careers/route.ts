@@ -65,14 +65,7 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`,
       to: site.emails.careers,
-      subject: `New Job Application: ${parsed.firstName} ${parsed.lastName}`,
-      react: OwnerConfirmationEmail(ownerPayload),
-    });
-
-    // ✅ Notify the backup email address
-    await resend.emails.send({
-      from: `${site.restaurant.name} <${site.emails.system}>`,
-      to: site.emails.backup,
+      bcc: [site.emails.backup],
       subject: `New Job Application: ${parsed.firstName} ${parsed.lastName}`,
       react: OwnerConfirmationEmail(ownerPayload),
     });

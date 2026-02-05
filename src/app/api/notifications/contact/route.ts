@@ -23,19 +23,13 @@ export async function POST(req: Request) {
     const { error: ownerError } = await resend.emails.send({
       from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
       to: site.emails.inquiries, // owner inbox
+      bcc: [site.emails.backup],
       subject: "📩 New Customer Inquiry Received",
       react: OwnerConfirmationEmail(ownerPayload),
     });
 
-    const { error: backupError } = await resend.emails.send({
-      from: `${site.restaurant.name} <${site.emails.system}>`, // ✅ verified sender
-      to: site.emails.backup, // owner inbox
-      subject: "📩 New Customer Inquiry Received",
-      react: OwnerConfirmationEmail(ownerPayload),
-    });
-
-    if (ownerError || backupError) {
-      return NextResponse.json({ error: ownerError }, { status: 500 });
+    if (ownerError) {
+      return NextResponse.json({ error: ownerError.message }, { status: 500 });
     }
 
     // 2. Send confirmation to customer
@@ -50,7 +44,10 @@ export async function POST(req: Request) {
     });
 
     if (customerError) {
-      return NextResponse.json({ error: customerError }, { status: 500 });
+      return NextResponse.json(
+        { error: customerError.message },
+        { status: 500 },
+      );
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
