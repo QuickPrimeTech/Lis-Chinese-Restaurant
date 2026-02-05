@@ -113,11 +113,9 @@ export function MpesaPaymentStep({
               setUniqueId(null);
               setStep("error");
             }
-          }
+          },
         )
         .subscribe();
-
-      console.log("🔌 Subscribed to payment updates:", uniqueId);
     } catch (err) {
       console.error("Error checking payment status:", err);
       toast.error("Failed to connect to payment updates");
@@ -208,7 +206,7 @@ export function MpesaPaymentStep({
         setUniqueId(response.data.unique_id);
         setOrderId(response.data.order_id);
         toast.success(
-          "Payment request sent. Please check your phone to complete the transaction."
+          "Payment request sent. Please check your phone to complete the transaction.",
         );
       } else {
         throw new Error("Invalid response from server");

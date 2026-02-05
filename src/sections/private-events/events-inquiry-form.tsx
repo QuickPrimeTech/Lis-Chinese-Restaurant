@@ -44,7 +44,6 @@ export default function EventInquiryForm() {
   });
 
   const onSubmit = async (data: PrivateEventFormValues) => {
-    console.log("current step--->", currentStep);
     try {
       setIsSubmitting(true);
       const res = await axios.post("/api/private-events", data);
@@ -52,7 +51,7 @@ export default function EventInquiryForm() {
       // ✅ Backend success
       if (res.data.success) {
         toast.success(
-          res.data.message || "Event inquiry submitted successfully!"
+          res.data.message || "Event inquiry submitted successfully!",
         );
         // setIsSubmitted(true);
       }
@@ -66,7 +65,7 @@ export default function EventInquiryForm() {
           resData.errors.forEach(
             (error: { field: string; message: string }) => {
               toast.error(`${error.field}: ${error.message}`);
-            }
+            },
           );
         }
         // 🧩 Case 2: Generic backend error
@@ -205,7 +204,7 @@ export default function EventInquiryForm() {
                         "w-2 h-2 rounded-full transition-all duration-300",
                         i + 1 <= currentStep
                           ? "bg-primary"
-                          : "bg-muted-foreground/30"
+                          : "bg-muted-foreground/30",
                       )}
                     />
                   ))}

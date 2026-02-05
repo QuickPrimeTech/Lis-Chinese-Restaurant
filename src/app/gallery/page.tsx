@@ -24,7 +24,6 @@ export default async function GalleryPage() {
     .eq("branch_id", branchId)
     .order("created_at", { ascending: false });
 
-  console.log(data);
   if (error) {
     console.error("Error fetching gallery:", error.message);
     return <div>Failed to load gallery.</div>;
