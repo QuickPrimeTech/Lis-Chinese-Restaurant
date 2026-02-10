@@ -41,7 +41,8 @@ export default async function Home() {
     <>  
       <HeroSection />
       <MenuPreview />
-      <OrderOnlineSection/>      <TestimonialCarousel />
+      <OrderOnlineSection/>    
+        <TestimonialCarousel />
       <AboutSection />
       <CTASection />
       <ContactSection />

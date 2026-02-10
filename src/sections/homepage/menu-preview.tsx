@@ -27,7 +27,7 @@ export const MenuPreview = () => {
   ];
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden rounded-b-[2rem] relative z-10">
       {/* Background Image */}
       <div className="absolute inset-0 -z-10">
         <Image
