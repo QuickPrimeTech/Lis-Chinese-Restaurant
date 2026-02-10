@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       cover_letter: parsed.coverLetter,
       references: parsed.references || null, // reserved keyword but quoted in DB
       cv_url: parsed.cvUrl ?? null,
-      branch_id: branchId, // ✅ Include required user_id
+      branch_id: branchId, //
     };
 
     // ✅ Insert into Supabase table

@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     } = result.data;
 
     // You can replace this with actual Supabase auth logic later
-    const userId = process.env.USER_ID;
+    const branchId = process.env.BRANCH_ID;
 
     const { error } = await supabase.from("private_events").insert([
       {
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
         event_date: date,
         event_type: eventType,
         guests,
-        user_id: userId,
+        branchId: branchId,
       },
     ]);
 

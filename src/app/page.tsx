@@ -9,6 +9,7 @@ import { MenuPreview } from "@/sections/homepage/menu-preview";
 // import { OfferSection } from "@/sections/homepage/offer";
 import { TestimonialCarousel } from "@/sections/homepage/testimonials";
 import { supabase } from "@/lib/supabase/server";
+import OrderOnlineSection from "@/sections/homepage/order-online";
 
 export const metadata = {
   title:
@@ -37,11 +38,10 @@ export default async function Home() {
   }
 
   return (
-    <>
+    <>  
       <HeroSection />
       <MenuPreview />
-      {/* <OfferSection /> */}
-      <TestimonialCarousel />
+      <OrderOnlineSection/>      <TestimonialCarousel />
       <AboutSection />
       <CTASection />
       <ContactSection />

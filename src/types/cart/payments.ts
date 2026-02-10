@@ -2,7 +2,7 @@ import { CartItem } from "@/contexts/cart-provider";
 
 export type SupabaseOrder = {
   created_at: string;
-  user_id: string;
+  branch_id: string;
   name: string;
   phone: string;
   email: string;
