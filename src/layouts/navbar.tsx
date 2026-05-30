@@ -62,7 +62,7 @@ export const Navbar = ({ className }: NavbarProps) => {
             ? "bg-background/70 backdrop-blur-md border-b border-border shadow-lg"
             : "bg-transparent border-b border-primary/20"
         }`,
-        className
+        className,
       )}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,7 +70,7 @@ export const Navbar = ({ className }: NavbarProps) => {
           {/* Logo + Name */}
           <Link
             href="/"
-            className="flex items-center space-x-2 text-2xl font-cinzel font-bold text-primary hover:text-primary-glow transition-colors"
+            className="flex items-center space-x-2 text-xl font-cinzel font-bold text-primary hover:text-primary-glow transition-colors"
           >
             <Image
               src="/logo.jpg"
@@ -79,7 +79,7 @@ export const Navbar = ({ className }: NavbarProps) => {
               height={36}
               className="rounded-full"
             />
-            <span className="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px] sm:max-w-[300px]">
+            <span className="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-50 sm:max-w-70">
               Li&apos;s Chinese Restaurant
             </span>
           </Link>
@@ -96,7 +96,7 @@ export const Navbar = ({ className }: NavbarProps) => {
                     ? isScrolled
                       ? "text-foreground"
                       : "text-white"
-                    : "text-foreground"
+                    : "text-foreground",
                 )}
               >
                 {item.name}
@@ -114,13 +114,13 @@ export const Navbar = ({ className }: NavbarProps) => {
                           ? "text-foreground hover:text-foreground"
                           : "text-white hover:text-white"
                         : "text-foreground",
-                      "hover:bg-transparent"
+                      "hover:bg-transparent",
                     )}
                   >
                     More
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[200px] gap-4 list-none">
+                    <ul className="grid w-50 gap-4 list-none">
                       <li>
                         {dropdownLinks.map((link) => (
                           <NavigationMenuLink asChild key={link.path}>

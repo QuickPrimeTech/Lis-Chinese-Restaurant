@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 
 export default function OrderOnlineSection() {
@@ -20,7 +20,9 @@ export default function OrderOnlineSection() {
       {/* Stock Image */}
       <div className="relative rounded-lg overflow-hidden flex-1 w-full max-w-140 aspect-[3/2]">
         <Image
-          src={"https://res.cloudinary.com/quick-prime-tech/image/upload/v1770711191/imgi_193_original-5e6169dffaf28828d0f7669f2d6c05f6_lbts14.jpg"}
+          src={
+            "https://res.cloudinary.com/quick-prime-tech/image/upload/v1770711191/imgi_193_original-5e6169dffaf28828d0f7669f2d6c05f6_lbts14.jpg"
+          }
           alt="Uber Eats delivery"
           className="object-cover"
           fill
@@ -34,7 +36,8 @@ export default function OrderOnlineSection() {
           Craving something delicious?
         </h2>
         <p className="text-lg text-white/90">
-          Get your favorite meals delivered fast and fresh. Order now through Uber Eats and enjoy restaurant-quality Chinese food at home.
+          Get your favorite meals delivered fast and fresh. Order now through
+          Uber Eats and enjoy restaurant-quality Chinese food at home.
         </p>
 
         <Button
@@ -44,7 +47,9 @@ export default function OrderOnlineSection() {
           asChild
         >
           <Link
-            href={"https://www.ubereats.com/ke/store/lis-chinese-restaurant-nairobi/mK3prEXcUr-0xK91bDy28w?diningMode=DELIVERY&pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMkxpJ3MlMjBDaGluZXNlJTIwUmVzdGF1cmFudCUyMiUyQyUyMnJlZmVyZW5jZSUyMiUzQSUyMkNoSUpnLWxKdlhRWEx4Z1Jnem15eVFIdnhZdyUyMiUyQyUyMnJlZmVyZW5jZVR5cGUlMjIlM0ElMjJnb29nbGVfcGxhY2VzJTIyJTJDJTIybGF0aXR1ZGUlMjIlM0EtMS4yMzU5OTg1MDAwMDAwMDAyJTJDJTIybG9uZ2l0dWRlJTIyJTNBMzYuODA3MDE0MDk5OTk5OTk2JTdE&sc=SEARCH_SUGGESTION"}
+            href={
+              "https://www.ubereats.com/ke/store/lis-chinese-restaurant-nairobi/mK3prEXcUr-0xK91bDy28w?diningMode=DELIVERY&pl=JTdCJTIyYWRkcmVzcyUyMiUzQSUyMkxpJ3MlMjBDaGluZXNlJTIwUmVzdGF1cmFudCUyMiUyQyUyMnJlZmVyZW5jZSUyMiUzQSUyMkNoSUpnLWxKdlhRWEx4Z1Jnem15eVFIdnhZdyUyMiUyQyUyMnJlZmVyZW5jZVR5cGUlMjIlM0ElMjJnb29nbGVfcGxhY2VzJTIyJTJDJTIybGF0aXR1ZGUlMjIlM0EtMS4yMzU5OTg1MDAwMDAwMDAyJTJDJTIybG9uZ2l0dWRlJTIyJTNBMzYuODA3MDE0MDk5OTk5OTk2JTdE&sc=SEARCH_SUGGESTION"
+            }
             rel="noreferrer noopener"
             target="_blank"
           >

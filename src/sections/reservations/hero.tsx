@@ -1,6 +1,6 @@
 // @/sections/reservations/hero.tsx
 
-import Image from "next/image";
+import Image from "@/components/ui/image";
 
 export const HeroSection = () => (
   <section className="relative h-96 overflow-hidden">

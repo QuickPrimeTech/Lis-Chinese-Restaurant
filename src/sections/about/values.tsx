@@ -25,7 +25,9 @@ export default function AboutValues() {
             >
               <CardContent className="p-8">
                 <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <div className="text-primary">{value.icon}</div>
+                  <div className="text-primary">
+                    {<value.icon className="size-8" />}
+                  </div>
                 </div>
                 <h3 className="font-cinzel font-semibold text-xl text-foreground mb-4">
                   {value.title}

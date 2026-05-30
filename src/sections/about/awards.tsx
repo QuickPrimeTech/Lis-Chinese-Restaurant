@@ -1,8 +1,13 @@
 // @/sections/about/awards.tsx
-
-
-import { Card, CardContent } from "@/components/ui/card";
-import { Award } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Image } from "@/components/ui/image";
 import { awards } from "@/data/about-data";
 
 export default function AboutAwards() {
@@ -17,30 +22,27 @@ export default function AboutAwards() {
             Industry recognition for our commitment to culinary excellence
           </p>
         </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {awards.map((award, index) => (
-            <Card
-              key={index}
-              className="text-center hover:shadow-luxury transition-all duration-300 border-border hover:border-primary/50"
-            >
-              <CardContent className="p-8">
-                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Award className="h-8 w-8 text-primary" />
-                </div>
-                <div className="text-3xl font-cinzel font-bold text-primary mb-2">
-                  {award.year}
-                </div>
-                <h3 className="font-cinzel font-semibold text-lg text-foreground mb-2">
-                  {award.award}
-                </h3>
-                <p className="text-muted-foreground font-chivo text-sm">
-                  {award.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <Carousel>
+          <CarouselContent>
+            {awards.map((award) => (
+              <CarouselItem
+                key={award.image}
+                className="basis-full md:basis-1/2 lg:basis-1/3"
+              >
+                <Card className="relative aspect-3/4 overflow-hidden text-center py-0 transition-all duration-300 border-border hover:border-primary/50">
+                  <Image
+                    src={award.image}
+                    alt={award.description}
+                    fill
+                    sizes="(min-width: 768px) 50vw, (min-width: 1024) 25vw, 80vw"
+                  />
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
     </section>
   );

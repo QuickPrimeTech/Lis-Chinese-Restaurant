@@ -3,9 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Cinzel, Chivo } from "next/font/google"; // 👈 add these
 import "./globals.css";
 import Footer from "@/layouts/footer";
-import { CartProvider } from "@/contexts/cart-provider";
-import { OrderProvider } from "@/contexts/order-context";
-import { CartButton } from "@/components/cart/cart-button";
+import NextTopLoader from "nextjs-toploader";
 import { ContactButton } from "@/layouts/contact-button";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/layouts/site-header";
@@ -91,27 +89,21 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <NextTopLoader color="var(--primary)" showSpinner={false} />
           <SiteHeader>
-            <OrderProvider>
-              <CartProvider>
-                {/* <CartButton /> */}
-                {children}
-                <Toaster
-                  richColors
-                  position="top-right"
-                  expand={true}
-                  icons={{
-                    loading: (
-                      <Loader className="animate-spin text-foreground" />
-                    ),
-                    success: <CheckCircle2 className="text-green-500" />,
-                    error: <CircleAlert className="text-red-500" />,
-                  }}
-                />
-                <ContactButton />
-                <Footer />
-              </CartProvider>
-            </OrderProvider>
+            {children}
+            <Toaster
+              richColors
+              position="top-right"
+              expand={true}
+              icons={{
+                loading: <Loader className="animate-spin text-foreground" />,
+                success: <CheckCircle2 className="text-green-500" />,
+                error: <CircleAlert className="text-red-500" />,
+              }}
+            />
+            <ContactButton />
+            <Footer />
           </SiteHeader>
         </ThemeProvider>
       </body>

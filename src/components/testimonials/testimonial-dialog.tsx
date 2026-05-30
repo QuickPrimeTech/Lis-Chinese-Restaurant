@@ -5,7 +5,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Star } from "lucide-react";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface TestimonialDialogProps {

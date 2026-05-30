@@ -1,6 +1,6 @@
 // @/sections/about/hero.tsx
 
-import Image from "next/image";
+import Image from "@/components/ui/image";
 
 export default function AboutHero() {
   return (

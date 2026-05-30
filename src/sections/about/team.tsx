@@ -2,7 +2,7 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
 import { team } from "@/data/about-data";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 
 export default function AboutTeam() {
   return (

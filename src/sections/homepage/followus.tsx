@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import { useEffect, useState } from "react";
 import {
   Carousel,
@@ -16,16 +16,20 @@ import Link from "next/link";
 export const FollowUs = () => {
   const instagramPosts = [
     {
-      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009338/gallery3_zpz3pb.jpg",
+      image:
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009338/gallery3_zpz3pb.jpg",
     },
     {
-      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009025/gallery2_yjwxyh.jpg",
+      image:
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009025/gallery2_yjwxyh.jpg",
     },
     {
-      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009618/gallery5_how7kw.jpg",
+      image:
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009618/gallery5_how7kw.jpg",
     },
     {
-      image: "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009796/gallery6_ntq2o5.jpg",
+      image:
+        "https://res.cloudinary.com/quick-prime-tech/image/upload/v1758009796/gallery6_ntq2o5.jpg",
     },
   ];
 
@@ -82,14 +86,12 @@ export const FollowUs = () => {
           <p className="text-xl text-muted-foreground font-chivo mb-8">
             Experience our culinary artistry through the lens of our guests
           </p>
-          <Button
-            asChild
-            size="lg"
-              
-            >
-              <Link href="https://www.instagram.com/lischineserestaurant"
+          <Button asChild size="lg">
+            <Link
+              href="https://www.instagram.com/lischineserestaurant"
               target="_blank"
-              rel="noopener noreferrer">
+              rel="noopener noreferrer"
+            >
               <Instagram className="mr-2 h-5 w-5" />
               Follow @lischineserestaurant
             </Link>

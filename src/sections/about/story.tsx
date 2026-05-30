@@ -1,5 +1,5 @@
 // @/sections/about/story.tsx
-import Image from "next/image";
+import Image from "@/components/ui/image";
 export default function AboutStory() {
   return (
     <section className="py-20 bg-background">

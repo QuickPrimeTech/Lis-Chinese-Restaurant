@@ -7,7 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import { useState } from "react";
 import { GalleryImage } from "@/types/gallery";
 import {

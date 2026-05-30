@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Instagram, Mail, Phone, MapPin, Loader } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import { BsPinterest, BsTwitterX } from "react-icons/bs";
 import { FaLinkedinIn, FaTiktok, FaTripadvisor } from "react-icons/fa";
 import { FooterCurrentYear } from "@/components/footer-current-year";
@@ -49,13 +49,13 @@ const Footer = () => {
 
         case "INSERTION_ERROR":
           toast.error(
-            "Something went wrong while saving your email. Try again later."
+            "Something went wrong while saving your email. Try again later.",
           );
           break;
 
         case "NETWORK_ISSUE":
           toast.error(
-            "Network error. Please check your internet connection and retry."
+            "Network error. Please check your internet connection and retry.",
           );
           break;
 
@@ -212,7 +212,7 @@ const Footer = () => {
               <CardContent className="p-2 text-center">
                 <div className="relative w-full aspect-square mb-4 rounded-lg overflow-hidden">
                   <Image
-                    src="https://res.cloudinary.com/quick-prime-tech/image/upload/v1758718147/qr-code.jpg"
+                    src="https://res.cloudinary.com/quick-prime-tech/image/upload/v1780156332/WhatsApp_Image_2026-02-25_at_15.17.52_wgghes.jpg"
                     fill
                     alt="QR Code for Digital Menu"
                   />

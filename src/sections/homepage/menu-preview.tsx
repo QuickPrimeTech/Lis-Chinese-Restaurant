@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import { Button } from "@/components/ui/button";
 import { Wine, UtensilsCrossed, Cookie } from "lucide-react";
 import Link from "next/link";
