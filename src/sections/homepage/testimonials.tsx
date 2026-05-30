@@ -128,13 +128,14 @@ export const TestimonialCarousel = () => {
                     </div>
 
                     {/* Author */}
-                    <div className="flex items-center mt-6">
+                    <div className="flex gap-3 items-center mt-6">
                       <Image
                         src={testimonial.image}
                         alt={testimonial.name}
+                        containerClass="w-auto"
                         width={48}
                         height={48}
-                        className="rounded-full object-cover mr-4"
+                        className="rounded-full object-cover"
                       />
                       <div>
                         <h4 className="font-cinzel font-semibold text-foreground">

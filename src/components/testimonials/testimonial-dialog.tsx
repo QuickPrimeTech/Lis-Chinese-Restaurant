@@ -61,6 +61,7 @@ export const TestimonialDialog = ({
               alt={testimonial.name}
               width={64}
               height={64}
+              containerClass="w-auto"
               className="w-16 h-16 rounded-full object-cover border-2 border-primary shadow-glow animate-[float_6s_ease-in-out_infinite]"
             />
             <div>
