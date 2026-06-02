@@ -5,16 +5,17 @@ export default function AboutStory() {
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className=" mx-auto">
-          <div className="text-center lg:text-left lg:items-center  gap-y-6 mb-16 flex flex-col lg:flex-row lg:justify-between lg:space-x-10">
-            <Image
-              src="/team4.jpg"
-              alt="About Us"
-              width={600}
-              height={400}
-              className="rounded-lg shadow-lg"
-            />
-            <div className="flex flex-col gap-3 lg:gap-6">
-              {" "}
+          <div className="text-center lg:text-left lg:items-center gap-y-6 mb-16 flex flex-col lg:flex-row lg:justify-between lg:space-x-10">
+            <div className="relative flex-1 bg-red-500 rounded-md overflow-hidden">
+              <Image
+                src="https://res.cloudinary.com/quick-prime-tech/image/upload/v1780394130/team4_qksguj.jpg"
+                alt="About Us"
+                width={600}
+                height={400}
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+            <div className="flex flex-1 flex-col gap-3 lg:gap-6">
               <h2 className="text-4xl font-cinzel font-bold text-foreground ">
                 A Legacy of Excellence
               </h2>

@@ -7,7 +7,7 @@ export default function AboutHero() {
     <section className="relative h-96 overflow-hidden">
       <div className="absolute inset-0 bg-cover bg-center" />
       <Image
-        src="/team4.jpg"
+        src="https://res.cloudinary.com/quick-prime-tech/image/upload/v1780394130/team4_qksguj.jpg"
         alt="Li's Chinese about us image"
         fill
         className="object-cover"
